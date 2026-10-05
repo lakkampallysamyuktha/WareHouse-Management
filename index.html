@@ -153,11 +153,11 @@
         <!-- Stats / Metrics -->
         <div class="about-stats-grid reveal-slide-right">
           <div class="stat-item">
-            <span class="stat-number">47%</span>
+            <span class="stat-number"><span class="counter" data-target="47">0</span>%</span>
             <span class="stat-label">Cost Savings</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number">2.8x</span>
+            <span class="stat-number"><span class="counter" data-target="2.8">0</span>x</span>
             <span class="stat-label">Delivery Speed</span>
           </div>
         </div>
@@ -198,8 +198,8 @@
               drive growth.
             </p>
             <div class="services-cta-group">
-              <a href="404.html" class="btn btn-pill-dark btn-sm">Request a Bid </a>
-              <a href="404.html" class="btn btn-primary btn-sm">Buy Template</a>
+              <a href="html/contact.html" class="btn btn-pill-dark btn-sm">Request a Bid </a>
+              <a href="html/services.html" class="btn btn-primary btn-sm">Explore Services</a>
             </div>
           </div>
         </div>
@@ -264,8 +264,8 @@
           </h2>
 
           <div class="industries-cta-group">
-            <a href="404.html" class="btn btn-pill-dark btn-sm">Request a Bid </a>
-            <a href="404.html" class="btn btn-primary btn-sm">Buy Template</a>
+            <a href="html/contact.html" class="btn btn-pill-dark btn-sm">Request a Bid </a>
+            <a href="html/services.html" class="btn btn-primary btn-sm">Explore Services</a>
           </div>
 
           <!-- Industry Items List -->
@@ -929,7 +929,7 @@
 
           <div class="cta-actions">
             <a href="html/contact.html" class="cta-btn cta-btn--dark">
-              Request a Bid <i class="fa-solid fa-arrow-right"></i>
+              Request a Bid<i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
             </a>
             <a href="html/contact.html" class="cta-btn cta-btn--ghost">
               <i class="fa-solid fa-phone"></i> Talk to Sales
@@ -991,7 +991,6 @@
         <div>
           <h4 class="footer-col-title">Company</h4>
           <ul class="footer-links">
-            <li><a href="404.html">About Us</a></li>
             <li><a href="404.html">Industries</a></li>
             <li><a href="404.html">Insights</a></li>
             <li><a href="404.html">Team</a></li>
@@ -1010,11 +1009,11 @@
             </li>
             <li class="footer-contact-item">
               <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-              <a href="404.html">hello@convoy.example</a>
+              <a href="404.html">hello@stackly.com</a>
             </li>
             <li class="footer-contact-item">
               <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-              <a href="404.html"><span>Convoy Logistics<br>Salem, Tamil Nadu, India</span></a>
+              <a href="404.html"><span>Salem, Tamil Nadu, India</span></a>
             </li>
             <li class="footer-contact-item">
               <i class="fa-solid fa-clock" aria-hidden="true"></i>
@@ -1251,6 +1250,38 @@
         revealElements.forEach(el => revealObserver.observe(el));
       } else {
         revealElements.forEach(el => el.classList.add('reveal-active'));
+      }
+
+      // Number Counter Animation
+      const counterElements = document.querySelectorAll('.counter');
+      if ('IntersectionObserver' in window) {
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const target = entry.target;
+              const targetNum = parseFloat(target.getAttribute('data-target'));
+              const isFloat = target.getAttribute('data-target').includes('.');
+              let start = 0;
+              const duration = 2000;
+              const startTime = performance.now();
+              const updateCounter = (currentTime) => {
+                const elapsedTime = currentTime - startTime;
+                const progress = Math.min(elapsedTime / duration, 1);
+                const easeOutProgress = 1 - Math.pow(1 - progress, 3);
+                const currentVal = start + (targetNum - start) * easeOutProgress;
+                target.innerText = isFloat ? currentVal.toFixed(1) : Math.floor(currentVal);
+                if (progress < 1) {
+                  requestAnimationFrame(updateCounter);
+                } else {
+                  target.innerText = target.getAttribute('data-target');
+                }
+              };
+              requestAnimationFrame(updateCounter);
+              observer.unobserve(target);
+            }
+          });
+        }, { threshold: 0.5 });
+        counterElements.forEach(el => counterObserver.observe(el));
       }
 
       // FAQ Accordion Logic

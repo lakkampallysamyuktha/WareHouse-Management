@@ -511,6 +511,24 @@
   letter-spacing: -0.01em;
 }
 
+.service-card-desc {
+  font-family: var(--font-family-main);
+  font-size: 14px;
+  color: #c9d2db;
+  line-height: 1.4;
+  margin-top: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.service-card:hover .service-card-desc {
+  max-height: 100px;
+  opacity: 1;
+  margin-top: 8px;
+}
+
 /* Custom Column Spans matching the reference image layout */
 /* Top Row: 2 cards (6 cols each) */
 .service-card-large {
@@ -2394,7 +2412,7 @@
 
 .services-hero-top {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   width: 100%;
 }
 
@@ -2407,16 +2425,18 @@
   text-transform: uppercase;
   letter-spacing: -0.015em;
   max-width: 720px;
-  text-align: right;
+  text-align: center;
   text-shadow: 0 4px 24px rgba(0, 0, 0, 0.8);
 }
 
 .services-hero-bottom {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  max-width: 540px;
+  align-items: center;
+  text-align: center;
+  max-width: 600px;
   gap: 24px;
+  margin: 0 auto;
 }
 
 .services-hero-text {
@@ -2985,6 +3005,47 @@
 
 .team-card-item:hover .team-card-image-box img {
   transform: scale(1.05);
+}
+
+.team-social-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 28, 40, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.team-card-item:hover .team-social-overlay {
+  opacity: 1;
+}
+
+.team-social-overlay a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-primary-orange);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  transform: translateY(10px);
+}
+
+.team-card-item:hover .team-social-overlay a {
+  transform: translateY(0);
+}
+
+.team-social-overlay a:hover {
+  background: #FFFFFF;
+  color: var(--color-primary-orange);
+  transform: scale(1.1);
 }
 
 .team-card-info {
@@ -6500,11 +6561,15 @@ textarea.form-control {
   gap: 28px;
   padding: 16px;
   border-radius: 20px;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
 }
 
 .tech-feature-card:hover {
   transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .tech-img-box {

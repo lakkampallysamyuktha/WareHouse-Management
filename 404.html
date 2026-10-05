@@ -124,6 +124,17 @@
             gap: clamp(14px, 1.8vh, 22px);
         }
 
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* ---------------------------------------------------------------
        LOGO — above the badge, white
        --------------------------------------------------------------- */
@@ -132,6 +143,8 @@
             align-items: center;
             gap: 12px;
             margin-bottom: clamp(6px, 1vh, 12px);
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .error-logo img {
@@ -167,6 +180,8 @@
             font-weight: 600;
             letter-spacing: 0.18em;
             text-transform: uppercase;
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
         }
 
         .error-badge i {
@@ -188,6 +203,8 @@
             display: inline-flex;
             align-items: baseline;
             gap: 0.04em;
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
         }
 
         /* ---------------------------------------------------------------
@@ -202,6 +219,8 @@
             color: #FFFFFF;
             text-transform: uppercase;
             max-width: 22ch;
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
         }
 
         .error-lead {
@@ -209,6 +228,8 @@
             line-height: 1.65;
             color: rgba(255, 255, 255, 0.68);
             max-width: 52ch;
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
         }
 
         /* ---------------------------------------------------------------
@@ -221,6 +242,8 @@
             gap: 14px;
             flex-wrap: wrap;
             margin-top: clamp(6px, 1.2vh, 14px);
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
         }
 
         .error-btn {
@@ -293,6 +316,8 @@
             letter-spacing: 0.22em;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
         }
 
         /* ---------------------------------------------------------------
