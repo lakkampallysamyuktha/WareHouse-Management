@@ -60,6 +60,25 @@
             overflow-x: hidden;
              min-height: 100vh;
         }
+
+        /* Custom Scrollbar */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-primary-orange) var(--color-dark-charcoal);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--color-dark-charcoal);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-primary-orange);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff754a;
+        }
        
 
         a {
