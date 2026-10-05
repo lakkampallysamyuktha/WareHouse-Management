@@ -512,11 +512,30 @@
                     opts.forEach(o => o.setAttribute("aria-selected", "false"));
                 });
 
-                if (role === "admin") {
-                    window.location.href = "admin.html";
-                } else {
-                    window.location.href = "user.html";
+                const btn = form.querySelector('button[type="submit"]');
+                let msg = form.querySelector(".auth-success-msg");
+                if (!msg) {
+                    msg = document.createElement("div");
+                    msg.className = "auth-success-msg";
+                    msg.style.color = "#00D26A";
+                    msg.style.marginBottom = "16px";
+                    msg.style.fontWeight = "600";
+                    msg.style.fontSize = "14px";
+                    msg.style.textAlign = "center";
+                    btn.parentNode.insertBefore(msg, btn);
                 }
+                msg.textContent = "Login successful! Redirecting...";
+                
+                btn.disabled = true;
+                btn.style.opacity = "0.5";
+
+                setTimeout(() => {
+                    if (role === "admin") {
+                        window.location.href = "admin.html";
+                    } else {
+                        window.location.href = "user.html";
+                    }
+                }, 1500);
             });
         }
 
