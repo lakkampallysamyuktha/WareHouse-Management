@@ -1,0 +1,51 @@
+
+
+@import url("./login.css");
+
+
+/* Slightly wider form column to comfortably fit the extra fields */
+#signup-form {
+  gap: 24px;
+}
+
+/* Terms row uses a block-level check with longer copy */
+.check--block span {
+  font-size: .86rem;
+  line-height: 1.6;
+}
+
+/* Give the confirm-password field a tiny bit of breathing room */
+#signup-confirm {
+  letter-spacing: .02em;
+}
+
+
+@media (max-height: 780px) and (min-width: 981px) {
+  .auth__panel {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .auth__logo {
+    margin-bottom: 24px;
+  }
+
+  .auth__head {
+    margin-bottom: 26px;
+  }
+
+  #signup-form {
+    gap: 18px;
+  }
+}
+
+/* On small screens, tighten spacing further */
+@media (max-width: 600px) {
+  #signup-form {
+    gap: 20px;
+  }
+
+  .check--block span {
+    font-size: .82rem;
+  }
+}

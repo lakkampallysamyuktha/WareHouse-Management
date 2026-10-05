@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONVOY - Freight & Logistics Management</title>
+  <meta name="description"
+    content="Move freight smarter, grow business faster. Modern logistics and warehouse management solution.">
+
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome CDN for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./global.css">
+  <link rel="stylesheet" href="./index.css">
+
+  <!-- GSAP & ScrollTrigger Animation Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Page Loader (Appears for 1.5 seconds) -->
+  <div class="page-preloader" id="pagePreloader">
+    <div class="preloader-brand">
+      <img src="logo.webp" alt="Convoy Logo">
+    </div>
+    <div class="preloader-spinner"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header" id="siteHeader">
+    <a href="index.html" class="header-logo" aria-label="Stackly Home">
+      <img src="logo.webp" alt="Stackly Logo">
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav-desktop" aria-label="Main Navigation">
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="html/about.html">About</a></li>
+        <li><a href="html/services.html">Service</a></li>
+        <li><a href="html/blog.html">Blog</a></li>
+        <li><a href="html/contact.html">Contact</a></li>
+      </ul>
+      <div class="header-actions">
+        <a href="html/login.html" class="btn btn-primary">Login</a>
+        <a href="html/signup.html" class="btn btn-signup">Signup</a>
+      </div>
+    </nav>
+
+    <!-- Hamburger Toggle for Mobile -->
+    <button class="hamburger-toggle" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-nav-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="mobile-drawer-header">
+      <a href="index.html" class="mobile-drawer-logo" aria-label="Stackly Home">
+        <img src="logo.webp" alt="Stackly Logo">
+      </a>
+      <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+      <li><a href="html/about.html" class="mobile-nav-link">About</a></li>
+      <li><a href="html/services.html" class="mobile-nav-link">Service</a></li>
+      <li><a href="html/blog.html" class="mobile-nav-link">Blog</a></li>
+      <li><a href="html/contact.html" class="mobile-nav-link">Contact</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <a href="html/login.html" class="btn btn-primary">Login</a>
+      <a href="html/signup.html" class="btn btn-signup">Signup</a>
+    </div>
+  </div>
+
+  <!-- Main Content / Hero Section -->
+  <main>
+    <section class="hero-section" id="home">
+      <!-- Dark gradient vignette overlay -->
+      <div class="hero-overlay"></div>
+
+      <!-- Large translucent background watermark -->
+      <div class="hero-watermark">CONVOY</div>
+
+      <!-- Hero Main Content -->
+      <div class="hero-content">
+
+        <h1 class="hero-title reveal-slide-up">
+          MOVE FREIGHT SMARTER,<br>
+          GROW BUSINESS <span class="hero-rotate-word" id="heroRotateWord">FASTER</span>
+        </h1>
+
+        <div class="hero-cta-group reveal-slide-up delay-1">
+          <a href="html/contact.html" class="btn btn-pill-dark">Request a Bid<i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
+          <a href="html/services.html" class="btn btn-primary">Explore Services</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2nd Section: Infinite FontAwesome Icon Marquee Ticker -->
+    <section class="ticker-section" aria-label="Partner Brands">
+      <div class="ticker-wrapper reveal-slide-up">
+        <div class="ticker-track">
+          <!-- First Set of Icons & Logos -->
+          <div class="ticker-item"><i class="fa-solid fa-warehouse"></i><span>WAREHOUSING ETC</span></div>
+          <div class="ticker-item brand-badge"><i class="fa-solid fa-p"></i><span>procurement</span></div>
+          <div class="ticker-item brand-bold"><i class="fa-solid fa-cubes-stacked"></i><span>NORTH WORKS</span></div>
+          <div class="ticker-item"><i class="fa-solid fa-truck-fast"></i><span>EXPRESS FREIGHT</span></div>
+          <div class="ticker-item brand-badge"><i class="fa-solid fa-network-wired"></i><span>LOGISTIX</span></div>
+          <div class="ticker-item brand-bold"><i class="fa-solid fa-boxes-packing"></i><span>CARGOFLOW</span></div>
+
+          <!-- Duplicated Set for Seamless Infinite Loop Animation -->
+          <div class="ticker-item"><i class="fa-solid fa-warehouse"></i><span>WAREHOUSING ETC</span></div>
+          <div class="ticker-item brand-badge"><i class="fa-solid fa-p"></i><span>procurement</span></div>
+          <div class="ticker-item brand-bold"><i class="fa-solid fa-cubes-stacked"></i><span>NORTH WORKS</span></div>
+          <div class="ticker-item"><i class="fa-solid fa-truck-fast"></i><span>EXPRESS FREIGHT</span></div>
+          <div class="ticker-item brand-badge"><i class="fa-solid fa-network-wired"></i><span>LOGISTIX</span></div>
+          <div class="ticker-item brand-bold"><i class="fa-solid fa-boxes-packing"></i><span>CARGOFLOW</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3rd Section: About Convoy & Image Grid -->
+    <section class="about-section" id="about">
+      <div class="about-container">
+        <!-- Top Tag / Pill -->
+        <div class="about-badge reveal-slide-up">A BIT ABOUT US</div>
+
+        <!-- Main Description Heading -->
+        <h2 class="about-description">
+          CONVOY WAS BUILT TO BRIDGE THE GAP BETWEEN OPERATIONAL EXECUTION AND
+          BUSINESS STRATEGY. WE PROVIDE DEPENDABLE TRANSPORTATION SOLUTIONS WHILE
+          HELPING ORGANIZATIONS OPTIMIZE PERFORMANCE, REDUCE OPERATIONAL
+          INEFFICIENCIES, AND SCALE WITH CONFIDENCE.
+        </h2>
+
+        <!-- Stats / Metrics -->
+        <div class="about-stats-grid reveal-slide-right">
+          <div class="stat-item">
+            <span class="stat-number">47%</span>
+            <span class="stat-label">Cost Savings</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">2.8x</span>
+            <span class="stat-label">Delivery Speed</span>
+          </div>
+        </div>
+
+        <!-- Image Gallery Grid (4 assets: home_about_1.webp to 4) -->
+        <div class="about-images-grid">
+          <a href="404.html" class="about-img-card reveal-slide-left delay-1">
+            <img src="assets/home_about_1.webp" alt="Warehouse shelving filled with boxes">
+          </a>
+          <a href="404.html" class="about-img-card reveal-slide-left delay-2">
+            <img src="assets/home_about_2.webp" alt="Interior view of cargo rack storage">
+          </a>
+          <a href="404.html" class="about-img-card reveal-slide-right delay-3">
+            <img src="assets/home_about_3.webp" alt="Delivery truck parked outside distribution warehouse">
+          </a>
+          <a href="404.html" class="about-img-card reveal-slide-right delay-4">
+            <img src="assets/home_about_4.webp" alt="Aerial view of fleet trucks parked at loading docks">
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4th Section: Logistics & Consulting Solutions / Services Section -->
+    <section class="services-section" id="service">
+      <div class="services-container">
+        <!-- Top Header Area -->
+        <div class="services-header">
+          <div class="services-title-col reveal-slide-left">
+            <div class="services-badge">OUR SERVICES</div>
+            <h2 class="services-main-title">
+              LOGISTICS &amp; CONSULTING<br>
+              SOLUTIONS BY CONVOY
+            </h2>
+          </div>
+          <div class="services-desc-col reveal-slide-right">
+            <p class="services-lead-text">
+              Convoy combines reliable transportation expert consulting to streamline operations, reduce costs, and
+              drive growth.
+            </p>
+            <div class="services-cta-group">
+              <a href="404.html" class="btn btn-pill-dark btn-sm">Request a Bid </a>
+              <a href="404.html" class="btn btn-primary btn-sm">Buy Template</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Services Grid Layout -->
+        <div class="services-grid">
+          <!-- Top Row (2 wide cards) -->
+          <a href="404.html" class="service-card service-card-large reveal-slide-left">
+            <img src="assets/home_services_1.webp" alt="Freight & Transportation Management">
+            <div class="service-card-overlay">
+              <h3 class="service-card-title">Freight &amp; Transportation Management</h3>
+              <p class="service-card-desc">End-to-end management of your freight operations, ensuring reliable and cost-effective transportation.</p>
+            </div>
+          </a>
+
+          <a href="404.html" class="service-card service-card-large reveal-slide-right">
+            <img src="assets/home_services_2.webp" alt="Route Planning & Scheduling">
+            <div class="service-card-overlay">
+              <h3 class="service-card-title">Route Planning &amp; Scheduling</h3>
+              <p class="service-card-desc">Optimizing delivery routes and schedules to reduce fuel consumption and improve delivery speed.</p>
+            </div>
+          </a>
+
+          <!-- Bottom Row (3 cards) -->
+          <a href="404.html" class="service-card service-card-tall reveal-slide-left delay-1">
+            <img src="assets/home_services_3.webp" alt="Logistics Technology Integration">
+            <div class="service-card-overlay">
+              <h3 class="service-card-title">Logistics Technology Integration</h3>
+              <p class="service-card-desc">Seamlessly integrate your TMS and WMS for real-time visibility across the entire supply chain.</p>
+            </div>
+          </a>
+
+          <a href="404.html" class="service-card service-card-wide reveal-slide-up delay-2">
+            <img src="assets/home_services_4.webp" alt="Warehouse & Distribution Strategy">
+            <div class="service-card-overlay">
+              <h3 class="service-card-title">Warehouse &amp; Distribution Strategy</h3>
+              <p class="service-card-desc">Designing efficient warehouse layouts and distribution networks for optimal inventory flow.</p>
+            </div>
+          </a>
+
+          <a href="404.html" class="service-card service-card-tall reveal-slide-right delay-3">
+            <img src="assets/home_services_5.webp" alt="Transportation Cost Reduction">
+            <div class="service-card-overlay">
+              <h3 class="service-card-title">Transportation Cost Reduction</h3>
+              <p class="service-card-desc">Identifying inefficiencies and implementing strategies to significantly lower your overall shipping costs.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5th Section: Industries We Serve Section -->
+    <section class="industries-section" id="industries">
+      <div class="industries-container">
+        <!-- Left Content Side -->
+        <div class="industries-content reveal-slide-left">
+          <div class="industries-badge">INDUSTRIES WE SERVE</div>
+
+          <h2 class="industries-title">
+            At Convoy We Proudly<br>
+            Serve 20+ Industries
+          </h2>
+
+          <div class="industries-cta-group">
+            <a href="404.html" class="btn btn-pill-dark btn-sm">Request a Bid </a>
+            <a href="404.html" class="btn btn-primary btn-sm">Buy Template</a>
+          </div>
+
+          <!-- Industry Items List -->
+          <ul class="industry-list">
+            <li class="industry-item active">
+              <a href="404.html" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: inherit; width: 100%;">
+                <i class="fa-solid fa-dharmachakra"></i>
+                <span>Automotive &amp; Transportation</span>
+              </a>
+            </li>
+            <li class="industry-item">
+              <a href="404.html" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: inherit; width: 100%;">
+                <i class="fa-solid fa-ship"></i>
+                <span>Maritime Distribution</span>
+              </a>
+            </li>
+            <li class="industry-item">
+              <a href="404.html" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: inherit; width: 100%;">
+                <i class="fa-solid fa-store"></i>
+                <span>E-commerce &amp; Retail</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Right Featured Image Banner Side (Stretched width / wider) -->
+        <a href="404.html" class="industries-banner-wrapper reveal-slide-right" style="display: block; text-decoration: none;">
+          <div class="industries-banner-card">
+            <img src="assets/home_industries.webp" alt="MSC Cargo Ship Maritime Distribution">
+            <div class="banner-badge-top">LAST-MILE DELIVERY</div>
+            <div class="banner-stats-bottom">
+              <div class="banner-stat-row">
+                <span class="banner-stat-val">52%</span>
+                <span class="banner-stat-divider">|</span>
+                <span class="banner-stat-lbl">Faster Fulfillment</span>
+              </div>
+              <div class="banner-stat-row">
+                <span class="banner-stat-val">3.2x</span>
+                <span class="banner-stat-divider">|</span>
+                <span class="banner-stat-lbl">Order Volume Growth</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+    <!-- 6th Section: Testimonials -->
+    <section class="testimonials-section" id="testimonials">
+      <div class="testimonials-container">
+        <div class="testimonials-header reveal-slide-up">
+          <div class="section-badge">Client Testimonials</div>
+          <h2 class="section-title-orange">
+            Trusted By Operations<br>
+            Teams Worldwide
+          </h2>
+          <p class="section-lead-text">
+            From single-warehouse operators to multi-region carriers, teams use Convoy to keep freight moving and costs
+            predictable.
+          </p>
+        </div>
+
+        <div class="testimonials-marquee-wrapper reveal-slide-up delay-1">
+          <div class="testimonials-marquee-track">
+            <!-- Set 1 of Testimonials -->
+            <article class="testimonial-card">
+              <div class="testimonial-avatar-wrapper">
+                <div class="testimonial-avatar">
+                  <img
+                    src="assets/avatar_1.webp"
+                    alt="Bruce Hardy">
+                </div>
+              </div>
+              <div class="testimonial-card-body">
+                <h3 class="testimonial-author-name">Bruce Hardy</h3>
+                <span class="testimonial-author-role">PayPal Inc.</span>
+                <p class="testimonial-text">
+                  When, while lovely valley teems with vapour around me and meridian sun strikes the upper impenetrable.
+                </p>
+                <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-avatar-wrapper">
+                <div class="testimonial-avatar">
+                  <img
+                    src="assets/avatar_2.webp"
+                    alt="Mark Smith">
+                </div>
+              </div>
+              <div class="testimonial-card-body">
+                <h3 class="testimonial-author-name">Mark Smith</h3>
+                <span class="testimonial-author-role">Google Inc.</span>
+                <p class="testimonial-text">
+                  Convoy transformed our logistics workflow completely. Real-time fleet tracking eliminated carrier
+                  delays.
+                </p>
+                <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-avatar-wrapper">
+                <div class="testimonial-avatar">
+                  <img
+                    src="assets/avatar_3.webp"
+                    alt="Vera Duncan">
+                </div>
+              </div>
+              <div class="testimonial-card-body">
+                <h3 class="testimonial-author-name">Vera Duncan</h3>
+                <span class="testimonial-author-role">Amazon Inc.</span>
+                <p class="testimonial-text">
+                  Outstanding dispatch automation and route cost optimization. Saved us over 30% on fuel and route
+                  times.
+                </p>
+                <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-avatar-wrapper">
+                <div class="testimonial-avatar">
+                  <img
+                    src="assets/avatar_4.webp"
+                    alt="Alex Rivera">
+                </div>
+              </div>
+              <div class="testimonial-card-body">
+                <h3 class="testimonial-author-name">Alex Rivera</h3>
+                <span class="testimonial-author-role">FedEx Corp.</span>
+                <p class="testimonial-text">
+                  Seamless multi-warehouse inventory sync. The team onboarding was effortless and customer support is
+                  top tier.
+                </p>
+                <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-avatar-wrapper">
+                <div class="testimonial-avatar">
+                  <img
+                    src="assets/avatar_5.webp"
+                    alt="Sarah Jenkins">
+                </div>
+              </div>
+              <div class="testimonial-card-body">
+                <h3 class="testimonial-author-name">Sarah Jenkins</h3>
+                <span class="testimonial-author-role">Shopify Global</span>
+                <p class="testimonial-text">
+                  Handling peak season shipping demands used to be chaotic. Convoy brought predictability and speed.
+                </p>
+                <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-avatar-wrapper">
+                <div class="testimonial-avatar">
+                  <img
+                    src="assets/avatar_6.webp"
+                    alt="David Chen">
+                </div>
+              </div>
+              <div class="testimonial-card-body">
+                <h3 class="testimonial-author-name">David Chen</h3>
+                <span class="testimonial-author-role">DHL Logistics</span>
+                <p class="testimonial-text">
+                  The predictive analytics dashboard gives us complete control over cross-border freight operations.
+                </p>
+                <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </article>
+
+            <!-- Duplicated Set 2 for Infinite Seamless Loop -->
+            <article class="testimonial-card">
+              <div class="testimonial-avatar-wrapper">
+                <div class="testimonial-avatar">
+                  <img
+                    src="assets/avatar_1.webp"
+                    alt="Bruce Hardy">
+                </div>
+              </div>
+              <div class="testimonial-card-body">
+                <h3 class="testimonial-author-name">Bruce Hardy</h3>
+                <span class="testimonial-author-role">PayPal Inc.</span>
+                <p class="testimonial-text">
+                  When, while lovely valley teems with vapour around me and meridian sun strikes the upper impenetrable.
+                </p>
+                <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-avatar-wrapper">
+                <div class="testimonial-avatar">
+                  <img
+                    src="assets/avatar_2.webp"
+                    alt="Mark Smith">
+                </div>
+              </div>
+              <div class="testimonial-card-body">
+                <h3 class="testimonial-author-name">Mark Smith</h3>
+                <span class="testimonial-author-role">Google Inc.</span>
+                <p class="testimonial-text">
+                  Convoy transformed our logistics workflow completely. Real-time fleet tracking eliminated carrier
+                  delays.
+                </p>
+                <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-avatar-wrapper">
+                <div class="testimonial-avatar">
+                  <img
+                    src="assets/avatar_3.webp"
+                    alt="Vera Duncan">
+                </div>
+              </div>
+              <div class="testimonial-card-body">
+                <h3 class="testimonial-author-name">Vera Duncan</h3>
+                <span class="testimonial-author-role">Amazon Inc.</span>
+                <p class="testimonial-text">
+                  Outstanding dispatch automation and route cost optimization. Saved us over 30% on fuel and route
+                  times.
+                </p>
+                <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-avatar-wrapper">
+                <div class="testimonial-avatar">
+                  <img
+                    src="assets/avatar_4.webp"
+                    alt="Alex Rivera">
+                </div>
+              </div>
+              <div class="testimonial-card-body">
+                <h3 class="testimonial-author-name">Alex Rivera</h3>
+                <span class="testimonial-author-role">FedEx Corp.</span>
+                <p class="testimonial-text">
+                  Seamless multi-warehouse inventory sync. The team onboarding was effortless and customer support is
+                  top tier.
+                </p>
+                <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-avatar-wrapper">
+                <div class="testimonial-avatar">
+                  <img
+                    src="assets/avatar_5.webp"
+                    alt="Sarah Jenkins">
+                </div>
+              </div>
+              <div class="testimonial-card-body">
+                <h3 class="testimonial-author-name">Sarah Jenkins</h3>
+                <span class="testimonial-author-role">Shopify Global</span>
+                <p class="testimonial-text">
+                  Handling peak season shipping demands used to be chaotic. Convoy brought predictability and speed.
+                </p>
+                <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </article>
+
+            <article class="testimonial-card">
+              <div class="testimonial-avatar-wrapper">
+                <div class="testimonial-avatar">
+                  <img
+                    src="assets/avatar_6.webp"
+                    alt="David Chen">
+                </div>
+              </div>
+              <div class="testimonial-card-body">
+                <h3 class="testimonial-author-name">David Chen</h3>
+                <span class="testimonial-author-role">DHL Logistics</span>
+                <p class="testimonial-text">
+                  The predictive analytics dashboard gives us complete control over cross-border freight operations.
+                </p>
+                <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7th Section: Process / How We Work -->
+    <section class="process-section" id="process">
+      <div class="process-container">
+        <div class="process-header reveal-slide-up">
+          <div class="section-badge">How We Work</div>
+          <h2 class="section-title-orange">
+            Four Steps To<br>
+            Operational Clarity
+          </h2>
+          <p class="section-lead-text">
+            Every engagement follows the same disciplined path — from first assessment through to full handover.
+          </p>
+        </div>
+
+        <div class="process-steps">
+          <div class="process-step reveal-slide-left delay-1">
+            <div class="process-step-circle">01</div>
+            <div class="process-step-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+            <h3 class="process-step-title">Assess</h3>
+            <p class="process-step-text">
+              We map your current freight flows, carrier mix, and cost structure. Nothing is changed — only observed.
+            </p>
+          </div>
+
+          <div class="process-step reveal-slide-left delay-2">
+            <div class="process-step-circle">02</div>
+            <div class="process-step-icon"><i class="fa-solid fa-diagram-project"></i></div>
+            <h3 class="process-step-title">Model</h3>
+            <p class="process-step-text">
+              We design the target operating model — routes, contracts, and escalation paths — and review it with your
+              operators.
+            </p>
+          </div>
+
+          <div class="process-step reveal-slide-right delay-3">
+            <div class="process-step-circle">03</div>
+            <div class="process-step-icon"><i class="fa-solid fa-rocket"></i></div>
+            <h3 class="process-step-title">Deploy</h3>
+            <p class="process-step-text">
+              Integration and rollout happen in staged waves, with rehearsed rollback at every step. No surprise
+              cutovers.
+            </p>
+          </div>
+
+          <div class="process-step reveal-slide-right delay-4">
+            <div class="process-step-circle">04</div>
+            <div class="process-step-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+            <h3 class="process-step-title">Operate</h3>
+            <p class="process-step-text">
+              We hand over to your team with runbooks, dashboards, and a review cadence that keeps the model honest.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8th Section: Why Choose Us -->
+    <section class="whyus-section" id="why-us">
+      <div class="whyus-container">
+        <div class="whyus-content reveal-slide-left">
+          <div class="section-badge">Why Convoy</div>
+          <h2 class="whyus-title">
+            Built By Operators,<br>
+            Not Just Consultants
+          </h2>
+          <p class="whyus-text">
+            Convoy was designed by people who have run freight desks at 3am. Every feature exists because someone needed
+            it in production — not because it looked good on a slide.
+          </p>
+          <a href="html/contact.html" class="btn btn-primary">Talk To Our Team</a>
+        </div>
+
+        <ul class="whyus-features reveal-slide-right">
+          <li class="whyus-feature">
+            <div class="whyus-feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3 class="whyus-feature-title">Reliability First</h3>
+            <p class="whyus-feature-text">
+              Every component ships with a rehearsed failure mode. Nothing runs in production without a rollback path.
+            </p>
+          </li>
+
+          <li class="whyus-feature">
+            <div class="whyus-feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <h3 class="whyus-feature-title">Measurable Outcomes</h3>
+            <p class="whyus-feature-text">
+              Every claim we make is measured on the platform. If it can't be measured, it doesn't ship in a deck.
+            </p>
+          </li>
+
+          <li class="whyus-feature">
+            <div class="whyus-feature-icon"><i class="fa-solid fa-plug"></i></div>
+            <h3 class="whyus-feature-title">Integration Depth</h3>
+            <p class="whyus-feature-text">
+              Maintained adapters for every major carrier, TMS, and WMS. Each one carries a contract and a test suite.
+            </p>
+          </li>
+
+          <li class="whyus-feature">
+            <div class="whyus-feature-icon"><i class="fa-solid fa-globe"></i></div>
+            <h3 class="whyus-feature-title">Multi-Region Ready</h3>
+            <p class="whyus-feature-text">
+              Declared topologies across regions. The same model provisions environments anywhere you operate.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 11th Section: Pricing -->
+    <section class="pricing-section" id="pricing">
+      <div class="pricing-container">
+        <div class="pricing-header reveal-slide-up">
+          <div class="section-badge">Pricing</div>
+          <h2 class="section-title-orange">
+            Simple, Transparent Plans
+          </h2>
+          <p class="section-lead-text">
+            Every plan includes the full integration fabric and the operations console. You only choose the scale.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Starter -->
+          <article class="pricing-card reveal-slide-left delay-1">
+            <div>
+              <h3 class="pricing-tier-name">Starter</h3>
+              <p class="pricing-tier-desc">
+                For single-warehouse operators getting their first taste of structured logistics.
+              </p>
+            </div>
+            <div class="pricing-price-row">
+              <span class="pricing-currency">$</span>
+              <span class="pricing-price">499</span>
+              <span class="pricing-period">/ month</span>
+            </div>
+            <ul class="pricing-features">
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> Up to 50 shipments per day</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> Core route planning</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> Standard carrier adapters</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> Community support</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> 30-day data retention</li>
+            </ul>
+            <a href="404.html" class="pricing-cta pricing-cta--outline">Get Started</a>
+          </article>
+
+          <!-- Professional -->
+          <article class="pricing-card pricing-card--featured reveal-slide-up delay-2">
+            <div>
+              <h3 class="pricing-tier-name">Professional</h3>
+              <p class="pricing-tier-desc">
+                For growing operations running multiple lanes, carriers, and facilities.
+              </p>
+            </div>
+            <div class="pricing-price-row">
+              <span class="pricing-currency">$</span>
+              <span class="pricing-price">1,499</span>
+              <span class="pricing-period">/ month</span>
+            </div>
+            <ul class="pricing-features">
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> Up to 500 shipments per day</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> Advanced route optimization</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> All carrier and TMS adapters</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> Real-time visibility portal</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> Priority support · 4h response</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> 1-year data retention</li>
+            </ul>
+            <a href="404.html" class="pricing-cta pricing-cta--primary">Start Free Trial</a>
+          </article>
+
+          <!-- Enterprise -->
+          <article class="pricing-card reveal-slide-right delay-3">
+            <div>
+              <h3 class="pricing-tier-name">Enterprise</h3>
+              <p class="pricing-tier-desc">
+                For multi-region carriers and enterprises with custom compliance needs.
+              </p>
+            </div>
+            <div class="pricing-price-row">
+              <span class="pricing-currency">$</span>
+              <span class="pricing-price">Custom</span>
+            </div>
+            <ul class="pricing-features">
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> Unlimited shipment volume</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> Custom adapter development</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> Dedicated deployment region</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> 24/7 priority support</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> Audit export and compliance</li>
+              <li class="pricing-feature"><i class="fa-solid fa-check"></i> Unlimited data retention</li>
+            </ul>
+            <a href="404.html" class="pricing-cta pricing-cta--outline">Contact Sales</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12th Section: FAQ -->
+    <section class="faq-section" id="faq">
+      <div class="faq-container">
+        <div class="faq-header reveal-slide-up">
+          <div class="section-badge">FAQ</div>
+          <h2 class="section-title-orange">
+            Questions, Answered
+          </h2>
+          <p class="section-lead-text">
+            The things operators ask us most often, in the order they ask them.
+          </p>
+        </div>
+
+        <div class="faq-list reveal-slide-up delay-1">
+          <details class="faq-item" open>
+            <summary>
+              <span>How long does implementation actually take?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              Most customers reach production in four to eight weeks, depending on the number of facilities and carriers
+              involved. We work in staged waves — nothing cuts over until the previous wave has run clean for two full
+              cycles.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>Do we have to replace our existing TMS or WMS?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              No. Convoy sits between your existing systems and your carriers, providing the operational model and
+              visibility layer on top. Your TMS keeps doing what it does; Convoy makes sure the plan and the execution
+              actually match.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>What happens if a carrier fails or a route breaks?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              Every route carries a declared fallback. When a carrier misses a pickup or a lane becomes unavailable, the
+              platform routes to the secondary and records the deviation in the audit log. Nothing silently disappears.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>Can we export our data if we leave?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              Yes, always. Every record on the platform is exportable as structured data — shipments, routes, contracts,
+              audit entries, everything. There is no lock-in and no exit fee.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>Do you offer multi-region support?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              Yes. The platform provisions across regions from the same topology spec, so a deployment in AP-South and
+              one in EU-West share the same model, the same policies, and the same audit format.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>
+              <span>What is the minimum contract length?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              Monthly for Starter and Professional. Enterprise engagements are typically annual with a stated review
+              window. We do not lock customers into multi-year contracts they cannot exit.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13th Section: Final CTA -->
+    <section class="cta-section" id="contact">
+      <div class="cta-container">
+        <div class="cta-box reveal-slide-up">
+          <span class="cta-badge">
+            <i class="fa-solid fa-bolt"></i> Ready When You Are
+          </span>
+
+          <h2 class="cta-title">
+            Move Freight Smarter.<br>
+            Grow Business Faster.
+          </h2>
+
+          <p class="cta-text">
+            Tell us what you operate today. We will tell you honestly what we can improve, what we cannot, and what we
+            would not attempt in the first quarter.
+          </p>
+
+          <div class="cta-actions">
+            <a href="html/contact.html" class="cta-btn cta-btn--dark">
+              Request a Bid <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="html/contact.html" class="cta-btn cta-btn--ghost">
+              <i class="fa-solid fa-phone"></i> Talk to Sales
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- 14th Section: Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+
+        <!-- Brand Column -->
+        <div class="footer-brand-col">
+          <div class="footer-brand">
+            <a href="index.html">
+              <img src="logo.webp" alt="Stackly Logo">
+            </a>
+          </div>
+          <p class="footer-desc">
+            A modern freight and logistics platform for teams that run critical operations — modelled, governed,
+            integrated, and measured.
+          </p>
+          <div class="footer-socials">
+            <a href="404.html" class="footer-social" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="404.html" class="footer-social" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="404.html" class="footer-social" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="404.html" class="footer-social" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Navigation Column -->
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="html/about.html">About</a></li>
+            <li><a href="html/services.html">Service</a></li>
+            <li><a href="html/blog.html">Blog</a></li>
+            <li><a href="html/contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Services Column -->
+        <div>
+          <h4 class="footer-col-title">Services</h4>
+          <ul class="footer-links">
+            <li><a href="404.html">Freight Management</a></li>
+            <li><a href="404.html">Route Planning</a></li>
+            <li><a href="404.html">Warehouse Strategy</a></li>
+            <li><a href="404.html">Technology Integration</a></li>
+            <li><a href="404.html">Cost Reduction</a></li>
+          </ul>
+        </div>
+
+        <!-- Company Column -->
+        <div>
+          <h4 class="footer-col-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="404.html">About Us</a></li>
+            <li><a href="404.html">Industries</a></li>
+            <li><a href="404.html">Insights</a></li>
+            <li><a href="404.html">Team</a></li>
+            <li><a href="404.html">Pricing</a></li>
+            <li><a href="404.html">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Column -->
+        <div>
+          <h4 class="footer-col-title">Contact</h4>
+          <ul class="footer-contact-list">
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              <a href="404.html">+91 94426 73815</a>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              <a href="404.html">hello@convoy.example</a>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              <a href="404.html"><span>Convoy Logistics<br>Salem, Tamil Nadu, India</span></a>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              <a href="404.html"><span>Mon — Fri · 09:30 – 18:30 IST</span></a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          © 2026 Stackly Logistics · All rights reserved.
+        </p>
+        <div class="footer-legal">
+          <a href="404.html">Privacy Policy</a>
+          <a href="404.html">Terms of Service</a>
+          <a href="404.html">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Hamburger Toggle, Preloader & Scroll Control -->
+  <script>
+    // Hide Preloader after 1.5s
+    const preloader = document.getElementById('pagePreloader');
+    if (preloader) {
+      setTimeout(() => {
+        preloader.classList.add('fade-out');
+      }, 1500);
+    }
+
+
+
+    const siteHeader = document.getElementById("siteHeader");
+
+    function handleHeaderScroll() {
+        if (!siteHeader) return;
+
+        const scrollTop =
+            window.scrollY ||
+            document.documentElement.scrollTop ||
+            document.body.scrollTop ||
+            0;
+
+        siteHeader.classList.toggle("scrolled", scrollTop > 10);
+    }
+
+    window.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    document.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    document.documentElement.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    document.body.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    handleHeaderScroll();
+
+
+    // function handleHeaderScroll() {
+    //   if (!siteHeader) return;
+
+    //   siteHeader.classList.toggle(
+    //     "scrolled",
+    //     window.scrollY > 10
+    //   );
+    // }
+
+    // window.addEventListener("scroll", handleHeaderScroll, {
+    //   passive: true
+    // });
+
+
+
+    // handleHeaderScroll();
+
+    function initApp() {
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+      const mobileDrawer = document.getElementById('mobileDrawer');
+      const body = document.body;
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+      function toggleMenu() {
+        if (!mobileDrawer) return;
+        const isOpen = mobileDrawer.classList.toggle('is-active');
+        if (hamburgerBtn) {
+          hamburgerBtn.classList.toggle('is-active', isOpen);
+          hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        }
+        mobileDrawer.setAttribute('aria-hidden', !isOpen);
+
+        // Toggle scroll disable on html and body
+        if (isOpen) {
+          document.body.classList.add('no-scroll');
+          document.documentElement.classList.add('no-scroll');
+        } else {
+          document.body.classList.remove('no-scroll');
+          document.documentElement.classList.remove('no-scroll');
+        }
+      }
+
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', toggleMenu);
+      }
+      if (mobileCloseBtn) {
+        mobileCloseBtn.addEventListener('click', toggleMenu);
+      }
+
+      // Close mobile drawer when a nav link is clicked
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (mobileDrawer && mobileDrawer.classList.contains('is-active')) {
+            toggleMenu();
+          }
+        });
+      });
+
+      // Hero Title Rotating Word (Loops 4 words every 2 seconds)
+      const rotateWordEl = document.getElementById('heroRotateWord');
+      const words = ['FASTER', 'SMARTER', 'STRONGER', 'BETTER'];
+      let wordIndex = 0;
+
+      if (rotateWordEl) {
+        setInterval(() => {
+          rotateWordEl.classList.add('fade-swap');
+          setTimeout(() => {
+            wordIndex = (wordIndex + 1) % words.length;
+            rotateWordEl.textContent = words[wordIndex];
+            rotateWordEl.classList.remove('fade-swap');
+          }, 300);
+        }, 2000);
+      }
+
+      // GSAP Staggered Letter Text Animation for Section Headings
+      function initGSAPSectionHeadings() {
+        if (typeof gsap === 'undefined') return;
+
+        const headingSelectors = [
+          '.section-title',
+          '.section-main-title',
+          '.section-title-orange',
+          '.about-section-title',
+          '.about-team-title',
+          '.services-hero-title',
+          '.contact-hero-title',
+          '.blog-hero-title',
+          '.cta-title',
+          '.stagger-heading'
+        ];
+
+        const headings = document.querySelectorAll(headingSelectors.join(', '));
+
+        headings.forEach(heading => {
+          if (heading.dataset.splitDone) return;
+          heading.dataset.splitDone = "true";
+
+          const childNodes = Array.from(heading.childNodes);
+          heading.innerHTML = '';
+
+          childNodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE) {
+              const chars = node.textContent.split('');
+              chars.forEach(ch => {
+                const span = document.createElement('span');
+                span.className = 'gsap-char';
+                span.style.display = ch === ' ' ? 'inline' : 'inline-block';
+                span.style.willChange = 'transform, opacity';
+                span.textContent = ch === ' ' ? '\u00A0' : ch;
+                heading.appendChild(span);
+              });
+            } else {
+              heading.appendChild(node.cloneNode(true));
+            }
+          });
+
+          const charSpans = heading.querySelectorAll('.gsap-char');
+          if (charSpans.length === 0) return;
+
+          if (typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.from(charSpans, {
+              scrollTrigger: {
+                trigger: heading,
+                start: 'top 88%',
+                toggleActions: 'play none none none'
+              },
+              y: 50,
+              opacity: 0,
+              stagger: 0.03,
+              duration: 0.6,
+              ease: 'back.out(1.7)'
+            });
+          } else {
+            gsap.from(charSpans, {
+              y: 50,
+              opacity: 0,
+              stagger: 0.03,
+              duration: 0.6,
+              ease: 'back.out(1.7)'
+            });
+          }
+        });
+      }
+
+      initGSAPSectionHeadings();
+
+      // Scroll Reveal Intersection Observer (Sliding animations for text & images)
+      const revealElements = document.querySelectorAll('.reveal-slide-left, .reveal-slide-right, .reveal-slide-up, .reveal-slide-down');
+
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('reveal-active');
+            }
+          });
+        }, {
+          root: null,
+          threshold: 0.15,
+          rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+      } else {
+        revealElements.forEach(el => el.classList.add('reveal-active'));
+      }
+
+      // FAQ Accordion Logic
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        item.addEventListener('toggle', (event) => {
+          if (event.target.open) {
+            faqItems.forEach(otherItem => {
+              if (otherItem !== event.target && otherItem.open) {
+                otherItem.removeAttribute('open');
+              }
+            });
+          }
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+  </script>
+</body>
+
+</html>

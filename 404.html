@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found · Convoy Logistics</title>
+    <meta name="description" content="The page you are looking for is not on the Convoy platform.">
+    <meta name="robots" content="noindex">
+
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+       CONVOY — 404 Page
+       Self-contained. Uses the same theme tokens as global.css.
+       No scroll — everything fits in the viewport.
+       ========================================================================== */
+        :root {
+            --color-primary-orange: #FF5926;
+            --color-alabaster-white: #F2F2E6;
+            --color-dark-charcoal: #212227;
+            --font-family-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-family-heading: 'Outfit', 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            font-family: var(--font-family-main);
+            background-color: var(--color-dark-charcoal);
+            color: var(--color-alabaster-white);
+            overflow: hidden;
+            /* no scroll */
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ---------------------------------------------------------------
+       FULL-SCREEN STAGE — fixed to viewport
+       --------------------------------------------------------------- */
+        .error-stage {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            height: 100svh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: clamp(24px, 4vh, 48px) 24px;
+            background:
+                radial-gradient(circle at 50% 45%, rgba(255, 89, 38, 0.09) 0%, rgba(33, 34, 39, 0) 55%),
+                radial-gradient(circle at 50% 40%, rgba(11, 28, 40, 0.9) 0%, rgba(33, 34, 39, 1) 75%);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Subtle blueprint grid */
+        .error-stage::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+            mask-image: radial-gradient(circle at 50% 45%, black 30%, transparent 78%);
+            -webkit-mask-image: radial-gradient(circle at 50% 45%, black 30%, transparent 78%);
+        }
+
+        /* ---------------------------------------------------------------
+       WATERMARK — giant background "404"
+       --------------------------------------------------------------- */
+        .error-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) skewX(-8deg);
+            font-family: var(--font-family-heading);
+            font-size: clamp(180px, 44vw, 560px);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            color: rgba(255, 89, 38, 0.055);
+            line-height: 1;
+            white-space: nowrap;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* ---------------------------------------------------------------
+       CONTENT
+       --------------------------------------------------------------- */
+        .error-content {
+            position: relative;
+            z-index: 3;
+            max-width: 720px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(14px, 1.8vh, 22px);
+        }
+
+        /* ---------------------------------------------------------------
+       LOGO — above the badge, white
+       --------------------------------------------------------------- */
+        .error-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: clamp(6px, 1vh, 12px);
+        }
+
+        .error-logo img {
+            height: clamp(30px, 3.6vh, 40px);
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1) !important;
+        }
+
+        .error-logo-name {
+            font-family: var(--font-family-heading);
+            font-size: clamp(18px, 2.2vh, 22px);
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            color: #FFFFFF;
+        }
+
+        /* ---------------------------------------------------------------
+       BADGE
+       --------------------------------------------------------------- */
+        .error-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 20px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 89, 38, 0.45);
+            background: rgba(255, 89, 38, 0.06);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            color: var(--color-primary-orange);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .error-badge i {
+            font-size: 10px;
+        }
+
+        /* ---------------------------------------------------------------
+       BIG 404 — no dot in the middle
+       --------------------------------------------------------------- */
+        .error-code {
+            font-family: var(--font-family-heading);
+            font-size: clamp(80px, 17vh, 180px);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.035em;
+            color: var(--color-primary-orange);
+            text-shadow: 0 8px 40px rgba(255, 89, 38, 0.35);
+            margin: 0;
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.04em;
+        }
+
+        /* ---------------------------------------------------------------
+       TITLE + LEAD
+       --------------------------------------------------------------- */
+        .error-title {
+            font-family: var(--font-family-heading);
+            font-size: clamp(18px, 2.4vh, 26px);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.005em;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            max-width: 22ch;
+        }
+
+        .error-lead {
+            font-size: clamp(13px, 1.7vh, 15px);
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.68);
+            max-width: 52ch;
+        }
+
+        /* ---------------------------------------------------------------
+       ACTIONS
+       --------------------------------------------------------------- */
+        .error-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: clamp(6px, 1.2vh, 14px);
+        }
+
+        .error-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 13px 30px;
+            border-radius: 999px;
+            font-family: var(--font-family-main);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            min-width: 190px;
+        }
+
+        .error-btn--primary {
+            background-color: var(--color-primary-orange);
+            color: #FFFFFF;
+            box-shadow: 0 8px 24px rgba(255, 89, 38, 0.35);
+        }
+
+        .error-btn--primary:hover {
+            background-color: #e04b1c;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(255, 89, 38, 0.5);
+        }
+
+        .error-btn--primary i {
+            transition: transform 0.3s ease;
+        }
+
+        .error-btn--primary:hover i {
+            transform: translateX(6px);
+        }
+
+        .error-btn--ghost {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #FFFFFF;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .error-btn--ghost:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .error-btn--ghost i {
+            transition: transform 0.3s ease;
+        }
+
+        .error-btn--ghost:hover i {
+            transform: translateX(-6px);
+        }
+
+        /* ---------------------------------------------------------------
+       FOOTNOTE
+       --------------------------------------------------------------- */
+        .error-footnote {
+            margin-top: clamp(14px, 2.4vh, 28px);
+            font-family: var(--font-family-main);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ---------------------------------------------------------------
+       RESPONSIVE
+       --------------------------------------------------------------- */
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: clamp(72px, 20vh, 130px);
+            }
+
+            .error-actions {
+                flex-direction: column;
+                width: 100%;
+                max-width: 320px;
+            }
+
+            .error-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .error-badge {
+                font-size: 10px;
+                padding: 6px 16px;
+                letter-spacing: 0.15em;
+            }
+        }
+
+        /* Short viewports — scale down further to keep everything on screen */
+        @media (max-height: 620px) {
+            .error-code {
+                font-size: clamp(64px, 16vh, 110px);
+            }
+
+            .error-content {
+                gap: 10px;
+            }
+
+            .error-footnote {
+                margin-top: 12px;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+
+            .error-btn,
+            .error-btn i {
+                transition: none !important;
+            }
+
+            .error-btn:hover {
+                transform: none;
+            }
+
+            .error-btn:hover i {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="error-stage">
+
+        <!-- Giant background watermark -->
+        <div class="error-watermark" aria-hidden="true">404</div>
+
+        <!-- Content -->
+        <div class="error-content">
+
+            <!-- Logo — above the badge, white -->
+            <a href="index.html" class="error-logo" aria-label="Convoy — home">
+                <img src="logo.webp" alt="Convoy Logo">
+                
+            </a>
+
+            <span class="error-badge">
+                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                Route Not Resolved
+            </span>
+
+            <h1 class="error-code" aria-label="Error 404">
+                <span aria-hidden="true">4</span><span aria-hidden="true">0</span><span aria-hidden="true">4</span>
+            </h1>
+
+            <p class="error-title">This Page Has Left The Depot</p>
+
+            <p class="error-lead">
+                The page you are looking for is not on the Convoy platform. It may have been
+                moved, renamed, or the link that brought you here may be out of date.
+            </p>
+
+            <!-- Actions -->
+            <div class="error-actions">
+                <a href="index.html" class="error-btn error-btn--primary">
+                    Back to Home
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+
+                <button class="error-btn error-btn--ghost" id="goBack" type="button">
+                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                    Go Back
+                </button>
+            </div>
+
+            <p class="error-footnote">Stackly · Salem · Tamil Nadu · India</p>
+
+        </div>
+
+    </main>
+
+    <script>
+        /* ---------- Go Back with fallback ---------- */
+        (function () {
+            "use strict";
+
+            var btn = document.getElementById("goBack");
+            if (!btn) return;
+
+            btn.addEventListener("click", function () {
+                if (window.history && window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    window.location.href = "index.html";
+                }
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

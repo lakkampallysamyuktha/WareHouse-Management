@@ -1,0 +1,3753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Plane — Convoy Admin</title>
+    <meta name="description" content="Convoy admin control plane: carriers, routes, compliance, and regional capacity.">
+    <meta name="robots" content="noindex">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+       CONVOY — Control Plane (Admin)
+       Font Awesome icons used throughout for all interface indicators.
+       ========================================================================== */
+        :root {
+            --color-primary-orange: #FF5926;
+            --color-orange-hover: #e04b1c;
+            --color-alabaster-white: #F2F2E6;
+            --color-dark-charcoal: #212227;
+            --color-sidebar-deep: #16171c;
+            --color-card: #1e1f24;
+            --color-rule: rgba(255, 255, 255, 0.08);
+            --color-rule-strong: rgba(255, 255, 255, 0.14);
+            --color-text-primary: #F2F2E6;
+            --color-text-secondary: rgba(242, 242, 230, 0.65);
+            --color-text-muted: rgba(242, 242, 230, 0.42);
+
+            --color-admin-accent: #3B82A8;
+            --color-admin-accent-dim: rgba(59, 130, 168, 0.18);
+
+            --font-family-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-family-heading: 'Outfit', 'Inter', sans-serif;
+
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            font-family: var(--font-family-main);
+            background-color: var(--color-dark-charcoal);
+            color: var(--color-text-primary);
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font: inherit;
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        html.is-locked,
+        body.is-locked {
+            overflow: hidden !important;
+            touch-action: none;
+            overscroll-behavior: none;
+        }
+
+        /* =================================================================
+       MOBILE HEADER
+       ================================================================= */
+        .mobile-header {
+            display: none;
+            align-items: center;
+            gap: 14px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 60px;
+            background: var(--color-sidebar-deep);
+            border-bottom: 1px solid var(--color-rule);
+            padding: 0 18px;
+        }
+
+        .mobile-hamburger {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            color: var(--color-text-primary);
+            font-size: 18px;
+            margin-left: -8px;
+        }
+
+        .mobile-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mobile-brand img {
+            height: 22px;
+            width: auto;
+            filter: brightness(0) invert(1) !important;
+        }
+
+        .mobile-brand span {
+            font-family: var(--font-family-heading);
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            color: #FFFFFF;
+        }
+
+        .mobile-spacer {
+            flex: 1;
+        }
+
+        .mobile-avatar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-admin-accent) 0%, #1d5b7a 100%);
+            font-family: var(--font-family-heading);
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 0.04em;
+            color: #FFFFFF;
+            flex: none;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        /* =================================================================
+       LAYOUT
+       ================================================================= */
+        .dash-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            grid-template-areas: "sidebar main";
+            min-height: 100vh;
+        }
+
+        .dash-sidebar {
+            grid-area: sidebar;
+        }
+
+        .dash-main {
+            grid-area: main;
+        }
+
+        /* =================================================================
+       SIDEBAR
+       ================================================================= */
+        .dash-sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            background: var(--color-sidebar-deep);
+            border-right: 1px solid var(--color-rule);
+            display: flex;
+            flex-direction: column;
+            padding: 26px 0 0;
+            overflow-y: auto;
+        }
+
+        .dash-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            padding: 0 22px;
+            margin-bottom: 10px;
+        }
+
+        .dash-logo img {
+            height: 28px;
+            width: auto;
+            filter: brightness(0) invert(1) !important;
+        }
+
+        .dash-logo span {
+            font-family: var(--font-family-heading);
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            color: #FFFFFF;
+        }
+
+        .dash-role-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            align-self: flex-start;
+            margin: 0 22px 26px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--color-admin-accent);
+            background: var(--color-admin-accent-dim);
+            color: var(--color-admin-accent);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .dash-role-chip i {
+            font-size: 9px;
+        }
+
+        .dash-nav {
+            display: flex;
+            flex-direction: column;
+            padding: 0 12px;
+            flex: 1;
+        }
+
+        .dash-nav__label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            padding: 0 12px 12px;
+        }
+
+        .dash-nav__label i {
+            font-size: 9px;
+            color: var(--color-admin-accent);
+        }
+
+        .dash-nav__item {
+            display: grid;
+            grid-template-columns: 26px minmax(0, 1fr);
+            gap: 12px;
+            align-items: center;
+            padding: 12px 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            text-align: left;
+            border-radius: 8px;
+            border-left: 2px solid transparent;
+            transition: color 0.25s var(--ease), background 0.25s var(--ease), border-color 0.25s var(--ease);
+        }
+
+        .dash-nav__item i {
+            font-size: 14px;
+            color: var(--color-text-muted);
+            transition: color 0.25s var(--ease);
+        }
+
+        .dash-nav__item:hover {
+            color: var(--color-text-primary);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .dash-nav__item:hover i {
+            color: var(--color-admin-accent);
+        }
+
+        .dash-nav__item.is-active {
+            color: #FFFFFF;
+            background: var(--color-admin-accent-dim);
+            border-left-color: var(--color-admin-accent);
+        }
+
+        .dash-nav__item.is-active i {
+            color: var(--color-admin-accent);
+        }
+
+        .dash-identity {
+            margin: 22px 18px 0;
+            padding: 16px 14px;
+            border: 1px solid var(--color-rule);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .dash-identity__label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-admin-accent);
+            margin-bottom: 12px;
+        }
+
+        .dash-identity__label i {
+            font-size: 10px;
+        }
+
+        .dash-identity__name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 4px;
+            word-break: break-word;
+        }
+
+        .dash-identity__email {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            word-break: break-all;
+        }
+
+        .dash-identity__email i {
+            font-size: 10px;
+            flex: none;
+            color: var(--color-text-muted);
+        }
+
+        .dash-logout {
+            margin: 20px 18px 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border: 1px solid var(--color-rule);
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--color-text-primary);
+            transition: border-color 0.3s var(--ease), color 0.3s var(--ease), background 0.3s var(--ease);
+        }
+
+        .dash-logout:hover {
+            border-color: var(--color-primary-orange);
+            color: var(--color-primary-orange);
+            background: rgba(255, 89, 38, 0.06);
+        }
+
+        .dash-logout i {
+            font-size: 12px;
+        }
+
+        /* =================================================================
+       MAIN
+       ================================================================= */
+        .dash-main {
+            padding: clamp(28px, 3.2vw, 48px) clamp(20px, 3vw, 44px) 80px;
+            min-width: 0;
+        }
+
+        .dash-panel {
+            display: none;
+        }
+
+        .dash-panel.is-active {
+            display: block;
+        }
+
+        .dash-panel__head {
+            margin-bottom: clamp(20px, 2.4vw, 30px);
+        }
+
+        .dash-panel__eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 16px;
+            border-radius: 999px;
+            border: 1px solid var(--color-admin-accent);
+            background: var(--color-admin-accent-dim);
+            color: var(--color-admin-accent);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .dash-panel__eyebrow i {
+            font-size: 10px;
+        }
+
+        .dash-panel__title {
+            font-family: var(--font-family-heading);
+            font-size: clamp(22px, 2.4vw, 32px);
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -0.015em;
+            color: #FFFFFF;
+            margin-bottom: 12px;
+        }
+
+        .dash-panel__lead {
+            font-size: 14px;
+            line-height: 1.65;
+            color: var(--color-text-secondary);
+            max-width: 62ch;
+        }
+
+        .dash-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            padding: 10px 14px;
+            border: 1px dashed var(--color-rule);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.015);
+            margin-bottom: 22px;
+            line-height: 1.6;
+        }
+
+        .dash-note i {
+            color: var(--color-admin-accent);
+            font-size: 11px;
+            margin-top: 1px;
+            flex: none;
+        }
+
+        /* KPI */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .kpi {
+            padding: 20px 20px 18px;
+            border: 1px solid var(--color-rule);
+            border-radius: 14px;
+            background: var(--color-card);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+        }
+
+        .kpi:hover {
+            border-color: var(--color-admin-accent);
+            transform: translateY(-2px);
+        }
+
+        .kpi__label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .kpi__label i {
+            font-size: 10px;
+            color: var(--color-admin-accent);
+        }
+
+        .kpi__val {
+            font-family: var(--font-family-heading);
+            font-weight: 900;
+            font-size: clamp(24px, 2.4vw, 32px);
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: #FFFFFF;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .kpi__unit {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            margin-left: 4px;
+        }
+
+        .kpi__delta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-admin-accent);
+        }
+
+        .kpi__delta i {
+            font-size: 10px;
+        }
+
+        .kpi__delta--warn {
+            color: #E8A02C;
+        }
+
+        .kpi__delta--alert {
+            color: var(--color-primary-orange);
+        }
+
+        .kpi__delta--neutral {
+            color: var(--color-text-muted);
+        }
+
+        .kpi--alert {
+            background: linear-gradient(135deg, rgba(255, 89, 38, 0.1) 0%, rgba(255, 89, 38, 0.02) 100%);
+            border-color: rgba(255, 89, 38, 0.4);
+            border-top: 2px solid var(--color-primary-orange);
+        }
+
+        .kpi--alert .kpi__label i {
+            color: var(--color-primary-orange);
+        }
+
+        .kpi--alert .kpi__delta {
+            color: var(--color-primary-orange);
+        }
+
+        /* Cards */
+        .dash-card {
+            border: 1px solid var(--color-rule);
+            border-radius: 16px;
+            background: var(--color-card);
+            padding: clamp(18px, 2vw, 24px);
+        }
+
+        .dash-card+.dash-card {
+            margin-top: 20px;
+        }
+
+        .dash-card__head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--color-rule);
+        }
+
+        .dash-card__title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-family-heading);
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: -0.005em;
+            color: #FFFFFF;
+        }
+
+        .dash-card__title i {
+            color: var(--color-admin-accent);
+            font-size: 14px;
+        }
+
+        .dash-card__meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .dash-card__meta i {
+            font-size: 10px;
+        }
+
+        .dash-2col {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .dash-2col--wide {
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+        }
+
+        .dash-2col>.dash-card+.dash-card,
+        .dash-2col--wide>.dash-card+.dash-card {
+            margin-top: 0;
+        }
+
+        /* Chart container */
+        .chart {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .chart svg {
+            display: block;
+        }
+
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+            justify-content: center;
+            margin-top: 14px;
+            padding-top: 12px;
+            width: 100%;
+            border-top: 1px solid var(--color-rule);
+            list-style: none;
+        }
+
+        .chart-legend li {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .chart-legend i {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--color-admin-accent);
+            border-radius: 2px;
+        }
+
+        .chart-legend i.k1 {
+            background: var(--color-admin-accent);
+        }
+
+        .chart-legend i.k2 {
+            background: rgba(59, 130, 168, 0.6);
+        }
+
+        .chart-legend i.k3 {
+            background: rgba(59, 130, 168, 0.32);
+        }
+
+        .chart-legend i.k4 {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .chart-legend i.k5 {
+            background: var(--color-primary-orange);
+        }
+
+        /* =================================================================
+       BAR CHART
+       ================================================================= */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            height: 160px;
+            width: 100%;
+            padding: 8px 0 26px;
+            position: relative;
+        }
+
+        .bar-chart::before {
+            content: '';
+            position: absolute;
+            inset: 8px 0 26px 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 100% 25%;
+            pointer-events: none;
+        }
+
+        .bar-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 100%;
+            position: relative;
+        }
+
+        .bar-col__fill {
+            width: 100%;
+            max-width: 38px;
+            background: var(--color-admin-accent);
+            border-radius: 6px 6px 0 0;
+            height: var(--h, 0%);
+            transform-origin: bottom;
+            transform: scaleY(0);
+            transition: transform 0.85s var(--ease);
+        }
+
+        .is-in .bar-col__fill {
+            transform: scaleY(1);
+        }
+
+        .bar-col__fill--alt {
+            background: rgba(59, 130, 168, 0.45);
+        }
+
+        .bar-col__fill--alert {
+            background: var(--color-primary-orange);
+        }
+
+        .bar-col__label {
+            position: absolute;
+            bottom: -22px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* =================================================================
+       LINE CHART
+       ================================================================= */
+        .line-chart {
+            position: relative;
+            width: 100%;
+            max-width: 560px;
+        }
+
+        .line-chart svg {
+            width: 100%;
+            height: auto;
+        }
+
+        .line-chart .grid-line {
+            stroke: rgba(255, 255, 255, 0.05);
+            stroke-width: 1;
+        }
+
+        .line-chart .axis-line {
+            stroke: rgba(255, 255, 255, 0.18);
+            stroke-width: 1;
+        }
+
+        .line-chart .line-path {
+            fill: none;
+            stroke: var(--color-admin-accent);
+            stroke-width: 2.5;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .line-chart .line-path--alt {
+            stroke: var(--color-primary-orange);
+            stroke-dasharray: 6 4;
+        }
+
+        .line-chart .area-fill {
+            fill: rgba(59, 130, 168, 0.14);
+        }
+
+        .line-chart .end-dot {
+            fill: #FFFFFF;
+            stroke: var(--color-admin-accent);
+            stroke-width: 2;
+        }
+
+        .line-chart .end-dot--alt {
+            stroke: var(--color-primary-orange);
+        }
+
+        .line-chart .x-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        /* =================================================================
+       DONUT CHART
+       ================================================================= */
+        .donut-chart {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto;
+        }
+
+        .donut-chart svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .donut-chart .track {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.06);
+            stroke-width: 16;
+        }
+
+        .donut-chart .slice {
+            fill: none;
+            stroke-width: 16;
+            stroke-linecap: butt;
+        }
+
+        .donut-chart .slice-1 {
+            stroke: var(--color-admin-accent);
+        }
+
+        .donut-chart .slice-2 {
+            stroke: rgba(59, 130, 168, 0.6);
+        }
+
+        .donut-chart .slice-3 {
+            stroke: rgba(59, 130, 168, 0.32);
+        }
+
+        .donut-chart .slice-4 {
+            stroke: rgba(255, 255, 255, 0.22);
+        }
+
+        .donut-chart__center {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .donut-chart__num {
+            font-family: var(--font-family-heading);
+            font-weight: 900;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: #FFFFFF;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .donut-chart__unit {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-top: 4px;
+        }
+
+        /* =================================================================
+       PIE CHART
+       ================================================================= */
+        .pie-chart {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto;
+        }
+
+        .pie-chart svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .pie-chart .slice {
+            stroke: var(--color-card);
+            stroke-width: 2;
+        }
+
+        .pie-chart .slice-1 {
+            fill: var(--color-admin-accent);
+        }
+
+        .pie-chart .slice-2 {
+            fill: rgba(59, 130, 168, 0.6);
+        }
+
+        .pie-chart .slice-3 {
+            fill: rgba(59, 130, 168, 0.32);
+        }
+
+        .pie-chart .slice-4 {
+            fill: rgba(255, 255, 255, 0.22);
+        }
+
+        .pie-chart__center {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .pie-chart__num {
+            font-family: var(--font-family-heading);
+            font-weight: 900;
+            font-size: 22px;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: #FFFFFF;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .pie-chart__unit {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-top: 4px;
+        }
+
+        /* =================================================================
+       RING CHART
+       ================================================================= */
+        .ring-chart {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto;
+        }
+
+        .ring-chart svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .ring-chart .track {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.06);
+            stroke-width: 14;
+        }
+
+        .ring-chart .fill {
+            fill: none;
+            stroke: var(--color-admin-accent);
+            stroke-width: 14;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s var(--ease);
+        }
+
+        .ring-chart .fill--alert {
+            stroke: var(--color-primary-orange);
+        }
+
+        .ring-chart__center {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ring-chart__num {
+            font-family: var(--font-family-heading);
+            font-weight: 900;
+            font-size: 32px;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: #FFFFFF;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .ring-chart__unit {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-top: 5px;
+        }
+
+        /* =================================================================
+       HORIZONTAL BARS
+       ================================================================= */
+        .h-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .h-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .h-bar__head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .h-bar__name {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--color-text-primary);
+        }
+
+        .h-bar__name i {
+            font-size: 10px;
+            color: var(--color-text-muted);
+        }
+
+        .h-bar__val {
+            color: var(--color-admin-accent);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .h-bar__val--alert {
+            color: var(--color-primary-orange);
+        }
+
+        .h-bar__track {
+            display: block;
+            height: 8px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .h-bar__fill {
+            display: block;
+            height: 100%;
+            width: var(--w, 0%);
+            background: var(--color-admin-accent);
+            border-radius: 4px;
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.9s var(--ease);
+        }
+
+        .is-in .h-bar__fill {
+            transform: scaleX(1);
+        }
+
+        .h-bar__fill--alt {
+            background: rgba(59, 130, 168, 0.5);
+        }
+
+        .h-bar__fill--alert {
+            background: var(--color-primary-orange);
+        }
+
+        /* =================================================================
+       PROGRESS LIST
+       ================================================================= */
+        .progress-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .progress-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .progress-item__head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .progress-item__name {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--color-text-primary);
+        }
+
+        .progress-item__name i {
+            font-size: 11px;
+            color: var(--color-admin-accent);
+        }
+
+        .progress-item__pct {
+            font-family: var(--font-family-heading);
+            font-size: 15px;
+            font-weight: 900;
+            color: var(--color-admin-accent);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .progress-item__pct--warn {
+            color: #E8A02C;
+        }
+
+        .progress-item__pct--alert {
+            color: var(--color-primary-orange);
+        }
+
+        .progress-item__track {
+            display: block;
+            height: 6px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-item__fill {
+            display: block;
+            height: 100%;
+            width: var(--w, 0%);
+            background: var(--color-admin-accent);
+            border-radius: 3px;
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.9s var(--ease);
+        }
+
+        .is-in .progress-item__fill {
+            transform: scaleX(1);
+        }
+
+        .progress-item__fill--warn {
+            background: #E8A02C;
+        }
+
+        .progress-item__fill--alert {
+            background: var(--color-primary-orange);
+        }
+
+        .progress-item__meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .progress-item__meta i {
+            font-size: 10px;
+        }
+
+        /* =================================================================
+       Tables
+       ================================================================= */
+        .dash-table-wrap {
+            overflow-x: auto;
+            margin: 0 -4px;
+            padding: 0 4px;
+        }
+
+        .dash-table {
+            width: 100%;
+            min-width: 720px;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .dash-table th,
+        .dash-table td {
+            padding: 12px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-rule);
+            white-space: nowrap;
+        }
+
+        .dash-table thead th {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--color-rule-strong);
+        }
+
+        .dash-table thead th i {
+            font-size: 10px;
+            margin-right: 6px;
+            color: var(--color-admin-accent);
+        }
+
+        .dash-table tbody tr {
+            transition: background 0.25s var(--ease);
+        }
+
+        .dash-table tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .dash-table tbody tr:hover {
+            background: rgba(59, 130, 168, 0.05);
+        }
+
+        .dash-table td {
+            color: var(--color-text-primary);
+            font-weight: 500;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-text-secondary);
+        }
+
+        .status i {
+            font-size: 11px;
+        }
+
+        .status--ok {
+            color: #4FBF7A;
+        }
+
+        .status--warn {
+            color: #E8A02C;
+        }
+
+        .status--err {
+            color: #E05C5C;
+        }
+
+        .status--alert {
+            color: var(--color-primary-orange);
+        }
+
+        .status--neutral {
+            color: var(--color-admin-accent);
+        }
+
+        /* Lists */
+        .dash-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dash-list__item {
+            display: grid;
+            grid-template-columns: 22px minmax(0, 1fr) auto;
+            gap: 14px;
+            align-items: start;
+            padding: 13px 0;
+            border-bottom: 1px solid var(--color-rule);
+        }
+
+        .dash-list__item:last-child {
+            border-bottom: 0;
+        }
+
+        .dash-list__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            margin-top: 4px;
+            color: var(--color-admin-accent);
+            text-align: center;
+            width: 22px;
+        }
+
+        .dash-list__icon--ok {
+            color: #4FBF7A;
+        }
+
+        .dash-list__icon--warn {
+            color: #E8A02C;
+        }
+
+        .dash-list__icon--alert {
+            color: var(--color-primary-orange);
+        }
+
+        .dash-list__icon--muted {
+            color: var(--color-text-muted);
+        }
+
+        .dash-list__title {
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            margin-bottom: 3px;
+            line-height: 1.4;
+        }
+
+        .dash-list__meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .dash-list__meta i {
+            font-size: 10px;
+        }
+
+        .dash-list__val {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-admin-accent);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .dash-list__val--alert {
+            color: var(--color-primary-orange);
+        }
+
+        /* Editorial block */
+        .dash-editorial {
+            border: 1px solid var(--color-rule);
+            border-left: 3px solid var(--color-admin-accent);
+            background: rgba(59, 130, 168, 0.04);
+            border-radius: 12px;
+            padding: 22px 24px;
+            margin-top: 20px;
+        }
+
+        .dash-editorial__label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-admin-accent);
+            margin-bottom: 12px;
+        }
+
+        .dash-editorial__label i {
+            font-size: 10px;
+        }
+
+        .dash-editorial__title {
+            font-family: var(--font-family-heading);
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            color: #FFFFFF;
+            margin-bottom: 12px;
+            max-width: 40ch;
+        }
+
+        .dash-editorial__body {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--color-text-secondary);
+            max-width: 68ch;
+        }
+
+        .dash-editorial__body+.dash-editorial__body {
+            margin-top: 12px;
+        }
+
+        .dash-editorial__body strong {
+            color: var(--color-text-primary);
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .dash-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1px solid var(--color-rule-strong);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-text-primary);
+            transition: all 0.3s var(--ease);
+            cursor: pointer;
+        }
+
+        .dash-btn:hover {
+            border-color: var(--color-admin-accent);
+            color: var(--color-admin-accent);
+            transform: translateY(-1px);
+        }
+
+        .dash-btn i {
+            font-size: 11px;
+        }
+
+        .dash-btn--primary {
+            background: var(--color-admin-accent);
+            color: #FFFFFF;
+            border-color: var(--color-admin-accent);
+            box-shadow: 0 6px 16px rgba(59, 130, 168, 0.3);
+        }
+
+        .dash-btn--primary:hover {
+            background: #2e6a8c;
+            color: #FFFFFF;
+            border-color: #2e6a8c;
+            box-shadow: 0 10px 24px rgba(59, 130, 168, 0.45);
+        }
+
+        .dash-btn--alert {
+            background: var(--color-primary-orange);
+            color: #FFFFFF;
+            border-color: var(--color-primary-orange);
+            box-shadow: 0 6px 16px rgba(255, 89, 38, 0.3);
+        }
+
+        .dash-btn--alert:hover {
+            background: var(--color-orange-hover);
+            color: #FFFFFF;
+            border-color: var(--color-orange-hover);
+        }
+
+        .dash-btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid var(--color-rule);
+        }
+
+        /* Mobile drawer */
+        .dash-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 400;
+            background: var(--color-sidebar-deep);
+            color: var(--color-text-primary);
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            visibility: hidden;
+            transition: transform 0.45s var(--ease), visibility 0s linear 0.45s;
+        }
+
+        .dash-overlay.is-open {
+            transform: translateX(0);
+            visibility: visible;
+            transition: transform 0.45s var(--ease), visibility 0s linear 0s;
+        }
+
+        .dash-overlay__top {
+            flex: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            padding: 0 18px;
+            border-bottom: 1px solid var(--color-rule);
+        }
+
+        .dash-overlay__brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dash-overlay__brand img {
+            height: 22px;
+            width: auto;
+            filter: brightness(0) invert(1) !important;
+        }
+
+        .dash-overlay__brand span {
+            font-family: var(--font-family-heading);
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            color: #FFFFFF;
+        }
+
+        .dash-overlay__close {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-primary);
+            font-size: 18px;
+            margin-right: -8px;
+        }
+
+        .dash-overlay__nav {
+            flex: 1;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            padding: 24px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .dash-overlay__label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-admin-accent);
+            margin-bottom: 18px;
+        }
+
+        .dash-overlay__label i {
+            font-size: 10px;
+        }
+
+        .dash-overlay__item {
+            display: grid;
+            grid-template-columns: 26px minmax(0, 1fr);
+            gap: 14px;
+            align-items: center;
+            padding: 14px 8px;
+            font-family: var(--font-family-heading);
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--color-text-primary);
+            text-align: left;
+            border-bottom: 1px solid var(--color-rule);
+        }
+
+        .dash-overlay__item i {
+            font-size: 15px;
+            color: var(--color-text-muted);
+        }
+
+        .dash-overlay__item.is-active i {
+            color: var(--color-admin-accent);
+        }
+
+        .dash-overlay__foot {
+            flex: none;
+            padding: 22px 18px;
+            border-top: 1px solid var(--color-rule);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .dash-overlay__email {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            word-break: break-all;
+        }
+
+        .dash-overlay__email i {
+            font-size: 11px;
+            color: var(--color-text-muted);
+            flex: none;
+        }
+
+        .dash-scrim {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 350;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s var(--ease), visibility 0s linear 0.3s;
+        }
+
+        .dash-scrim.is-open {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s var(--ease), visibility 0s linear 0s;
+        }
+
+        /* Responsive */
+        @media (max-width: 1180px) {
+
+            .dash-2col,
+            .dash-2col--wide {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-row {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 900px) {
+            .mobile-header {
+                display: flex;
+            }
+
+            .dash-layout {
+                grid-template-columns: 1fr;
+                grid-template-areas: "main";
+                padding-top: 60px;
+            }
+
+            .dash-sidebar {
+                display: none;
+            }
+
+            .dash-main {
+                padding: 22px 18px 64px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .kpi-row {
+                grid-template-columns: 1fr;
+            }
+
+            .dash-card__head {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .bar-chart {
+                height: 130px;
+            }
+
+            .bar-col__fill {
+                max-width: 28px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .bar-col__fill,
+            .h-bar__fill,
+            .progress-item__fill,
+            .ring-chart .fill {
+                transition: none !important;
+                transform: none !important;
+            }
+
+            .dash-overlay,
+            .dash-scrim {
+                transition: none !important;
+            }
+
+            .kpi:hover,
+            .dash-btn:hover {
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- MOBILE HEADER -->
+    <header class="mobile-header">
+        <button class="mobile-hamburger" id="dashHamburger" type="button" aria-label="Open menu" aria-expanded="false"
+            aria-controls="dashOverlay">
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <a class="mobile-brand" href="#" id="mobileLogo" aria-label="Convoy — home">
+            <img src="../logo.webp" alt="Convoy">
+            
+        </a>
+
+        <span class="mobile-spacer" aria-hidden="true"></span>
+        <span class="mobile-avatar" id="mobileAvatar" aria-hidden="true">AD</span>
+    </header>
+
+    <div class="dash-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="dash-sidebar" aria-label="Control Plane navigation">
+            <a class="dash-logo" href="#" id="dashLogo" aria-label="Convoy — home">
+                <img src="../logo.webp" alt="Convoy">
+               
+            </a>
+
+            <span class="dash-role-chip">
+                <i class="fa-solid fa-user-shield" aria-hidden="true"></i>
+                Administrator
+            </span>
+
+            <nav class="dash-nav" aria-label="Control Plane panels">
+                <p class="dash-nav__label">
+                    <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+                    Control Plane
+                </p>
+
+                <button class="dash-nav__item is-active" type="button" data-panel="network">
+                    <i class="fa-solid fa-network-wired" aria-hidden="true"></i>
+                    <span>Network Overview</span>
+                </button>
+                <button class="dash-nav__item" type="button" data-panel="carriers">
+                    <i class="fa-solid fa-handshake" aria-hidden="true"></i>
+                    <span>Carrier Management</span>
+                </button>
+                <button class="dash-nav__item" type="button" data-panel="routes">
+                    <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+                    <span>Route Network</span>
+                </button>
+                <button class="dash-nav__item" type="button" data-panel="compliance">
+                    <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                    <span>Compliance &amp; Audit</span>
+                </button>
+                <button class="dash-nav__item" type="button" data-panel="regions">
+                    <i class="fa-solid fa-globe" aria-hidden="true"></i>
+                    <span>Regional Capacity</span>
+                </button>
+            </nav>
+
+            <div class="dash-identity">
+                <p class="dash-identity__label">
+                    <i class="fa-solid fa-user-shield" aria-hidden="true"></i>
+                    Signed in as
+                </p>
+                <p class="dash-identity__name" id="identityName">Administrator</p>
+                <p class="dash-identity__email">
+                    <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                    <span id="identityEmail">admin@convoy.example</span>
+                </p>
+            </div>
+
+            <button class="dash-logout" id="dashLogout" type="button">
+                <span>Logout</span>
+                <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+            </button>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="dash-main">
+
+            <!-- ============================================================
+         PANEL 1 — NETWORK OVERVIEW
+         ============================================================ -->
+            <section class="dash-panel is-active" data-panel="network" aria-labelledby="nw-title">
+
+                <header class="dash-panel__head">
+                    <span class="dash-panel__eyebrow">
+                        <i class="fa-solid fa-network-wired" aria-hidden="true"></i>
+                        Network Overview
+                    </span>
+                    <h1 class="dash-panel__title" id="nw-title">Every carrier, every route, one plane.</h1>
+                    <p class="dash-panel__lead">
+                        Platform-wide view of carriers, routes, and exceptions across all
+                        regions. Every figure below is a placeholder for layout demonstration.
+                    </p>
+                </header>
+
+                <p class="dash-note">
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    <span>Figures shown are illustrative placeholders. No live platform data is connected.</span>
+                </p>
+
+                <div class="kpi-row">
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-truck-fast" aria-hidden="true"></i>
+                            Active Carriers
+                        </span>
+                        <span class="kpi__val"><span data-count="64">64</span></span>
+                        <span class="kpi__delta"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i> 6 new this
+                            quarter</span>
+                    </div>
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-route" aria-hidden="true"></i>
+                            Routes in Service
+                        </span>
+                        <span class="kpi__val"><span data-count="412">412</span></span>
+                        <span class="kpi__delta"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i> 18 added this
+                            month</span>
+                    </div>
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-truck" aria-hidden="true"></i>
+                            Vehicles Managed
+                        </span>
+                        <span class="kpi__val"><span data-count="2148">2,148</span></span>
+                        <span class="kpi__delta kpi__delta--neutral"><i class="fa-solid fa-globe"
+                                aria-hidden="true"></i> Across 6 regions</span>
+                    </div>
+                    <div class="kpi kpi--alert">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                            Open Exceptions
+                        </span>
+                        <span class="kpi__val"><span data-count="11">11</span></span>
+                        <span class="kpi__delta kpi__delta--alert">
+                            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> 3 awaiting review
+                        </span>
+                    </div>
+                </div>
+
+                <div class="dash-2col--wide dash-2col">
+
+                    <!-- Line chart: network growth -->
+                    <div class="dash-card">
+                        <div class="dash-card__head">
+                            <h2 class="dash-card__title">
+                                <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                                Network growth
+                            </h2>
+                            <span class="dash-card__meta">
+                                <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                                Last 12 months
+                            </span>
+                        </div>
+
+                        <figure class="chart" role="img"
+                            aria-label="Line chart of active carriers and routes over the last twelve months">
+                            <div class="line-chart">
+                                <svg viewBox="0 0 560 180" preserveAspectRatio="none">
+                                    <defs>
+                                        <pattern id="nwGrid" width="46.7" height="36" patternUnits="userSpaceOnUse">
+                                            <path d="M46.7 0H0V36" fill="none" class="grid-line" />
+                                        </pattern>
+                                    </defs>
+
+                                    <rect width="560" height="180" fill="url(#nwGrid)" />
+                                    <line class="axis-line" x1="0" y1="150" x2="560" y2="150" />
+
+                                    <path class="area-fill"
+                                        d="M0,120 L51,114 L102,104 L153,98 L204,88 L255,80 L306,72 L357,62 L408,56 L459,44 L510,36 L560,26 L560,150 L0,150 Z" />
+                                    <polyline class="line-path"
+                                        points="0,120 51,114 102,104 153,98 204,88 255,80 306,72 357,62 408,56 459,44 510,36 560,26" />
+                                    <circle class="end-dot" cx="560" cy="26" r="5" />
+
+                                    <polyline class="line-path line-path--alt"
+                                        points="0,60 51,64 102,58 153,62 204,52 255,48 306,42 357,46 408,36 459,32 510,26 560,22" />
+                                    <circle class="end-dot end-dot--alt" cx="560" cy="22" r="5" />
+                                </svg>
+
+                                <div class="x-labels" aria-hidden="true">
+                                    <span>M-12</span><span>M-9</span><span>M-6</span><span>M-3</span><span>Now</span>
+                                </div>
+                            </div>
+
+                            <ul class="chart-legend">
+                                <li><i class="k1" aria-hidden="true"></i> Active carriers</li>
+                                <li><i class="k5" aria-hidden="true"></i> Routes in service</li>
+                            </ul>
+
+                            <figcaption class="sr-only"
+                                style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">
+                                <table>
+                                    <caption>Network growth, last twelve months</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Month</th>
+                                            <th scope="col">Carriers</th>
+                                            <th scope="col">Routes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">M-12</th>
+                                            <td>38</td>
+                                            <td>286</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">M-09</th>
+                                            <td>46</td>
+                                            <td>312</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">M-06</th>
+                                            <td>54</td>
+                                            <td>348</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">M-03</th>
+                                            <td>60</td>
+                                            <td>384</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Now</th>
+                                            <td>64</td>
+                                            <td>412</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Donut: regional split -->
+                    <div class="dash-card">
+                        <div class="dash-card__head">
+                            <h2 class="dash-card__title">
+                                <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
+                                Regional split
+                            </h2>
+                            <span class="dash-card__meta">
+                                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                                By carrier count
+                            </span>
+                        </div>
+
+                        <figure class="chart" role="img"
+                            aria-label="Donut chart of regional carrier split: South 42 percent, West 24 percent, East 18 percent, North 16 percent">
+                            <div class="donut-chart" aria-hidden="true">
+                                <svg viewBox="0 0 160 160">
+                                    <circle class="track" cx="80" cy="80" r="58" />
+                                    <circle class="slice slice-1" cx="80" cy="80" r="58" stroke-dasharray="364.4"
+                                        stroke-dashoffset="211.3" transform="rotate(-90 80 80)" />
+                                    <circle class="slice slice-2" cx="80" cy="80" r="58" stroke-dasharray="364.4"
+                                        stroke-dashoffset="276.9" transform="rotate(61.2 80 80)" />
+                                    <circle class="slice slice-3" cx="80" cy="80" r="58" stroke-dasharray="364.4"
+                                        stroke-dashoffset="298.8" transform="rotate(147.6 80 80)" />
+                                    <circle class="slice slice-4" cx="80" cy="80" r="58" stroke-dasharray="364.4"
+                                        stroke-dashoffset="306.1" transform="rotate(212.4 80 80)" />
+                                </svg>
+                                <div class="donut-chart__center">
+                                    <span class="donut-chart__num">64</span>
+                                    <span class="donut-chart__unit">Carriers</span>
+                                </div>
+                            </div>
+
+                            <ul class="chart-legend">
+                                <li><i class="k1" aria-hidden="true"></i> South 42%</li>
+                                <li><i class="k2" aria-hidden="true"></i> West 24%</li>
+                                <li><i class="k3" aria-hidden="true"></i> East 18%</li>
+                                <li><i class="k4" aria-hidden="true"></i> North 16%</li>
+                            </ul>
+
+                            <figcaption class="sr-only"
+                                style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">
+                                <table>
+                                    <caption>Carrier split by region</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Region</th>
+                                            <th scope="col">Share</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">South</th>
+                                            <td>42%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">West</th>
+                                            <td>24%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">East</th>
+                                            <td>18%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">North</th>
+                                            <td>16%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                </div>
+
+                <!-- Editorial -->
+                <div class="dash-editorial">
+                    <p class="dash-editorial__label">
+                        <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+                        Editorial · Reading the control plane
+                    </p>
+                    <h2 class="dash-editorial__title">The numbers on this page describe shape, not health.</h2>
+                    <p class="dash-editorial__body">
+                        <strong>Carrier count</strong> measures network reach; it says nothing about whether those
+                        carriers
+                        are performing. A carrier can be active and still be failing its lanes — the signals for that
+                        live
+                        further down this plane, under route performance and open exceptions.
+                    </p>
+                    <p class="dash-editorial__body">
+                        <strong>Route count</strong> should be read against the region's declared capacity, not against
+                        customer demand. A region can carry more routes than it was sized for, and the only way to know
+                        is
+                        to compare the split here with the capacity envelope in Regional Capacity.
+                    </p>
+                    <p class="dash-editorial__body">
+                        <strong>Open exceptions</strong> is the one figure on this row that is not a count — it is a
+                        backlog.
+                        It is the only number that, when it goes up, means someone on the compliance desk is behind.
+                        Read it first.
+                    </p>
+                </div>
+
+                <!-- Recent network activity -->
+                <div class="dash-card">
+                    <div class="dash-card__head">
+                        <h2 class="dash-card__title">
+                            <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+                            Recent network activity
+                        </h2>
+                        <span class="dash-card__meta">
+                            <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                            Last 4 events
+                        </span>
+                    </div>
+
+                    <ul class="dash-list">
+                        <li class="dash-list__item">
+                            <i class="fa-solid fa-circle-check dash-list__icon dash-list__icon--ok"
+                                aria-hidden="true"></i>
+                            <div>
+                                <p class="dash-list__title">Carrier Northwind Express onboarded</p>
+                                <p class="dash-list__meta">
+                                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                                    South region · 6 routes activated
+                                </p>
+                            </div>
+                            <span class="dash-list__val">2H AGO</span>
+                        </li>
+                        <li class="dash-list__item">
+                            <i class="fa-solid fa-circle-info dash-list__icon" aria-hidden="true"></i>
+                            <div>
+                                <p class="dash-list__title">Route SLM–BLR–04 duplicated to new corridor</p>
+                                <p class="dash-list__meta">
+                                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                                    South region · Schedule cloned
+                                </p>
+                            </div>
+                            <span class="dash-list__val">5H AGO</span>
+                        </li>
+                        <li class="dash-list__item">
+                            <i class="fa-solid fa-triangle-exclamation dash-list__icon dash-list__icon--warn"
+                                aria-hidden="true"></i>
+                            <div>
+                                <p class="dash-list__title">Carrier Logistix flagged for delayed dispatch</p>
+                                <p class="dash-list__meta">
+                                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                                    East region · Under review
+                                </p>
+                            </div>
+                            <span class="dash-list__val">YESTERDAY</span>
+                        </li>
+                        <li class="dash-list__item">
+                            <i class="fa-solid fa-circle-exclamation dash-list__icon dash-list__icon--alert"
+                                aria-hidden="true"></i>
+                            <div>
+                                <p class="dash-list__title">Exception EXC-042 raised — carrier credential expired</p>
+                                <p class="dash-list__meta">
+                                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                                    West region · Awaiting review
+                                </p>
+                            </div>
+                            <span class="dash-list__val">2D AGO</span>
+                        </li>
+                    </ul>
+
+                    <div class="dash-btn-row">
+                        <a class="dash-btn dash-btn--primary" href="../404.html">
+                            Open activity log <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                        <a class="dash-btn" href="../404.html">
+                            <i class="fa-solid fa-file-export" aria-hidden="true"></i> Export network report
+                        </a>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ============================================================
+         PANEL 2 — CARRIER MANAGEMENT
+         ============================================================ -->
+            <section class="dash-panel" data-panel="carriers" aria-labelledby="cr-title">
+
+                <header class="dash-panel__head">
+                    <span class="dash-panel__eyebrow">
+                        <i class="fa-solid fa-handshake" aria-hidden="true"></i>
+                        Carrier Management
+                    </span>
+                    <h1 class="dash-panel__title" id="cr-title">Every carrier under contract.</h1>
+                    <p class="dash-panel__lead">
+                        Carrier roster, verification status, and volume per carrier for the
+                        current quarter.
+                    </p>
+                </header>
+
+                <p class="dash-note">
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    <span>Figures shown are illustrative placeholders. No live platform data is connected.</span>
+                </p>
+
+                <div class="kpi-row">
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-truck-fast" aria-hidden="true"></i>
+                            Total Carriers
+                        </span>
+                        <span class="kpi__val"><span data-count="64">64</span></span>
+                        <span class="kpi__delta kpi__delta--neutral"><i class="fa-solid fa-server"
+                                aria-hidden="true"></i> On platform</span>
+                    </div>
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                            Verified
+                        </span>
+                        <span class="kpi__val"><span data-count="58">58</span></span>
+                        <span class="kpi__delta"><i class="fa-solid fa-check" aria-hidden="true"></i> Credentials
+                            valid</span>
+                    </div>
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-hourglass-half" aria-hidden="true"></i>
+                            Pending Review
+                        </span>
+                        <span class="kpi__val"><span data-count="4">4</span></span>
+                        <span class="kpi__delta kpi__delta--warn"><i class="fa-solid fa-file-lines"
+                                aria-hidden="true"></i> Docs in queue</span>
+                    </div>
+                    <div class="kpi kpi--alert">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-ban" aria-hidden="true"></i>
+                            Suspended
+                        </span>
+                        <span class="kpi__val"><span data-count="2">2</span></span>
+                        <span class="kpi__delta kpi__delta--alert"><i class="fa-solid fa-scale-balanced"
+                                aria-hidden="true"></i> Policy violations</span>
+                    </div>
+                </div>
+
+                <div class="dash-2col--wide dash-2col">
+
+                    <!-- Bar chart: carrier volume -->
+                    <div class="dash-card">
+                        <div class="dash-card__head">
+                            <h2 class="dash-card__title">
+                                <i class="fa-solid fa-chart-column" aria-hidden="true"></i>
+                                Volume by carrier
+                            </h2>
+                            <span class="dash-card__meta">
+                                <i class="fa-solid fa-trophy" aria-hidden="true"></i>
+                                Top 6 · current quarter
+                            </span>
+                        </div>
+
+                        <figure class="chart" role="img"
+                            aria-label="Bar chart of shipment volume for the top six carriers">
+                            <div class="bar-chart" aria-hidden="true">
+                                <div class="bar-col">
+                                    <span class="bar-col__fill" style="--h:92%"></span>
+                                    <span class="bar-col__label">Northwind</span>
+                                </div>
+                                <div class="bar-col">
+                                    <span class="bar-col__fill" style="--h:78%"></span>
+                                    <span class="bar-col__label">Logistix</span>
+                                </div>
+                                <div class="bar-col">
+                                    <span class="bar-col__fill" style="--h:68%"></span>
+                                    <span class="bar-col__label">CargoFlow</span>
+                                </div>
+                                <div class="bar-col">
+                                    <span class="bar-col__fill" style="--h:54%"></span>
+                                    <span class="bar-col__label">Express</span>
+                                </div>
+                                <div class="bar-col">
+                                    <span class="bar-col__fill bar-col__fill--alt" style="--h:42%"></span>
+                                    <span class="bar-col__label">Harbour</span>
+                                </div>
+                                <div class="bar-col">
+                                    <span class="bar-col__fill bar-col__fill--alt" style="--h:34%"></span>
+                                    <span class="bar-col__label">Others</span>
+                                </div>
+                            </div>
+
+                            <ul class="chart-legend">
+                                <li><i class="k1" aria-hidden="true"></i> Top tier</li>
+                                <li><i class="k3" aria-hidden="true"></i> Mid tier</li>
+                            </ul>
+
+                            <figcaption class="sr-only"
+                                style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">
+                                <table>
+                                    <caption>Shipment volume by carrier, current quarter</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Carrier</th>
+                                            <th scope="col">Indexed volume</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Northwind Express</th>
+                                            <td>92</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Logistix</th>
+                                            <td>78</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">CargoFlow</th>
+                                            <td>68</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Express Freight</th>
+                                            <td>54</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Harbour Logistics</th>
+                                            <td>42</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Others</th>
+                                            <td>34</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Ring chart: verification rate -->
+                    <div class="dash-card">
+                        <div class="dash-card__head">
+                            <h2 class="dash-card__title">
+                                <i class="fa-solid fa-id-badge" aria-hidden="true"></i>
+                                Verification rate
+                            </h2>
+                            <span class="dash-card__meta">
+                                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                                Credentials valid
+                            </span>
+                        </div>
+
+                        <figure class="chart" role="img"
+                            aria-label="Radial ring showing carrier verification rate at 91 percent">
+                            <div class="ring-chart" aria-hidden="true">
+                                <svg viewBox="0 0 160 160">
+                                    <circle class="track" cx="80" cy="80" r="62" />
+                                    <circle class="fill" id="verifyRing" cx="80" cy="80" r="62" stroke-dasharray="389.6"
+                                        stroke-dashoffset="389.6" transform="rotate(-90 80 80)" />
+                                </svg>
+                                <div class="ring-chart__center">
+                                    <span class="ring-chart__num" id="verifyNum">0</span>
+                                    <span class="ring-chart__unit">% Verified</span>
+                                </div>
+                            </div>
+
+                            <ul class="chart-legend">
+                                <li><i class="k1" aria-hidden="true"></i> Verified · 58</li>
+                                <li><i class="k4" aria-hidden="true"></i> Pending · 6</li>
+                            </ul>
+
+                            <figcaption class="sr-only"
+                                style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">
+                                <table>
+                                    <caption>Carrier verification rate</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">State</th>
+                                            <th scope="col">Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Verified</th>
+                                            <td>58</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Pending / suspended</th>
+                                            <td>6</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                </div>
+
+                <!-- Carrier table -->
+                <div class="dash-card">
+                    <div class="dash-card__head">
+                        <h2 class="dash-card__title">
+                            <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+                            Carrier roster
+                        </h2>
+                        <span class="dash-card__meta">
+                            <i class="fa-solid fa-truck-fast" aria-hidden="true"></i>
+                            64 total
+                        </span>
+                    </div>
+
+                    <div class="dash-table-wrap">
+                        <table class="dash-table">
+                            <caption style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">
+                                Carrier roster with region, status, and on-time rate
+                            </caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i>Carrier
+                                    </th>
+                                    <th scope="col"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>Region
+                                    </th>
+                                    <th scope="col"><i class="fa-solid fa-signal" aria-hidden="true"></i>Status</th>
+                                    <th scope="col"><i class="fa-solid fa-clock" aria-hidden="true"></i>On-Time</th>
+                                    <th scope="col"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>Verified
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Northwind Express</td>
+                                    <td>South</td>
+                                    <td><span class="status status--ok"><i class="fa-solid fa-circle-check"
+                                                aria-hidden="true"></i>Active</span></td>
+                                    <td>98%</td>
+                                    <td><i class="fa-solid fa-circle-check" style="color:#4FBF7A"
+                                            aria-hidden="true"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Logistix</td>
+                                    <td>East</td>
+                                    <td><span class="status status--warn"><i class="fa-solid fa-triangle-exclamation"
+                                                aria-hidden="true"></i>Under review</span></td>
+                                    <td>84%</td>
+                                    <td><i class="fa-solid fa-circle-check" style="color:#4FBF7A"
+                                            aria-hidden="true"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>CargoFlow</td>
+                                    <td>West</td>
+                                    <td><span class="status status--ok"><i class="fa-solid fa-circle-check"
+                                                aria-hidden="true"></i>Active</span></td>
+                                    <td>96%</td>
+                                    <td><i class="fa-solid fa-circle-check" style="color:#4FBF7A"
+                                            aria-hidden="true"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Express Freight</td>
+                                    <td>South</td>
+                                    <td><span class="status status--ok"><i class="fa-solid fa-circle-check"
+                                                aria-hidden="true"></i>Active</span></td>
+                                    <td>97%</td>
+                                    <td><i class="fa-solid fa-circle-check" style="color:#4FBF7A"
+                                            aria-hidden="true"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Harbour Logistics</td>
+                                    <td>West</td>
+                                    <td><span class="status status--ok"><i class="fa-solid fa-circle-check"
+                                                aria-hidden="true"></i>Active</span></td>
+                                    <td>94%</td>
+                                    <td><i class="fa-solid fa-circle-check" style="color:#4FBF7A"
+                                            aria-hidden="true"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Meridian Transport</td>
+                                    <td>North</td>
+                                    <td><span class="status status--alert"><i class="fa-solid fa-circle-exclamation"
+                                                aria-hidden="true"></i>Exception</span></td>
+                                    <td>71%</td>
+                                    <td><i class="fa-solid fa-circle-check" style="color:#4FBF7A"
+                                            aria-hidden="true"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Vellore Lines</td>
+                                    <td>South</td>
+                                    <td><span class="status status--ok"><i class="fa-solid fa-circle-check"
+                                                aria-hidden="true"></i>Active</span></td>
+                                    <td>95%</td>
+                                    <td><i class="fa-solid fa-circle-check" style="color:#4FBF7A"
+                                            aria-hidden="true"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Coastal Freight</td>
+                                    <td>East</td>
+                                    <td><span class="status status--warn"><i class="fa-solid fa-hourglass-half"
+                                                aria-hidden="true"></i>Pending docs</span></td>
+                                    <td>—</td>
+                                    <td><i class="fa-solid fa-circle-xmark" style="color:#E05C5C"
+                                            aria-hidden="true"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="dash-btn-row">
+                        <a class="dash-btn dash-btn--primary" href="../404.html">
+                            <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                            Open carrier record
+                        </a>
+                        <a class="dash-btn" href="../404.html">
+                            <i class="fa-solid fa-file-export" aria-hidden="true"></i> Export carrier list
+                        </a>
+                        <a class="dash-btn dash-btn--alert" href="../404.html">
+                            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Review suspensions
+                        </a>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ============================================================
+         PANEL 3 — ROUTE NETWORK
+         ============================================================ -->
+            <section class="dash-panel" data-panel="routes" aria-labelledby="rt-title">
+
+                <header class="dash-panel__head">
+                    <span class="dash-panel__eyebrow">
+                        <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+                        Route Network
+                    </span>
+                    <h1 class="dash-panel__title" id="rt-title">Where the network flows.</h1>
+                    <p class="dash-panel__lead">
+                        Route performance, daily dispatch volume, and network utilisation.
+                    </p>
+                </header>
+
+                <p class="dash-note">
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    <span>Figures shown are illustrative placeholders. No live platform data is connected.</span>
+                </p>
+
+                <div class="kpi-row">
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-route" aria-hidden="true"></i>
+                            Total Routes
+                        </span>
+                        <span class="kpi__val"><span data-count="412">412</span></span>
+                        <span class="kpi__delta kpi__delta--neutral"><i class="fa-solid fa-globe"
+                                aria-hidden="true"></i> Across 6 regions</span>
+                    </div>
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-ruler-horizontal" aria-hidden="true"></i>
+                            Avg Route Length
+                        </span>
+                        <span class="kpi__val"><span data-count="284">284</span><span class="kpi__unit">km</span></span>
+                        <span class="kpi__delta"><i class="fa-solid fa-arrow-down" aria-hidden="true"></i> 12 km vs last
+                            quarter</span>
+                    </div>
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-truck-fast" aria-hidden="true"></i>
+                            Daily Dispatches
+                        </span>
+                        <span class="kpi__val"><span data-count="1284">1,284</span></span>
+                        <span class="kpi__delta"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i> 4.2% vs last
+                            week</span>
+                    </div>
+                    <div class="kpi kpi--alert">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                            Deviating Routes
+                        </span>
+                        <span class="kpi__val"><span data-count="6">6</span></span>
+                        <span class="kpi__delta kpi__delta--alert"><i class="fa-solid fa-circle-exclamation"
+                                aria-hidden="true"></i> Beyond threshold</span>
+                    </div>
+                </div>
+
+                <div class="dash-2col--wide dash-2col">
+
+                    <!-- Line chart: daily dispatch volume -->
+                    <div class="dash-card">
+                        <div class="dash-card__head">
+                            <h2 class="dash-card__title">
+                                <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                                Daily dispatch volume
+                            </h2>
+                            <span class="dash-card__meta">
+                                <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                                Last 14 days
+                            </span>
+                        </div>
+
+                        <figure class="chart" role="img"
+                            aria-label="Line chart of daily dispatch volume over the last fourteen days">
+                            <div class="line-chart">
+                                <svg viewBox="0 0 560 180" preserveAspectRatio="none">
+                                    <defs>
+                                        <pattern id="rtGrid" width="40" height="36" patternUnits="userSpaceOnUse">
+                                            <path d="M40 0H0V36" fill="none" class="grid-line" />
+                                        </pattern>
+                                    </defs>
+
+                                    <rect width="560" height="180" fill="url(#rtGrid)" />
+                                    <line class="axis-line" x1="0" y1="150" x2="560" y2="150" />
+
+                                    <path class="area-fill"
+                                        d="M0,100 L40,92 L80,106 L120,84 L160,90 L200,72 L240,78 L280,64 L320,70 L360,56 L400,60 L440,48 L480,54 L520,42 L560,36 L560,150 L0,150 Z" />
+                                    <polyline class="line-path"
+                                        points="0,100 40,92 80,106 120,84 160,90 200,72 240,78 280,64 320,70 360,56 400,60 440,48 480,54 520,42 560,36" />
+                                    <circle class="end-dot" cx="560" cy="36" r="5" />
+                                </svg>
+
+                                <div class="x-labels" aria-hidden="true">
+                                    <span>D-14</span><span>D-10</span><span>D-7</span><span>D-3</span><span>Today</span>
+                                </div>
+                            </div>
+
+                            <figcaption class="sr-only"
+                                style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">
+                                <table>
+                                    <caption>Daily dispatch volume, last fourteen days</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Day</th>
+                                            <th scope="col">Dispatches</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">D-14</th>
+                                            <td>1,168</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">D-10</th>
+                                            <td>1,212</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">D-7</th>
+                                            <td>1,236</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">D-3</th>
+                                            <td>1,268</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Today</th>
+                                            <td>1,284</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Ring chart: network utilisation -->
+                    <div class="dash-card">
+                        <div class="dash-card__head">
+                            <h2 class="dash-card__title">
+                                <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
+                                Network utilisation
+                            </h2>
+                            <span class="dash-card__meta">
+                                <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+                                Capacity in use
+                            </span>
+                        </div>
+
+                        <figure class="chart" role="img"
+                            aria-label="Radial ring showing network utilisation at 76 percent">
+                            <div class="ring-chart" aria-hidden="true">
+                                <svg viewBox="0 0 160 160">
+                                    <circle class="track" cx="80" cy="80" r="62" />
+                                    <circle class="fill" id="netUtilRing" cx="80" cy="80" r="62"
+                                        stroke-dasharray="389.6" stroke-dashoffset="389.6"
+                                        transform="rotate(-90 80 80)" />
+                                </svg>
+                                <div class="ring-chart__center">
+                                    <span class="ring-chart__num" id="netUtilNum">0</span>
+                                    <span class="ring-chart__unit">% Utilised</span>
+                                </div>
+                            </div>
+
+                            <ul class="chart-legend">
+                                <li><i class="k1" aria-hidden="true"></i> Utilised · 76%</li>
+                                <li><i class="k4" aria-hidden="true"></i> Headroom · 24%</li>
+                            </ul>
+
+                            <figcaption class="sr-only"
+                                style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">
+                                <table>
+                                    <caption>Network utilisation</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">State</th>
+                                            <th scope="col">Percent</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Utilised</th>
+                                            <td>76%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Headroom</th>
+                                            <td>24%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                </div>
+
+                <!-- Horizontal bars: route performance -->
+                <div class="dash-card">
+                    <div class="dash-card__head">
+                        <h2 class="dash-card__title">
+                            <i class="fa-solid fa-ranking-star" aria-hidden="true"></i>
+                            Route performance
+                        </h2>
+                        <span class="dash-card__meta">
+                            <i class="fa-solid fa-trophy" aria-hidden="true"></i>
+                            Top 6 by volume
+                        </span>
+                    </div>
+
+                    <div class="h-bars">
+                        <div class="h-bar">
+                            <div class="h-bar__head">
+                                <span class="h-bar__name">SLM <i class="fa-solid fa-arrow-right-long"
+                                        aria-hidden="true"></i> BLR · 04</span>
+                                <span class="h-bar__val">98%</span>
+                            </div>
+                            <span class="h-bar__track"><span class="h-bar__fill" style="--w:98%"></span></span>
+                        </div>
+                        <div class="h-bar">
+                            <div class="h-bar__head">
+                                <span class="h-bar__name">BLR <i class="fa-solid fa-arrow-right-long"
+                                        aria-hidden="true"></i> PUN · 11</span>
+                                <span class="h-bar__val">96%</span>
+                            </div>
+                            <span class="h-bar__track"><span class="h-bar__fill" style="--w:96%"></span></span>
+                        </div>
+                        <div class="h-bar">
+                            <div class="h-bar__head">
+                                <span class="h-bar__name">CHN <i class="fa-solid fa-arrow-right-long"
+                                        aria-hidden="true"></i> HYD · 07</span>
+                                <span class="h-bar__val">94%</span>
+                            </div>
+                            <span class="h-bar__track"><span class="h-bar__fill" style="--w:94%"></span></span>
+                        </div>
+                        <div class="h-bar">
+                            <div class="h-bar__head">
+                                <span class="h-bar__name">CBE <i class="fa-solid fa-arrow-right-long"
+                                        aria-hidden="true"></i> KOC · 02</span>
+                                <span class="h-bar__val">86%</span>
+                            </div>
+                            <span class="h-bar__track"><span class="h-bar__fill h-bar__fill--alt"
+                                    style="--w:86%"></span></span>
+                        </div>
+                        <div class="h-bar">
+                            <div class="h-bar__head">
+                                <span class="h-bar__name">MDU <i class="fa-solid fa-arrow-right-long"
+                                        aria-hidden="true"></i> TRZ · 09</span>
+                                <span class="h-bar__val h-bar__val--alert">78%</span>
+                            </div>
+                            <span class="h-bar__track"><span class="h-bar__fill h-bar__fill--alert"
+                                    style="--w:78%"></span></span>
+                        </div>
+                        <div class="h-bar">
+                            <div class="h-bar__head">
+                                <span class="h-bar__name">SLM <i class="fa-solid fa-arrow-right-long"
+                                        aria-hidden="true"></i> CHN · 01</span>
+                                <span class="h-bar__val h-bar__val--alert">71%</span>
+                            </div>
+                            <span class="h-bar__track"><span class="h-bar__fill h-bar__fill--alert"
+                                    style="--w:71%"></span></span>
+                        </div>
+                    </div>
+
+                    <div class="dash-btn-row">
+                        <a class="dash-btn dash-btn--primary" href="../404.html">
+                            <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i>
+                            Open route network
+                        </a>
+                        <a class="dash-btn" href="../404.html">
+                            <i class="fa-solid fa-file-export" aria-hidden="true"></i> Export route report
+                        </a>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ============================================================
+         PANEL 4 — COMPLIANCE & AUDIT
+         ============================================================ -->
+            <section class="dash-panel" data-panel="compliance" aria-labelledby="cp-title">
+
+                <header class="dash-panel__head">
+                    <span class="dash-panel__eyebrow">
+                        <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                        Compliance &amp; Audit
+                    </span>
+                    <h1 class="dash-panel__title" id="cp-title">What the audit shows.</h1>
+                    <p class="dash-panel__lead">
+                        Open exceptions, exception categories, and the current compliance score
+                        across the platform.
+                    </p>
+                </header>
+
+                <p class="dash-note">
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    <span>Figures shown are illustrative placeholders. No live platform data is connected.</span>
+                </p>
+
+                <div class="kpi-row">
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-clipboard-list" aria-hidden="true"></i>
+                            Audit Events
+                        </span>
+                        <span class="kpi__val"><span data-count="842">842</span></span>
+                        <span class="kpi__delta kpi__delta--neutral"><i class="fa-regular fa-clock"
+                                aria-hidden="true"></i> Last 30 days</span>
+                    </div>
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                            Resolved
+                        </span>
+                        <span class="kpi__val"><span data-count="831">831</span></span>
+                        <span class="kpi__delta"><i class="fa-solid fa-check" aria-hidden="true"></i> 98.7%
+                            closure</span>
+                    </div>
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
+                            Open Exceptions
+                        </span>
+                        <span class="kpi__val"><span data-count="11">11</span></span>
+                        <span class="kpi__delta kpi__delta--warn"><i class="fa-solid fa-hourglass-half"
+                                aria-hidden="true"></i> 3 awaiting review</span>
+                    </div>
+                    <div class="kpi kpi--alert">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-bell" aria-hidden="true"></i>
+                            Overdue
+                        </span>
+                        <span class="kpi__val"><span data-count="2">2</span></span>
+                        <span class="kpi__delta kpi__delta--alert">
+                            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Beyond SLA
+                        </span>
+                    </div>
+                </div>
+
+                <div class="dash-2col--wide dash-2col">
+
+                    <!-- Pie chart: exception categories -->
+                    <div class="dash-card">
+                        <div class="dash-card__head">
+                            <h2 class="dash-card__title">
+                                <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
+                                Exception categories
+                            </h2>
+                            <span class="dash-card__meta">
+                                <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
+                                11 open
+                            </span>
+                        </div>
+
+                        <figure class="chart" role="img"
+                            aria-label="Pie chart of exception categories: credentials 36 percent, policy 27 percent, contract 18 percent, other 19 percent">
+                            <div class="pie-chart" aria-hidden="true">
+                                <svg viewBox="0 0 160 160">
+                                    <path class="slice slice-1" d="M80,80 L80,20 A60,60 0 0,1 137.9,68.1 Z" />
+                                    <path class="slice slice-2" d="M80,80 L137.9,68.1 A60,60 0 0,1 118.4,127.8 Z" />
+                                    <path class="slice slice-3" d="M80,80 L118.4,127.8 A60,60 0 0,1 41.6,127.8 Z" />
+                                    <path class="slice slice-4" d="M80,80 L41.6,127.8 A60,60 0 0,1 80,20 Z" />
+                                </svg>
+                                <div class="pie-chart__center">
+                                    <span class="pie-chart__num">11</span>
+                                    <span class="pie-chart__unit">Open</span>
+                                </div>
+                            </div>
+
+                            <ul class="chart-legend">
+                                <li><i class="k1" aria-hidden="true"></i> Credentials 36%</li>
+                                <li><i class="k2" aria-hidden="true"></i> Policy 27%</li>
+                                <li><i class="k3" aria-hidden="true"></i> Contract 18%</li>
+                                <li><i class="k4" aria-hidden="true"></i> Other 19%</li>
+                            </ul>
+
+                            <figcaption class="sr-only"
+                                style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">
+                                <table>
+                                    <caption>Open exceptions by category</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">Share</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Credentials</th>
+                                            <td>36%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Policy</th>
+                                            <td>27%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Contract</th>
+                                            <td>18%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Other</th>
+                                            <td>19%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Ring chart: compliance score -->
+                    <div class="dash-card">
+                        <div class="dash-card__head">
+                            <h2 class="dash-card__title">
+                                <i class="fa-solid fa-award" aria-hidden="true"></i>
+                                Compliance score
+                            </h2>
+                            <span class="dash-card__meta">
+                                <i class="fa-solid fa-globe" aria-hidden="true"></i>
+                                Platform-wide
+                            </span>
+                        </div>
+
+                        <figure class="chart" role="img"
+                            aria-label="Radial ring showing platform compliance score at 88 percent">
+                            <div class="ring-chart" aria-hidden="true">
+                                <svg viewBox="0 0 160 160">
+                                    <circle class="track" cx="80" cy="80" r="62" />
+                                    <circle class="fill" id="complianceRing" cx="80" cy="80" r="62"
+                                        stroke-dasharray="389.6" stroke-dashoffset="389.6"
+                                        transform="rotate(-90 80 80)" />
+                                </svg>
+                                <div class="ring-chart__center">
+                                    <span class="ring-chart__num" id="complianceNum">0</span>
+                                    <span class="ring-chart__unit">/ 100 Score</span>
+                                </div>
+                            </div>
+
+                            <ul class="chart-legend">
+                                <li><i class="k1" aria-hidden="true"></i> Compliant · 88</li>
+                                <li><i class="k4" aria-hidden="true"></i> Gap · 12</li>
+                            </ul>
+
+                            <figcaption class="sr-only"
+                                style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">
+                                <table>
+                                    <caption>Platform compliance score</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">State</th>
+                                            <th scope="col">Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Compliant</th>
+                                            <td>88</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Gap</th>
+                                            <td>12</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                </div>
+
+                <!-- Open exceptions table -->
+                <div class="dash-card">
+                    <div class="dash-card__head">
+                        <h2 class="dash-card__title">
+                            <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
+                            Open exceptions
+                        </h2>
+                        <span class="dash-card__meta">
+                            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                            11 open · 2 overdue
+                        </span>
+                    </div>
+
+                    <div class="dash-table-wrap">
+                        <table class="dash-table">
+                            <caption style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">
+                                Open compliance exceptions with category, owner, and status
+                            </caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col"><i class="fa-solid fa-hashtag" aria-hidden="true"></i>Exception</th>
+                                    <th scope="col"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i>Carrier
+                                    </th>
+                                    <th scope="col"><i class="fa-solid fa-folder-open" aria-hidden="true"></i>Category
+                                    </th>
+                                    <th scope="col"><i class="fa-solid fa-user-shield" aria-hidden="true"></i>Owner</th>
+                                    <th scope="col"><i class="fa-solid fa-signal" aria-hidden="true"></i>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>EXC-042 · Expired credential</td>
+                                    <td>Meridian Transport</td>
+                                    <td>Credentials</td>
+                                    <td>Platform Security</td>
+                                    <td><span class="status status--alert"><i class="fa-solid fa-bell"
+                                                aria-hidden="true"></i>Overdue</span></td>
+                                </tr>
+                                <tr>
+                                    <td>EXC-041 · Policy deviation</td>
+                                    <td>Coastal Freight</td>
+                                    <td>Policy</td>
+                                    <td>Compliance</td>
+                                    <td><span class="status status--warn"><i class="fa-solid fa-hourglass-half"
+                                                aria-hidden="true"></i>In progress</span></td>
+                                </tr>
+                                <tr>
+                                    <td>EXC-039 · Missing contract</td>
+                                    <td>Logistix</td>
+                                    <td>Contract</td>
+                                    <td>Legal</td>
+                                    <td><span class="status status--warn"><i class="fa-solid fa-hourglass-half"
+                                                aria-hidden="true"></i>In progress</span></td>
+                                </tr>
+                                <tr>
+                                    <td>EXC-038 · Unverified vehicle</td>
+                                    <td>Harbour Logistics</td>
+                                    <td>Credentials</td>
+                                    <td>Platform Security</td>
+                                    <td><span class="status status--warn"><i class="fa-solid fa-hourglass-half"
+                                                aria-hidden="true"></i>In progress</span></td>
+                                </tr>
+                                <tr>
+                                    <td>EXC-036 · Route deviation</td>
+                                    <td>Express Freight</td>
+                                    <td>Policy</td>
+                                    <td>Operations</td>
+                                    <td><span class="status status--neutral"><i class="fa-solid fa-eye"
+                                                aria-hidden="true"></i>Awaiting review</span></td>
+                                </tr>
+                                <tr>
+                                    <td>EXC-034 · Late compliance filing</td>
+                                    <td>Vellore Lines</td>
+                                    <td>Contract</td>
+                                    <td>Compliance</td>
+                                    <td><span class="status status--ok"><i class="fa-solid fa-circle-check"
+                                                aria-hidden="true"></i>Resolved</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="dash-btn-row">
+                        <a class="dash-btn dash-btn--primary" href="../404.html">
+                            <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                            Open exception record
+                        </a>
+                        <a class="dash-btn" href="../404.html">
+                            <i class="fa-solid fa-file-export" aria-hidden="true"></i> Export audit log
+                        </a>
+                        <a class="dash-btn dash-btn--alert" href="../404.html">
+                            <i class="fa-solid fa-bell" aria-hidden="true"></i> Review overdue
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Recent audit log -->
+                <div class="dash-card">
+                    <div class="dash-card__head">
+                        <h2 class="dash-card__title">
+                            <i class="fa-solid fa-clipboard-list" aria-hidden="true"></i>
+                            Recent audit log
+                        </h2>
+                        <span class="dash-card__meta">
+                            <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                            Last 4 entries
+                        </span>
+                    </div>
+
+                    <ul class="dash-list">
+                        <li class="dash-list__item">
+                            <i class="fa-solid fa-circle-exclamation dash-list__icon dash-list__icon--alert"
+                                aria-hidden="true"></i>
+                            <div>
+                                <p class="dash-list__title">Exception EXC-042 raised — carrier credential expired</p>
+                                <p class="dash-list__meta">
+                                    <i class="fa-solid fa-robot" aria-hidden="true"></i>
+                                    MERIDIAN TRANSPORT · AUTOMATED CHECK
+                                </p>
+                            </div>
+                            <span class="dash-list__val dash-list__val--alert">OVERDUE</span>
+                        </li>
+                        <li class="dash-list__item">
+                            <i class="fa-solid fa-triangle-exclamation dash-list__icon dash-list__icon--warn"
+                                aria-hidden="true"></i>
+                            <div>
+                                <p class="dash-list__title">Carrier Logistix placed under policy review</p>
+                                <p class="dash-list__meta">
+                                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                                    EAST REGION · COMPLIANCE DESK
+                                </p>
+                            </div>
+                            <span class="dash-list__val">3D AGO</span>
+                        </li>
+                        <li class="dash-list__item">
+                            <i class="fa-solid fa-circle-check dash-list__icon dash-list__icon--ok"
+                                aria-hidden="true"></i>
+                            <div>
+                                <p class="dash-list__title">Quarterly coverage review published</p>
+                                <p class="dash-list__meta">
+                                    <i class="fa-solid fa-globe" aria-hidden="true"></i>
+                                    ALL REGIONS · COMPLIANCE
+                                </p>
+                            </div>
+                            <span class="dash-list__val">5D AGO</span>
+                        </li>
+                        <li class="dash-list__item">
+                            <i class="fa-solid fa-circle-info dash-list__icon" aria-hidden="true"></i>
+                            <div>
+                                <p class="dash-list__title">Audit export generated for external review</p>
+                                <p class="dash-list__meta">
+                                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                                    WEST REGION · PLATFORM SECURITY
+                                </p>
+                            </div>
+                            <span class="dash-list__val">7D AGO</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </section>
+
+            <!-- ============================================================
+         PANEL 5 — REGIONAL CAPACITY
+         ============================================================ -->
+            <section class="dash-panel" data-panel="regions" aria-labelledby="rg-title">
+
+                <header class="dash-panel__head">
+                    <span class="dash-panel__eyebrow">
+                        <i class="fa-solid fa-globe" aria-hidden="true"></i>
+                        Regional Capacity
+                    </span>
+                    <h1 class="dash-panel__title" id="rg-title">How close to the envelope.</h1>
+                    <p class="dash-panel__lead">
+                        Dispatch volume per region, current capacity utilisation, and the
+                        headroom available across the network.
+                    </p>
+                </header>
+
+                <p class="dash-note">
+                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                    <span>Figures shown are illustrative placeholders. No live platform data is connected.</span>
+                </p>
+
+                <div class="kpi-row">
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-server" aria-hidden="true"></i>
+                            Regions Online
+                        </span>
+                        <span class="kpi__val"><span data-count="6">6</span></span>
+                        <span class="kpi__delta kpi__delta--neutral"><i class="fa-solid fa-circle-check"
+                                aria-hidden="true"></i> All reporting</span>
+                    </div>
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
+                            Network Load
+                        </span>
+                        <span class="kpi__val"><span data-count="76">76</span><span class="kpi__unit">%</span></span>
+                        <span class="kpi__delta kpi__delta--neutral"><i class="fa-solid fa-chart-simple"
+                                aria-hidden="true"></i> Avg across regions</span>
+                    </div>
+                    <div class="kpi">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
+                            Peak Region
+                        </span>
+                        <span class="kpi__val"><span data-count="92">92</span><span class="kpi__unit">%</span></span>
+                        <span class="kpi__delta kpi__delta--warn"><i class="fa-solid fa-triangle-exclamation"
+                                aria-hidden="true"></i> South · Near envelope</span>
+                    </div>
+                    <div class="kpi kpi--alert">
+                        <span class="kpi__label">
+                            <i class="fa-solid fa-battery-half" aria-hidden="true"></i>
+                            Headroom
+                        </span>
+                        <span class="kpi__val"><span data-count="24">24</span><span class="kpi__unit">%</span></span>
+                        <span class="kpi__delta kpi__delta--alert"><i class="fa-solid fa-circle-exclamation"
+                                aria-hidden="true"></i> Shared across network</span>
+                    </div>
+                </div>
+
+                <div class="dash-2col--wide dash-2col">
+
+                    <!-- Bar chart: dispatch volume per region -->
+                    <div class="dash-card">
+                        <div class="dash-card__head">
+                            <h2 class="dash-card__title">
+                                <i class="fa-solid fa-chart-column" aria-hidden="true"></i>
+                                Dispatch volume by region
+                            </h2>
+                            <span class="dash-card__meta">
+                                <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                                Last 30 days · indexed
+                            </span>
+                        </div>
+
+                        <figure class="chart" role="img"
+                            aria-label="Bar chart of dispatch volume per region: South 92, West 78, East 64, North 54, Central 42, North East 28">
+                            <div class="bar-chart" aria-hidden="true">
+                                <div class="bar-col">
+                                    <span class="bar-col__fill" style="--h:92%"></span>
+                                    <span class="bar-col__label">South</span>
+                                </div>
+                                <div class="bar-col">
+                                    <span class="bar-col__fill" style="--h:78%"></span>
+                                    <span class="bar-col__label">West</span>
+                                </div>
+                                <div class="bar-col">
+                                    <span class="bar-col__fill" style="--h:64%"></span>
+                                    <span class="bar-col__label">East</span>
+                                </div>
+                                <div class="bar-col">
+                                    <span class="bar-col__fill" style="--h:54%"></span>
+                                    <span class="bar-col__label">North</span>
+                                </div>
+                                <div class="bar-col">
+                                    <span class="bar-col__fill bar-col__fill--alt" style="--h:42%"></span>
+                                    <span class="bar-col__label">Central</span>
+                                </div>
+                                <div class="bar-col">
+                                    <span class="bar-col__fill bar-col__fill--alt" style="--h:28%"></span>
+                                    <span class="bar-col__label">NE</span>
+                                </div>
+                            </div>
+
+                            <ul class="chart-legend">
+                                <li><i class="k1" aria-hidden="true"></i> Core regions</li>
+                                <li><i class="k3" aria-hidden="true"></i> Emerging regions</li>
+                            </ul>
+
+                            <figcaption class="sr-only"
+                                style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">
+                                <table>
+                                    <caption>Dispatch volume per region, last thirty days</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Region</th>
+                                            <th scope="col">Indexed volume</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">South</th>
+                                            <td>92</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">West</th>
+                                            <td>78</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">East</th>
+                                            <td>64</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">North</th>
+                                            <td>54</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Central</th>
+                                            <td>42</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">North East</th>
+                                            <td>28</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                    <!-- Ring chart: overall capacity -->
+                    <div class="dash-card">
+                        <div class="dash-card__head">
+                            <h2 class="dash-card__title">
+                                <i class="fa-solid fa-gauge-high" aria-hidden="true"></i>
+                                Overall capacity
+                            </h2>
+                            <span class="dash-card__meta">
+                                <i class="fa-solid fa-network-wired" aria-hidden="true"></i>
+                                Network-wide
+                            </span>
+                        </div>
+
+                        <figure class="chart" role="img"
+                            aria-label="Radial ring showing overall network capacity utilisation at 76 percent">
+                            <div class="ring-chart" aria-hidden="true">
+                                <svg viewBox="0 0 160 160">
+                                    <circle class="track" cx="80" cy="80" r="62" />
+                                    <circle class="fill" id="capacityRing" cx="80" cy="80" r="62"
+                                        stroke-dasharray="389.6" stroke-dashoffset="389.6"
+                                        transform="rotate(-90 80 80)" />
+                                </svg>
+                                <div class="ring-chart__center">
+                                    <span class="ring-chart__num" id="capacityNum">0</span>
+                                    <span class="ring-chart__unit">% In use</span>
+                                </div>
+                            </div>
+
+                            <ul class="chart-legend">
+                                <li><i class="k1" aria-hidden="true"></i> In use · 76%</li>
+                                <li><i class="k4" aria-hidden="true"></i> Available · 24%</li>
+                            </ul>
+
+                            <figcaption class="sr-only"
+                                style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">
+                                <table>
+                                    <caption>Overall network capacity</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">State</th>
+                                            <th scope="col">Percent</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">In use</th>
+                                            <td>76%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Available</th>
+                                            <td>24%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </figcaption>
+                        </figure>
+                    </div>
+
+                </div>
+
+                <!-- Progress bars: capacity per region -->
+                <div class="dash-card">
+                    <div class="dash-card__head">
+                        <h2 class="dash-card__title">
+                            <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+                            Capacity per region
+                        </h2>
+                        <span class="dash-card__meta">
+                            <i class="fa-solid fa-scale-balanced" aria-hidden="true"></i>
+                            Current load vs declared envelope
+                        </span>
+                    </div>
+
+                    <div class="progress-list">
+                        <div class="progress-item">
+                            <div class="progress-item__head">
+                                <span class="progress-item__name"><i class="fa-solid fa-location-dot"
+                                        aria-hidden="true"></i>South</span>
+                                <span class="progress-item__pct progress-item__pct--warn">92%</span>
+                            </div>
+                            <span class="progress-item__track"><span
+                                    class="progress-item__fill progress-item__fill--warn" style="--w:92%"></span></span>
+                            <span class="progress-item__meta"><i class="fa-solid fa-triangle-exclamation"
+                                    aria-hidden="true"></i>Near envelope · 8% headroom</span>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-item__head">
+                                <span class="progress-item__name"><i class="fa-solid fa-location-dot"
+                                        aria-hidden="true"></i>West</span>
+                                <span class="progress-item__pct">78%</span>
+                            </div>
+                            <span class="progress-item__track"><span class="progress-item__fill"
+                                    style="--w:78%"></span></span>
+                            <span class="progress-item__meta"><i class="fa-solid fa-circle-check"
+                                    aria-hidden="true"></i>Healthy · 22% headroom</span>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-item__head">
+                                <span class="progress-item__name"><i class="fa-solid fa-location-dot"
+                                        aria-hidden="true"></i>East</span>
+                                <span class="progress-item__pct">64%</span>
+                            </div>
+                            <span class="progress-item__track"><span class="progress-item__fill"
+                                    style="--w:64%"></span></span>
+                            <span class="progress-item__meta"><i class="fa-solid fa-circle-check"
+                                    aria-hidden="true"></i>Comfortable · 36% headroom</span>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-item__head">
+                                <span class="progress-item__name"><i class="fa-solid fa-location-dot"
+                                        aria-hidden="true"></i>North</span>
+                                <span class="progress-item__pct">54%</span>
+                            </div>
+                            <span class="progress-item__track"><span class="progress-item__fill"
+                                    style="--w:54%"></span></span>
+                            <span class="progress-item__meta"><i class="fa-solid fa-circle-info"
+                                    aria-hidden="true"></i>Under-utilised · 46% headroom</span>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-item__head">
+                                <span class="progress-item__name"><i class="fa-solid fa-location-dot"
+                                        aria-hidden="true"></i>Central</span>
+                                <span class="progress-item__pct progress-item__pct--alert">38%</span>
+                            </div>
+                            <span class="progress-item__track"><span
+                                    class="progress-item__fill progress-item__fill--alert"
+                                    style="--w:38%"></span></span>
+                            <span class="progress-item__meta"><i class="fa-solid fa-circle-exclamation"
+                                    aria-hidden="true"></i>Below target · review scheduled</span>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-item__head">
+                                <span class="progress-item__name"><i class="fa-solid fa-location-dot"
+                                        aria-hidden="true"></i>North East</span>
+                                <span class="progress-item__pct progress-item__pct--alert">32%</span>
+                            </div>
+                            <span class="progress-item__track"><span
+                                    class="progress-item__fill progress-item__fill--alert"
+                                    style="--w:32%"></span></span>
+                            <span class="progress-item__meta"><i class="fa-solid fa-circle-exclamation"
+                                    aria-hidden="true"></i>Below target · review scheduled</span>
+                        </div>
+                    </div>
+
+                    <div class="dash-btn-row">
+                        <a class="dash-btn dash-btn--primary" href="../404.html">
+                            <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                            Open region detail
+                        </a>
+                        <a class="dash-btn" href="../404.html">
+                            <i class="fa-solid fa-sliders" aria-hidden="true"></i> Re-declare envelope
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Editorial: capacity planning -->
+                <div class="dash-editorial">
+                    <p class="dash-editorial__label">
+                        <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+                        Editorial · Capacity planning notes
+                    </p>
+                    <h2 class="dash-editorial__title">Over the declared target is not the same as over capacity.</h2>
+                    <p class="dash-editorial__body">
+                        Every region on this plane carries a declared envelope — the dispatch volume it has committed to
+                        serve without degradation. When actual demand crosses the target, three different things could
+                        be
+                        true, and they are worth distinguishing before reacting.
+                    </p>
+                    <p class="dash-editorial__body">
+                        <strong>Sustained overshoot</strong> means demand has genuinely grown — the envelope needs to be
+                        re-declared and the region resized. <strong>Transient spike</strong> means a batch, a migration,
+                        or
+                        a customer event pushed demand briefly above target, and it will likely self-resolve.
+                        <strong>Measurement
+                            drift</strong> means the measured demand looks higher than it is because of a reporting
+                        change, and
+                        resizing on that basis would be a mistake.
+                    </p>
+                    <p class="dash-editorial__body">
+                        Rule of thumb: two consecutive cycles over target → treat as sustained. Anything else → treat as
+                        transient until proven otherwise.
+                    </p>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- MOBILE DRAWER -->
+    <div class="dash-overlay" id="dashOverlay" role="dialog" aria-modal="true" aria-label="Control Plane navigation"
+        aria-hidden="true">
+        <div class="dash-overlay__top">
+            <a class="dash-overlay__brand" href="#" id="overlayLogo" aria-label="Convoy — home">
+                <img src="../logo.webp" alt="Convoy">
+                
+            </a>
+            <button class="dash-overlay__close" id="overlayClose" type="button" aria-label="Close menu">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <nav class="dash-overlay__nav" aria-label="Control Plane panels">
+            <p class="dash-overlay__label">
+                <i class="fa-solid fa-user-shield" aria-hidden="true"></i>
+                Control Plane · Administrator
+            </p>
+            <button class="dash-overlay__item is-active" type="button" data-panel="network">
+                <i class="fa-solid fa-network-wired" aria-hidden="true"></i><span>Network Overview</span>
+            </button>
+            <button class="dash-overlay__item" type="button" data-panel="carriers">
+                <i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Carrier Management</span>
+            </button>
+            <button class="dash-overlay__item" type="button" data-panel="routes">
+                <i class="fa-solid fa-map-location-dot" aria-hidden="true"></i><span>Route Network</span>
+            </button>
+            <button class="dash-overlay__item" type="button" data-panel="compliance">
+                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span>Compliance &amp; Audit</span>
+            </button>
+            <button class="dash-overlay__item" type="button" data-panel="regions">
+                <i class="fa-solid fa-globe" aria-hidden="true"></i><span>Regional Capacity</span>
+            </button>
+        </nav>
+
+        <div class="dash-overlay__foot">
+            <p class="dash-overlay__label" style="margin-bottom:0;">
+                <i class="fa-solid fa-user-shield" aria-hidden="true"></i>
+                Signed in as
+            </p>
+            <p class="dash-overlay__email">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                <span id="overlayEmail">admin@convoy.example</span>
+            </p>
+            <button class="dash-btn dash-btn--alert" id="overlayLogout" type="button"
+                style="width:100%; justify-content:center;">
+                <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+                Logout
+            </button>
+        </div>
+    </div>
+
+    <div class="dash-scrim" id="dashScrim"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+        /* ---------- Identity + logout ---------- */
+        (function () {
+            "use strict";
+            if ("scrollRestoration" in history) { history.scrollRestoration = "manual"; }
+
+            var EMAIL_FALLBACK = "admin@convoy.example";
+            function safeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+            function safeRemove(k) { try { localStorage.removeItem(k); } catch (e) { } }
+
+            function resolveEmail() {
+                var v = safeGet("convoy_user_email");
+                v = (v && String(v).trim()) ? String(v).trim() : EMAIL_FALLBACK;
+                if (!v || v === "undefined" || v === "null") { v = EMAIL_FALLBACK; }
+                return v;
+            }
+            function localPart(e) { var at = e.indexOf("@"); return at > 0 ? e.slice(0, at) : e; }
+            function initials(e) {
+                var lp = localPart(e).replace(/[^a-z0-9]+/gi, " ").trim();
+                if (!lp) return "AD";
+                var p = lp.split(/\s+/);
+                return p.length >= 2 ? (p[0][0] + p[1][0]).toUpperCase() : lp.slice(0, 2).toUpperCase();
+            }
+            function titleCase(s) { return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase(); }
+
+            var email = resolveEmail();
+            var lp = localPart(email);
+            var name = (titleCase(lp) === "Admin") ? "Administrator" : titleCase(lp);
+
+            var el;
+            el = document.getElementById("mobileAvatar"); if (el) el.textContent = initials(email);
+            el = document.getElementById("identityName"); if (el) el.textContent = name;
+            el = document.getElementById("identityEmail"); if (el) el.textContent = email;
+            el = document.getElementById("overlayEmail"); if (el) el.textContent = email;
+
+            function logout() {
+                safeRemove("convoy_user_email");
+                safeRemove("convoy_user_role");
+                window.location.href = "login.html";
+            }
+            var b1 = document.getElementById("dashLogout");
+            var b2 = document.getElementById("overlayLogout");
+            if (b1) b1.addEventListener("click", logout);
+            if (b2) b2.addEventListener("click", logout);
+
+            window.addEventListener("load", function () { window.scrollTo(0, 0); });
+        })();
+
+        /* ---------- Scroll reset ---------- */
+        function resetScroll() {
+            try { window.scrollTo(0, 0); } catch (e) { }
+            if (document.documentElement) { document.documentElement.scrollTop = 0; }
+            if (document.body) { document.body.scrollTop = 0; }
+            var dashMain = document.querySelector(".dash-main");
+            if (dashMain) { dashMain.scrollTop = 0; }
+        }
+
+        /* ---------- Panel switching + drawer ---------- */
+        (function () {
+            "use strict";
+
+            var panels = document.querySelectorAll(".dash-panel");
+            var navButtons = document.querySelectorAll(".dash-nav__item[data-panel], .dash-overlay__item[data-panel]");
+
+            function activate(name, opts) {
+                opts = opts || {};
+                var doScroll = opts.scroll !== false;
+
+                for (var i = 0; i < panels.length; i++) {
+                    panels[i].classList.toggle("is-active", panels[i].getAttribute("data-panel") === name);
+                }
+                for (var j = 0; j < navButtons.length; j++) {
+                    navButtons[j].classList.toggle("is-active", navButtons[j].getAttribute("data-panel") === name);
+                }
+
+                if (doScroll) {
+                    resetScroll();
+                    window.requestAnimationFrame(function () {
+                        resetScroll();
+                        window.requestAnimationFrame(function () { resetScroll(); });
+                    });
+                }
+
+                window.requestAnimationFrame(function () {
+                    growIn(document);
+                    animRings();
+                });
+            }
+
+            for (var i = 0; i < navButtons.length; i++) {
+                (function (btn) {
+                    btn.addEventListener("click", function () {
+                        activate(btn.getAttribute("data-panel"));
+                        if (document.getElementById("dashOverlay").classList.contains("is-open")) { closeDrawer(); }
+                    });
+                })(navButtons[i]);
+            }
+
+            function dashHome(e) {
+                if (e) e.preventDefault();
+                activate("network");
+                if (document.getElementById("dashOverlay").classList.contains("is-open")) { closeDrawer(); }
+            }
+            var logo1 = document.getElementById("dashLogo");
+            var logo2 = document.getElementById("mobileLogo");
+            var logo3 = document.getElementById("overlayLogo");
+            if (logo1) logo1.addEventListener("click", dashHome);
+            if (logo2) logo2.addEventListener("click", dashHome);
+            if (logo3) logo3.addEventListener("click", dashHome);
+
+            /* drawer */
+            var overlay = document.getElementById("dashOverlay");
+            var scrim = document.getElementById("dashScrim");
+            var openBtn = document.getElementById("dashHamburger");
+            var closeBtn = document.getElementById("overlayClose");
+            var lastFocus = null;
+
+            var FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+            function focusables() {
+                return Array.prototype.filter.call(
+                    overlay.querySelectorAll(FOCUSABLE),
+                    function (el) { return el.offsetParent !== null || el === closeBtn; }
+                );
+            }
+            function openDrawer() {
+                lastFocus = document.activeElement;
+                overlay.classList.add("is-open");
+                overlay.setAttribute("aria-hidden", "false");
+                scrim.classList.add("is-open");
+                openBtn.setAttribute("aria-expanded", "true");
+                document.documentElement.classList.add("is-locked");
+                document.body.classList.add("is-locked");
+                var f = focusables();
+                if (f.length) f[0].focus();
+            }
+            function closeDrawer() {
+                overlay.classList.remove("is-open");
+                overlay.setAttribute("aria-hidden", "true");
+                scrim.classList.remove("is-open");
+                if (openBtn) openBtn.setAttribute("aria-expanded", "false");
+                document.documentElement.classList.remove("is-locked");
+                document.body.classList.remove("is-locked");
+                if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+                else if (openBtn) openBtn.focus();
+            }
+            if (openBtn) openBtn.addEventListener("click", openDrawer);
+            if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
+            if (scrim) scrim.addEventListener("click", closeDrawer);
+
+            overlay.addEventListener("click", function (e) {
+                var t = e.target.closest("[data-panel]");
+                if (t && t.tagName === "BUTTON") closeDrawer();
+            });
+
+            document.addEventListener("keydown", function (e) {
+                if (!overlay.classList.contains("is-open")) return;
+                if (e.key === "Escape") { e.preventDefault(); closeDrawer(); return; }
+                if (e.key === "Tab") {
+                    var f = focusables();
+                    if (!f.length) return;
+                    var first = f[0], last = f[f.length - 1];
+                    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+                }
+            });
+        })();
+
+        /* ---------- Grow bars on reveal ---------- */
+        function growIn(root) {
+            var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            var nodes = root.querySelectorAll(".bar-chart, .h-bars, .progress-list");
+            for (var i = 0; i < nodes.length; i++) {
+                var el = nodes[i];
+                if (el.classList.contains("is-in")) continue;
+                var rect = el.getBoundingClientRect();
+                if (reduce || rect.top < window.innerHeight * 0.94) {
+                    el.classList.add("is-in");
+                }
+            }
+        }
+        (function () {
+            "use strict";
+            growIn(document);
+            window.addEventListener("scroll", function () { growIn(document); }, { passive: true });
+            window.addEventListener("resize", function () { growIn(document); });
+        })();
+
+        /* ---------- Radial rings ---------- */
+        function animRings() {
+            var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            var rings = [
+                { el: document.getElementById("verifyRing"), num: document.getElementById("verifyNum"), value: 91 },
+                { el: document.getElementById("netUtilRing"), num: document.getElementById("netUtilNum"), value: 76 },
+                { el: document.getElementById("complianceRing"), num: document.getElementById("complianceNum"), value: 88 },
+                { el: document.getElementById("capacityRing"), num: document.getElementById("capacityNum"), value: 76 }
+            ];
+            var C = 389.6;
+
+            for (var i = 0; i < rings.length; i++) {
+                (function (r) {
+                    if (!r.el || !r.num) return;
+                    var offset = C * (1 - r.value / 100);
+
+                    if (reduce) {
+                        r.el.setAttribute("stroke-dashoffset", String(offset));
+                        r.num.textContent = String(r.value);
+                        return;
+                    }
+
+                    var rect = r.el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.9 && !r.el.dataset.animated) {
+                        r.el.dataset.animated = "1";
+                        r.el.style.strokeDashoffset = String(offset);
+
+                        if (typeof gsap !== "undefined") {
+                            var o = { v: 0 };
+                            gsap.to(o, {
+                                v: r.value, duration: 1.0, ease: "power2.out",
+                                onUpdate: function () { r.num.textContent = String(Math.round(o.v)); },
+                                onComplete: function () { r.num.textContent = String(r.value); }
+                            });
+                        } else {
+                            r.num.textContent = String(r.value);
+                        }
+                    }
+                })(rings[i]);
+            }
+        }
+        (function () {
+            "use strict";
+            animRings();
+            window.addEventListener("scroll", animRings, { passive: true });
+        })();
+
+        /* ---------- KPI counters ---------- */
+        (function () {
+            "use strict";
+
+            var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            var nodes = document.querySelectorAll("[data-count]");
+
+            function renderFinal() {
+                for (var i = 0; i < nodes.length; i++) {
+                    var t = parseFloat(nodes[i].getAttribute("data-count")) || 0;
+                    nodes[i].textContent = t.toLocaleString("en-IN");
+                }
+            }
+
+            if (reduce || typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
+                renderFinal();
+                return;
+            }
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            for (var i = 0; i < nodes.length; i++) {
+                (function (el) {
+                    var target = parseFloat(el.getAttribute("data-count")) || 0;
+                    el.textContent = "0";
+
+                    var obj = { v: 0 };
+                    gsap.to(obj, {
+                        v: target, duration: 1.0, ease: "power2.out",
+                        scrollTrigger: { trigger: el, start: "top 92%", once: true },
+                        onUpdate: function () { el.textContent = Math.round(obj.v).toLocaleString("en-IN"); },
+                        onComplete: function () { el.textContent = target.toLocaleString("en-IN"); }
+                    });
+                })(nodes[i]);
+            }
+        })();
+    </script>
+
+</body>
+
+</html>

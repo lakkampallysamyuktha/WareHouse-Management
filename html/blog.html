@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog &amp; Insights — CONVOY Logistics</title>
+  <meta name="description" content="Latest news, insights, and strategy articles on freight and supply chain operations.">
+  
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome CDN for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Stylesheets (Proper Relative Paths) -->
+  <link rel="stylesheet" href="../global.css">
+  <link rel="stylesheet" href="../index.css">
+
+  <!-- GSAP & ScrollTrigger Animation Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- Page Loader (Appears for 1.5 seconds) -->
+  <div class="page-preloader" id="pagePreloader">
+    <div class="preloader-brand">
+      <img src="../logo.webp" alt="Convoy Logo">
+    </div>
+    <div class="preloader-spinner"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header" id="siteHeader">
+    <a href="../index.html" class="header-logo" aria-label="Stackly Home">
+      <img src="../logo.webp" alt="Stackly Logo">
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav-desktop" aria-label="Main Navigation">
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Service</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-primary">Login</a>
+        <a href="signup.html" class="btn btn-signup">Signup</a>
+      </div>
+    </nav>
+
+    <!-- Hamburger Toggle for Mobile -->
+    <button class="hamburger-toggle" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-nav-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="mobile-drawer-header">
+      <a href="../index.html" class="mobile-drawer-logo" aria-label="Stackly Home">
+        <img src="../logo.webp" alt="Stackly Logo">
+      </a>
+      <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">Home</a></li>
+      <li><a href="about.html" class="mobile-nav-link">About</a></li>
+      <li><a href="services.html" class="mobile-nav-link">Service</a></li>
+      <li><a href="blog.html" class="mobile-nav-link">Blog</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <a href="login.html" class="btn btn-primary">Login</a>
+      <a href="signup.html" class="btn btn-signup">Signup</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- Rebuilt Modern Interactive Blog Hero Section -->
+    <section class="blog-hero-section">
+      <!-- Glow Background Effects -->
+      <div class="blog-hero-glow glow-1"></div>
+      <div class="blog-hero-glow glow-2"></div>
+
+      <div class="blog-hero-container">
+        <!-- Left Column: Interactive Lead, Badges, Live Ticker & CTA -->
+        <div class="blog-hero-left">
+          <div class="blog-hero-badge-row reveal-slide-down">
+            <span class="blog-hero-tag"><i class="fa-solid fa-fire"></i> FEATURED DEEP DIVE</span>
+            <span class="blog-hero-readtime"><i class="fa-solid fa-clock"></i> 9 MIN READ</span>
+          </div>
+
+          <h1 class="blog-hero-headline stagger-heading reveal-slide-left">
+            Inside Salem's <span class="text-gradient">Automated Dispatch</span> & Smart Logistics Tower
+          </h1>
+
+          <p class="blog-hero-desc reveal-slide-left delay-1">
+            Scroll to move a parcel down the conveyor. Each stop is a zone where warehouse management either saves time or quietly loses money.
+          </p>
+
+          <!-- Author & Live Reader Stats -->
+          <div class="blog-hero-meta-strip reveal-slide-left delay-2">
+            <div class="blog-hero-author">
+              <img src="../assets/avatar_1.webp" alt="Ames Patterson" class="blog-author-avatar">
+              <div class="blog-author-details">
+                <span class="blog-author-name">Ames Patterson</span>
+                <span class="blog-author-role">Chief Supply Chain Analyst</span>
+              </div>
+            </div>
+
+            <div class="blog-hero-stats-badge">
+              <span class="pulse-dot"></span> <strong>14.2K</strong> Operational Leaders Reading
+            </div>
+          </div>
+
+          <!-- Hero Actions -->
+          <div class="blog-hero-actions reveal-slide-left delay-3">
+            <a href="#blog-grid" class="btn btn-primary btn-hero-read">
+              Read Deep-Dive Article<i class="fa-solid fa-arrow-down" style="margin-left: 8px;"></i>
+            </a>
+            <a href="contact.html" class="btn btn-pill-dark">
+              <i class="fa-solid fa-headset" style="margin-right: 8px;"></i>Get in Touch
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Glassmorphism Interactive Visual Showcase -->
+        <div class="blog-hero-right reveal-slide-right delay-1">
+          <div class="blog-hero-glass-card">
+            <div class="blog-hero-img-wrapper">
+              <img src="../assets/blog-hero.webp" alt="Warehouse Operations Overview" class="blog-hero-card-img">
+              <div class="blog-hero-img-overlay"></div>
+            </div>
+
+            <!-- Floating Quick Stats Badge -->
+            <div class="blog-hero-float-badge float-top-right">
+              <i class="fa-solid fa-chart-line"></i>
+              <div>
+                <span class="float-num">+38% Efficiency</span>
+                <span class="float-sub">Salem Hub Benchmark</span>
+              </div>
+            </div>
+
+            <!-- Bottom Floating Action Bar -->
+            <div class="blog-hero-glass-footer">
+              <div class="glass-footer-info">
+                <h5>WMS 4.0 Operational Walkthrough</h5>
+                <p>Interactive 3D Conveyor Simulation</p>
+              </div>
+              <a href="../404.html" class="glass-play-btn" aria-label="Explore Walkthrough">
+                <i class="fa-solid fa-play"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Most Read This Week Section -->
+    <section class="most-read-section">
+      <div class="most-read-container">
+        <!-- Section Header -->
+        <h2 class="most-read-title stagger-heading reveal-slide-down">MOST READ THIS WEEK</h2>
+
+        <div class="most-read-layout">
+          <!-- Left Column: 7 Article Entries -->
+          <div class="most-read-list">
+            <!-- Item 1 -->
+            <a href="../404.html" class="most-read-item reveal-slide-left">
+              <span class="most-read-num">01</span>
+              <div class="most-read-info">
+                <h4>WHY OCEAN RATES SPIKED TWICE THIS YEAR</h4>
+                <p>Supply chain . 9 min read</p>
+              </div>
+              <span class="most-read-count">14.2K reads</span>
+            </a>
+
+            <!-- Item 2 -->
+            <a href="../404.html" class="most-read-item reveal-slide-left delay-1">
+              <span class="most-read-num">02</span>
+              <div class="most-read-info">
+                <h4>THE 36-HOUR CLAIMS RULE, EXPLAINED</h4>
+                <p>Claims . 5 min read</p>
+              </div>
+              <span class="most-read-count">8.1K reads</span>
+            </a>
+
+            <!-- Item 3 -->
+            <a href="../404.html" class="most-read-item reveal-slide-left delay-2">
+              <span class="most-read-num">03</span>
+              <div class="most-read-info">
+                <h4>ONBOARDING CHECKLIST FOR NEW CARRIERS</h4>
+                <p>Carrier relations . 7 min read</p>
+              </div>
+              <span class="most-read-count">6.4K reads</span>
+            </a>
+
+            <!-- Item 4 -->
+            <a href="../404.html" class="most-read-item reveal-slide-left delay-3">
+              <span class="most-read-num">04</span>
+              <div class="most-read-info">
+                <h4>IS INTERMODAL ACTUALLY CHEAPER?</h4>
+                <p>Rail . 6 min read</p>
+              </div>
+              <span class="most-read-count">5.9K reads</span>
+            </a>
+
+            <!-- Item 5 -->
+            <a href="../404.html" class="most-read-item reveal-slide-left delay-4">
+              <span class="most-read-num">05</span>
+              <div class="most-read-info">
+                <h4>ELD UPDATES YOU CAN IGNORE, AND ONE YOU CAN'T</h4>
+                <p>Compliance - 4 min read</p>
+              </div>
+              <span class="most-read-count">5.1K reads</span>
+            </a>
+
+            <!-- Item 6 -->
+            <a href="../404.html" class="most-read-item reveal-slide-left delay-1">
+              <span class="most-read-num">06</span>
+              <div class="most-read-info">
+                <h4>HOW WE CUT AVERAGE BOOKING TIME TO UNDER AN HOUR</h4>
+                <p>Dispatch - 5 min read</p>
+              </div>
+              <span class="most-read-count">4.6K reads</span>
+            </a>
+
+            <!-- Item 7 -->
+            <a href="../404.html" class="most-read-item reveal-slide-left delay-2">
+              <span class="most-read-num">07</span>
+              <div class="most-read-info">
+                <h4>SAVANNAH'S NEW BERTH: WHAT IT CHANGES FOR BOOKINGS</h4>
+                <p>Ports . 6 min read</p>
+              </div>
+              <span class="most-read-count">8.1K reads</span>
+            </a>
+          </div>
+
+          <!-- Right Column: Asymmetric Image Grid (6 assets) -->
+          <div class="most-read-gallery reveal-slide-right delay-2">
+            <!-- Left Sub-column (3 stacked images) -->
+            <div class="gallery-col gallery-col-left">
+              <div class="gallery-img-box box-1">
+                <img src="../assets/most_1.webp" alt="Forklift loading pallet in warehouse">
+              </div>
+              <div class="gallery-img-box box-2">
+                <img src="../assets/most_2.webp" alt="Worker checking packages">
+              </div>
+              <div class="gallery-img-box box-3">
+                <img src="../assets/most_3.webp" alt="Forklift driver inside storage hub">
+              </div>
+            </div>
+
+            <!-- Right Sub-column (3 stacked images) -->
+            <div class="gallery-col gallery-col-right">
+              <div class="gallery-img-box box-4">
+                <img src="../assets/most_4.webp" alt="Stacked yellow cargo boxes">
+              </div>
+              <div class="gallery-img-box box-5">
+                <img src="../assets/most_5.webp" alt="Illuminated high rack warehouse aisle">
+              </div>
+              <div class="gallery-img-box box-6">
+                <img src="../assets/most_6.webp" alt="Semi truck on open highway at sunset">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Articles Section -->
+    <section class="latest-articles-section" id="blog-grid">
+      <div class="latest-articles-container">
+        <!-- Badge & Section Title -->
+        <div class="latest-articles-header">
+          <span class="latest-badge reveal-slide-down">Blog & Insights</span>
+          <h2 class="latest-title stagger-heading reveal-slide-up">LATEST ARTICLES</h2>
+        </div>
+
+        <!-- 3x2 Grid of Article Cards -->
+        <div class="latest-articles-grid">
+          <!-- Card 1 -->
+          <a href="../404.html" class="latest-article-card reveal-slide-up">
+            <div class="latest-card-img-box">
+              <img src="../assets/latest-1.webp" alt="Inbound and inspection">
+            </div>
+            <div class="latest-card-content">
+              <div class="latest-card-meta">
+                <span><i class="fa-regular fa-calendar"></i> December 1, 2025</span>
+                <span><i class="fa-regular fa-clock"></i> 5 hours 50 min</span>
+              </div>
+              <h3 class="latest-card-title">Inbound and inspection</h3>
+              <p class="latest-card-desc">
+                Discover proven techniques to maximize your online learning experience and achieve your educational goals.
+              </p>
+            </div>
+          </a>
+
+          <!-- Card 2 -->
+          <a href="../404.html" class="latest-article-card reveal-slide-up delay-1">
+            <div class="latest-card-img-box">
+              <img src="../assets/latest-2.webp" alt="Receiving dock">
+            </div>
+            <div class="latest-card-content">
+              <div class="latest-card-meta">
+                <span><i class="fa-regular fa-calendar"></i> December 1, 2025</span>
+                <span><i class="fa-regular fa-clock"></i> 5 hours 50 min</span>
+              </div>
+              <h3 class="latest-card-title">Receiving dock</h3>
+              <p class="latest-card-desc">
+                Discover proven techniques to maximize your online learning experience and achieve your educational goals.
+              </p>
+            </div>
+          </a>
+
+          <!-- Card 3 -->
+          <a href="../404.html" class="latest-article-card reveal-slide-up delay-2">
+            <div class="latest-card-img-box">
+              <img src="../assets/latest-3.webp" alt="Storage and racking">
+            </div>
+            <div class="latest-card-content">
+              <div class="latest-card-meta">
+                <span><i class="fa-regular fa-calendar"></i> December 1, 2025</span>
+                <span><i class="fa-regular fa-clock"></i> 5 hours 50 min</span>
+              </div>
+              <h3 class="latest-card-title">Storage and racking</h3>
+              <p class="latest-card-desc">
+                Discover proven techniques to maximize your online learning experience and achieve your educational goals.
+              </p>
+            </div>
+          </a>
+
+          <!-- Card 4 -->
+          <a href="../404.html" class="latest-article-card reveal-slide-up delay-1">
+            <div class="latest-card-img-box">
+              <img src="../assets/latest-4.webp" alt="Inventory control">
+            </div>
+            <div class="latest-card-content">
+              <div class="latest-card-meta">
+                <span><i class="fa-regular fa-calendar"></i> December 1, 2025</span>
+                <span><i class="fa-regular fa-clock"></i> 5 hours 50 min</span>
+              </div>
+              <h3 class="latest-card-title">Inventory control</h3>
+              <p class="latest-card-desc">
+                Discover proven techniques to maximize your online learning experience and achieve your educational goals.
+              </p>
+            </div>
+          </a>
+
+          <!-- Card 5 -->
+          <a href="../404.html" class="latest-article-card reveal-slide-up delay-2">
+            <div class="latest-card-img-box">
+              <img src="../assets/latest-5.webp" alt="Picking and packing">
+            </div>
+            <div class="latest-card-content">
+              <div class="latest-card-meta">
+                <span><i class="fa-regular fa-calendar"></i> December 1, 2025</span>
+                <span><i class="fa-regular fa-clock"></i> 5 hours 50 min</span>
+              </div>
+              <h3 class="latest-card-title">Picking and packing</h3>
+              <p class="latest-card-desc">
+                Discover proven techniques to maximize your online learning experience and achieve your educational goals.
+              </p>
+            </div>
+          </a>
+
+          <!-- Card 6 -->
+          <a href="../404.html" class="latest-article-card reveal-slide-up delay-3">
+            <div class="latest-card-img-box">
+              <img src="../assets/latest-6.webp" alt="Dispatch and shipping">
+            </div>
+            <div class="latest-card-content">
+              <div class="latest-card-meta">
+                <span><i class="fa-regular fa-calendar"></i> December 1, 2025</span>
+                <span><i class="fa-regular fa-clock"></i> 5 hours 50 min</span>
+              </div>
+              <h3 class="latest-card-title">Dispatch and shipping</h3>
+              <p class="latest-card-desc">
+                Discover proven techniques to maximize your online learning experience and achieve your educational goals.
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. NEW SECTION: Featured Logistics Topics & Categories Grid -->
+    <section class="blog-topics-section">
+      <div class="blog-topics-container">
+        <div class="faq-header" style="text-align: center;">
+          <div class="section-badge reveal-slide-down">EXPLORE BY CATEGORY</div>
+          <h2 class="section-title-orange stagger-heading">Curated Logistics Intelligence</h2>
+          <p class="section-lead-text reveal-slide-up delay-1">Filter articles by your primary operational focus area across modern supply chain disciplines.</p>
+        </div>
+
+        <div class="blog-topics-grid">
+          <a href="../404.html" class="blog-topic-card reveal-slide-left">
+            <div class="topic-icon-wrapper"><i class="fa-solid fa-truck-ramp-box"></i></div>
+            <h4>Fleet & Routing</h4>
+            <p>18 Technical Guides</p>
+            <span class="topic-link-text">Browse Category <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+
+          <a href="../404.html" class="blog-topic-card reveal-slide-left delay-1">
+            <div class="topic-icon-wrapper"><i class="fa-solid fa-boxes-stacked"></i></div>
+            <h4>WMS & Fulfilment</h4>
+            <p>24 Case Studies</p>
+            <span class="topic-link-text">Browse Category <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+
+          <a href="../404.html" class="blog-topic-card reveal-slide-right delay-2">
+            <div class="topic-icon-wrapper"><i class="fa-solid fa-network-wired"></i></div>
+            <h4>TMS & API Feeds</h4>
+            <p>12 Integration Specs</p>
+            <span class="topic-link-text">Browse Category <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+
+          <a href="../404.html" class="blog-topic-card reveal-slide-right delay-3">
+            <div class="topic-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div>
+            <h4>Safety & ELD Compliance</h4>
+            <p>15 Policy Papers</p>
+            <span class="topic-link-text">Browse Category <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. NEW SECTION: Editor's Featured Masterclass Reports -->
+    <section class="blog-editors-section">
+      <div class="blog-editors-container">
+        <div class="editors-header-row">
+          <div>
+            <div class="section-badge reveal-slide-down">EDITOR'S CHOICE</div>
+            <h2 class="section-title-orange stagger-heading">Deep Dive Masterclass Reports</h2>
+          </div>
+          <a href="../404.html" class="btn btn-pill-dark reveal-slide-right">
+            View All Reports<i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+          </a>
+        </div>
+
+        <div class="editors-reports-grid">
+          <!-- Big Featured Report -->
+          <div class="editor-report-main reveal-slide-left">
+            <img src="../assets/home_industries.webp" alt="South India Logistics Corridor Study">
+            <div class="editor-report-main-content">
+              <span class="report-badge-pill">SPECIAL REPORT · SALEM HUB</span>
+              <h3>The 2026 South India Logistics & Cold Chain Highway Blueprint</h3>
+              <p>An exhaustive 45-page data study analyzing lane velocities, port congestion indices, and fuel efficiency metrics across Tamil Nadu and Karnataka trade corridors.</p>
+              <a href="../404.html" class="btn btn-primary">Download Free PDF Report<i class="fa-solid fa-download" style="margin-left: 8px;"></i></a>
+            </div>
+          </div>
+
+          <!-- Side Secondary Reports -->
+          <div class="editor-reports-side">
+            <a href="../404.html" class="editor-side-card reveal-slide-right delay-1">
+              <div class="side-card-num">01</div>
+              <div class="side-card-body">
+                <span class="side-tag">WMS Benchmark</span>
+                <h4>Zero-Error Picking Algorithms: A Salem Fulfillment Trial</h4>
+                <span class="side-read-time"><i class="fa-regular fa-clock"></i> 8 Min Read</span>
+              </div>
+            </a>
+
+            <a href="../404.html" class="editor-side-card reveal-slide-right delay-2">
+              <div class="side-card-num">02</div>
+              <div class="side-card-body">
+                <span class="side-tag">Freight Pricing</span>
+                <h4>Spot vs Contract Rates in Q4: 5 Red Flags for Shippers</h4>
+                <span class="side-read-time"><i class="fa-regular fa-clock"></i> 6 Min Read</span>
+              </div>
+            </a>
+
+            <a href="../404.html" class="editor-side-card reveal-slide-right delay-3">
+              <div class="side-card-num">03</div>
+              <div class="side-card-body">
+                <span class="side-tag">Telematics</span>
+                <h4>IoT Sensor Networks: Reducing Transit Spoilage by 94%</h4>
+                <span class="side-read-time"><i class="fa-regular fa-clock"></i> 10 Min Read</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. NEW REPLACEMENT SECTION: Interactive Supply Chain Savings & ROI Calculator Showcase -->
+    <section class="blog-calc-section">
+      <div class="blog-calc-container">
+        <div class="calc-card-grid">
+          <!-- Left: Value Prop & Metrics -->
+          <div class="calc-info-col reveal-slide-left">
+            <span class="section-badge"><i class="fa-solid fa-calculator"></i> OPERATIONAL BENCHMARK</span>
+            <h2 class="section-title-orange stagger-heading">Calculate Your Freight<br>Savings Potential</h2>
+            <p class="section-lead-text">See estimated monthly cost reductions by upgrading from legacy manual dispatch to Stackly's automated WMS algorithm in Salem.</p>
+
+            <div class="calc-highlights-list">
+              <div class="calc-highlight-item">
+                <i class="fa-solid fa-bolt"></i>
+                <div>
+                  <h5>18% Average Fuel Optimization</h5>
+                  <p>Dynamic route clustering cuts empty backhaul miles across South India lanes.</p>
+                </div>
+              </div>
+
+              <div class="calc-highlight-item">
+                <i class="fa-solid fa-clock"></i>
+                <div>
+                  <h5>&lt; 45-Minute Dock Dwell Time</h5>
+                  <p>Automated slot assignment eliminates truck queue bottlenecks at warehouse bays.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Interactive Glass Calculator Box -->
+          <div class="calc-widget-col reveal-slide-right delay-1">
+            <div class="calc-glass-box">
+              <div class="calc-box-header">
+                <h4>Estimate Operational ROI</h4>
+                <span class="calc-live-pill"><span class="pulse-dot"></span> Live Calculator</span>
+              </div>
+
+              <div class="calc-sliders-wrapper">
+                <div class="calc-control-group">
+                  <div class="calc-label-row">
+                    <span>Monthly Shipments:</span>
+                    <strong id="calcShipmentVal">1,200 Loads</strong>
+                  </div>
+                  <input type="range" id="calcShipmentSlider" min="100" max="5000" step="100" value="1200" class="calc-range-slider" oninput="updateROICalculator()">
+                </div>
+
+                <div class="calc-control-group">
+                  <div class="calc-label-row">
+                    <span>Active Warehouses:</span>
+                    <strong id="calcHubVal">3 Facilities</strong>
+                  </div>
+                  <input type="range" id="calcHubSlider" min="1" max="15" step="1" value="3" class="calc-range-slider" oninput="updateROICalculator()">
+                </div>
+              </div>
+
+              <div class="calc-results-banner">
+                <div class="result-block">
+                  <span class="result-label">Est. Monthly Savings</span>
+                  <span class="result-amount" id="calcSavingsVal">₹4,68,000</span>
+                </div>
+                <div class="result-block">
+                  <span class="result-label">Annual Efficiency Gain</span>
+                  <span class="result-amount result-amount--green" id="calcAnnualVal">₹56.16 Lakhs</span>
+                </div>
+              </div>
+
+              <a href="../404.html" class="btn btn-primary calc-cta-btn">
+                Claim Detailed Audit Report<i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="cta-section" id="contact">
+      <div class="cta-container">
+        <div class="cta-box reveal-slide-up">
+          <span class="cta-badge">
+            <i class="fa-solid fa-bolt"></i> Ready When You Are
+          </span>
+
+          <h2 class="cta-title">
+            Move Freight Smarter.<br>
+            Grow Business Faster.
+          </h2>
+
+          <p class="cta-text">
+            Tell us what you operate today. We will tell you honestly what we can improve, what we cannot, and what we
+            would not attempt in the first quarter.
+          </p>
+
+          <div class="cta-actions">
+            <a href="contact.html" class="cta-btn cta-btn--dark">
+              Request a Bid <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="services.html" class="cta-btn cta-btn--ghost">
+              <i class="fa-solid fa-truck-fast"></i> Our Services
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+
+        <!-- Brand Column -->
+        <div class="footer-brand-col">
+          <div class="footer-brand">
+            <a href="../index.html">
+              <img src="../logo.webp" alt="Stackly Logo">
+            </a>
+          </div>
+          <p class="footer-desc">
+            A modern freight and logistics platform for teams that run critical operations — modelled, governed, integrated, and measured.
+          </p>
+          <div class="footer-socials">
+            <a href="../404.html" class="footer-social" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="../404.html" class="footer-social" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="../404.html" class="footer-social" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="../404.html" class="footer-social" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Navigation Column -->
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Service</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Services Column -->
+        <div>
+          <h4 class="footer-col-title">Services</h4>
+          <ul class="footer-links">
+            <li><a href="../404.html">Freight Management</a></li>
+            <li><a href="../404.html">Route Planning</a></li>
+            <li><a href="../404.html">Warehouse Strategy</a></li>
+            <li><a href="../404.html">Technology Integration</a></li>
+            <li><a href="../404.html">Cost Reduction</a></li>
+          </ul>
+        </div>
+
+        <!-- Company Column -->
+        <div>
+          <h4 class="footer-col-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="../404.html">About Us</a></li>
+            <li><a href="../404.html">Industries</a></li>
+            <li><a href="../404.html">Insights</a></li>
+            <li><a href="../404.html">Team</a></li>
+            <li><a href="../404.html">Pricing</a></li>
+            <li><a href="../404.html">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Column -->
+        <div>
+          <h4 class="footer-col-title">Contact</h4>
+          <ul class="footer-contact-list">
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              <a href="../404.html">+91 94426 73815</a>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              <a href="../404.html">hello@convoy.example</a>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              <a href="../404.html"><span>Convoy Logistics<br>Salem, Tamil Nadu, India</span></a>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              <a href="../404.html"><span>Mon — Fri · 09:30 – 18:30 IST</span></a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          © 2026 Stackly Logistics · All rights reserved.
+        </p>
+        <div class="footer-legal">
+          <a href="../404.html">Privacy Policy</a>
+          <a href="../404.html">Terms of Service</a>
+          <a href="../404.html">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Common Script -->
+  <script>
+    // Hide Preloader after 1.5s
+    const preloader = document.getElementById('pagePreloader');
+    if (preloader) {
+      setTimeout(() => {
+        preloader.classList.add('fade-out');
+      }, 1500);
+    }
+
+
+    const siteHeader = document.getElementById("siteHeader");
+
+    function handleHeaderScroll() {
+        if (!siteHeader) return;
+
+        const scrollTop =
+            window.scrollY ||
+            document.documentElement.scrollTop ||
+            document.body.scrollTop ||
+            0;
+
+        siteHeader.classList.toggle("scrolled", scrollTop > 10);
+    }
+
+    window.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    document.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    document.documentElement.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    document.body.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    handleHeaderScroll();
+
+    function initApp() {
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+      const mobileDrawer = document.getElementById('mobileDrawer');
+      const body = document.body;
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+      function toggleMenu() {
+        if (!mobileDrawer) return;
+        const isOpen = mobileDrawer.classList.toggle('is-active');
+        if (hamburgerBtn) {
+          hamburgerBtn.classList.toggle('is-active', isOpen);
+          hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        }
+        mobileDrawer.setAttribute('aria-hidden', !isOpen);
+
+        if (isOpen) {
+          document.body.classList.add('no-scroll');
+          document.documentElement.classList.add('no-scroll');
+        } else {
+          document.body.classList.remove('no-scroll');
+          document.documentElement.classList.remove('no-scroll');
+        }
+      }
+
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', toggleMenu);
+      }
+      if (mobileCloseBtn) {
+        mobileCloseBtn.addEventListener('click', toggleMenu);
+      }
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (mobileDrawer && mobileDrawer.classList.contains('is-active')) {
+            toggleMenu();
+          }
+        });
+      });
+
+      // GSAP Staggered Letter Text Animation for Section Headings
+      function initGSAPSectionHeadings() {
+        if (typeof gsap === 'undefined') return;
+
+        const headingSelectors = [
+          '.section-title',
+          '.section-main-title',
+          '.section-title-orange',
+          '.about-description',
+          '.about-section-title',
+          '.about-team-title',
+          '.services-hero-title',
+          '.contact-hero-title',
+          '.blog-hero-title',
+          '.cta-title',
+          '.stagger-heading'
+        ];
+
+        const headings = document.querySelectorAll(headingSelectors.join(', '));
+
+        headings.forEach(heading => {
+          if (heading.dataset.splitDone) return;
+          heading.dataset.splitDone = "true";
+
+          const childNodes = Array.from(heading.childNodes);
+          heading.innerHTML = '';
+
+          childNodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE) {
+              const chars = node.textContent.split('');
+              chars.forEach(ch => {
+                const span = document.createElement('span');
+                span.className = 'gsap-char';
+                span.style.display = ch === ' ' ? 'inline' : 'inline-block';
+                span.style.willChange = 'transform, opacity';
+                span.textContent = ch === ' ' ? '\u00A0' : ch;
+                heading.appendChild(span);
+              });
+            } else {
+              heading.appendChild(node.cloneNode(true));
+            }
+          });
+
+          const charSpans = heading.querySelectorAll('.gsap-char');
+          if (charSpans.length === 0) return;
+
+          if (typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.from(charSpans, {
+              scrollTrigger: {
+                trigger: heading,
+                start: 'top 88%',
+                toggleActions: 'play none none none'
+              },
+              y: 50,
+              opacity: 0,
+              stagger: 0.03,
+              duration: 0.6,
+              ease: 'back.out(1.7)'
+            });
+          } else {
+            gsap.from(charSpans, {
+              y: 50,
+              opacity: 0,
+              stagger: 0.03,
+              duration: 0.6,
+              ease: 'back.out(1.7)'
+            });
+          }
+        });
+      }
+
+      initGSAPSectionHeadings();
+
+      // Scroll Reveal Intersection Observer with Scroll Fallback
+      const revealElements = document.querySelectorAll('.reveal-slide-left, .reveal-slide-right, .reveal-slide-up, .reveal-slide-down');
+
+      function triggerRevealCheck() {
+        const triggerPoint = (window.innerHeight || document.documentElement.clientHeight) * 0.95;
+        revealElements.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= triggerPoint) {
+            el.classList.add('reveal-active');
+          }
+        });
+      }
+
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('reveal-active');
+            }
+          });
+        }, { threshold: 0.01, rootMargin: '0px 0px 50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+      } else {
+        revealElements.forEach(el => el.classList.add('reveal-active'));
+      }
+
+      window.addEventListener('scroll', triggerRevealCheck, { passive: true });
+      triggerRevealCheck();
+      setTimeout(triggerRevealCheck, 150);
+
+      // Interactive ROI Calculator Update Logic
+      window.updateROICalculator = function() {
+        const shipmentSlider = document.getElementById('calcShipmentSlider');
+        const hubSlider = document.getElementById('calcHubSlider');
+        const shipmentVal = document.getElementById('calcShipmentVal');
+        const hubVal = document.getElementById('calcHubVal');
+        const savingsVal = document.getElementById('calcSavingsVal');
+        const annualVal = document.getElementById('calcAnnualVal');
+
+        if (!shipmentSlider || !hubSlider) return;
+
+        const shipments = parseInt(shipmentSlider.value, 10);
+        const hubs = parseInt(hubSlider.value, 10);
+
+        if (shipmentVal) shipmentVal.textContent = shipments.toLocaleString('en-IN') + ' Loads';
+        if (hubVal) hubVal.textContent = hubs + (hubs === 1 ? ' Facility' : ' Facilities');
+
+        // Dynamic formula: ₹320 savings per load + ₹35,000 savings per warehouse facility
+        const monthlySavings = (shipments * 320) + (hubs * 35000);
+        const annualSavings = monthlySavings * 12;
+
+        if (savingsVal) savingsVal.textContent = '₹' + monthlySavings.toLocaleString('en-IN');
+        
+        if (annualVal) {
+          const lakhs = (annualSavings / 100000).toFixed(2);
+          annualVal.textContent = '₹' + lakhs + ' Lakhs';
+        }
+      };
+
+      updateROICalculator();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+  </script>
+</body>
+</html>

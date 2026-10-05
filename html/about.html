@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — CONVOY Logistics</title>
+  <meta name="description" content="Learn about Convoy's mission, leadership team, and operational philosophy.">
+  
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome CDN for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Stylesheets (Proper Relative Paths) -->
+  <link rel="stylesheet" href="../global.css">
+  <link rel="stylesheet" href="../index.css">
+
+  <!-- GSAP & ScrollTrigger Animation Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- Page Loader (Appears for 1.5 seconds) -->
+  <div class="page-preloader" id="pagePreloader">
+    <div class="preloader-brand">
+      <img src="../logo.webp" alt="Convoy Logo">
+    </div>
+    <div class="preloader-spinner"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header" id="siteHeader">
+    <a href="../index.html" class="header-logo" aria-label="Stackly Home">
+      <img src="../logo.webp" alt="Stackly Logo">
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav-desktop" aria-label="Main Navigation">
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="services.html">Service</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-primary">Login</a>
+        <a href="signup.html" class="btn btn-signup">Signup</a>
+      </div>
+    </nav>
+
+    <!-- Hamburger Toggle for Mobile -->
+    <button class="hamburger-toggle" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-nav-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="mobile-drawer-header">
+      <a href="../index.html" class="mobile-drawer-logo" aria-label="Stackly Home">
+        <img src="../logo.webp" alt="Stackly Logo">
+      </a>
+      <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">Home</a></li>
+      <li><a href="about.html" class="mobile-nav-link active">About</a></li>
+      <li><a href="services.html" class="mobile-nav-link">Service</a></li>
+      <li><a href="blog.html" class="mobile-nav-link">Blog</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <a href="login.html" class="btn btn-primary">Login</a>
+      <a href="signup.html" class="btn btn-signup">Signup</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- About Hero Section (Figma Design) -->
+    <section class="about-hero-section">
+      <div class="about-hero-overlay"></div>
+      <div class="about-hero-content">
+        <div class="badge-pill reveal-slide-left">About Us</div>
+        <h1 class="about-hero-title reveal-slide-left delay-1">
+          WE'VE TURNED BIGGEST LOGISTICS CHALLENGES INTO COMPETITIVE ADVANTAGES AT CONVOY &copy;
+        </h1>
+        <div class="hero-cta-group reveal-slide-left delay-2" style="justify-content: flex-start;">
+          <a href="../404.html" class="btn btn-outline-pill">Request a Bid &gt;</a>
+          <a href="../404.html" class="btn btn-primary">Explore Services</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story Section (Figma Design) -->
+    <section class="about-story-section">
+      <div class="about-story-container">
+        <!-- Top Pill & Title -->
+        <div class="about-story-header reveal-slide-left">
+          <div class="badge-pill">Our Story</div>
+          <h2 class="about-story-title">HOW CONVOY &copy; BECAME A NAME IN CONSULTING</h2>
+        </div>
+
+        <!-- Content Grid (Image Card + Info Column) -->
+        <div class="about-story-grid">
+          <!-- Left Column: Card with rounded border & image overlay stats -->
+          <div class="story-image-card reveal-slide-left delay-1">
+            <div class="story-card-inner">
+              <img src="../assets/about/story.webp" alt="Convoy Consulting Team" class="story-img">
+              
+              <!-- Floating Pill: Our results -->
+              <div class="story-results-pill">Our results</div>
+
+              <!-- Bottom Stats Overlay -->
+              <div class="story-stats-overlay">
+                <div class="story-stat-item">
+                  <span class="story-stat-number">40%</span>
+                  <span class="story-stat-divider">|</span>
+                  <span class="story-stat-label">Cost Reduction</span>
+                </div>
+                <div class="story-stat-item">
+                  <span class="story-stat-number">2.5x</span>
+                  <span class="story-stat-divider">|</span>
+                  <span class="story-stat-label">Return on Investment</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Learn More info -->
+          <div class="story-content-col reveal-slide-right delay-2">
+            <div class="badge-pill story-pill">Learn More</div>
+            <p class="story-text">
+              Founded in 2004, Convoy&copy; started with a simple mission: help enterprise companies turn their complex supply chain challenges into high-margin competitive advantages. What began as a two-person brokerage has evolved into a global logistics consulting powerhouse—building intelligent dispatch engines, multimodal telematics, and automated auditing systems for over 1,000 enterprise brands.
+            </p>
+
+            <!-- Key Operational Metrics Mini Row -->
+            <div class="story-metrics-strip">
+              <div class="story-mini-metric">
+                <span class="mini-metric-value">99.8%</span>
+                <span class="mini-metric-label">On-Time Delivery Rate</span>
+              </div>
+              <div class="story-mini-metric">
+                <span class="mini-metric-value">12M+</span>
+                <span class="mini-metric-label">Loads Dispatched</span>
+              </div>
+              <div class="story-mini-metric">
+                <span class="mini-metric-value">24/7</span>
+                <span class="mini-metric-label">Live Telemetry Control</span>
+              </div>
+            </div>
+
+            <!-- Feature Pillars Grid -->
+            <div class="story-features-grid">
+              <div class="story-feature-item">
+                <div class="story-feature-icon"><i class="fa-solid fa-route"></i></div>
+                <div class="story-feature-text">
+                  <h4>Automated Dispatch Engine</h4>
+                  <p>Real-time load allocation and carrier scoring to eliminate deadhead miles.</p>
+                </div>
+              </div>
+
+              <div class="story-feature-item">
+                <div class="story-feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="story-feature-text">
+                  <h4>Multimodal Telematics</h4>
+                  <p>Unified ocean, air, and over-the-road freight tracking on one single pane.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Highlights & SLA Chips Row -->
+            <div class="story-highlights-row">
+              <div class="story-highlight-chip">
+                <i class="fa-solid fa-globe"></i> <span>45+ Countries Covered</span>
+              </div>
+              <div class="story-highlight-chip">
+                <i class="fa-solid fa-clock-check"></i> <span>99.4% SLA Adherence</span>
+              </div>
+              <div class="story-highlight-chip">
+                <i class="fa-solid fa-award"></i> <span>ISO 27001 Certified</span>
+              </div>
+              <div class="story-highlight-chip">
+                <i class="fa-solid fa-leaf"></i> <span>Carbon-Neutral Logistics</span>
+              </div>
+            </div>
+
+            <div class="story-actions">
+              <a href="../404.html" class="btn btn-outline-pill">Request a Bid &gt;</a>
+              <a href="../404.html" class="btn btn-primary">Explore Services</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. Unique Mission & Vision Dashboard Hub -->
+    <section class="about-mission-section">
+      <div class="about-mission-container">
+        <div class="about-section-header text-center reveal-slide-up">
+          <div class="badge-pill"><i class="fa-solid fa-compass-drafting"></i> Purpose &amp; Direction</div>
+          <h2 class="about-section-title">DRIVING THE FUTURE OF GLOBAL LOGISTICS</h2>
+        </div>
+
+        <div class="mission-hub-wrapper reveal-slide-up delay-1">
+          <!-- Left: Tabbed Navigation & Content -->
+          <div class="mission-hub-content">
+            <div class="mission-tab-nav" role="tablist">
+              <button class="mission-tab-btn active" id="missionTabBtn" onclick="switchMissionTab('mission')">
+                <i class="fa-solid fa-bullseye"></i> Our Mission
+              </button>
+              <button class="mission-tab-btn" id="visionTabBtn" onclick="switchMissionTab('vision')">
+                <i class="fa-solid fa-eye"></i> Our Vision
+              </button>
+            </div>
+
+            <!-- Tab 1: Mission -->
+            <div class="mission-tab-panel active" id="missionPanel">
+              <span class="hub-tag-pill">ENGINEERED FOR RELIABILITY</span>
+              <h3 class="hub-panel-title">Simplifying Complex Global Supply Chains</h3>
+              <p class="hub-panel-desc">
+                We empower enterprise logistics by replacing fragmentation with automated precision. Through real-time visibility and AI-powered route optimization, we ensure every payload arrives on time with minimum cost and zero friction.
+              </p>
+              <div class="hub-key-points">
+                <div class="hub-point-item">
+                  <div class="point-icon"><i class="fa-solid fa-route"></i></div>
+                  <div>
+                    <strong>End-to-End Visibility</strong>
+                    <p>Live IoT telemetry tracking cargo from origin dock to destination door.</p>
+                  </div>
+                </div>
+                <div class="hub-point-item">
+                  <div class="point-icon"><i class="fa-solid fa-leaf"></i></div>
+                  <div>
+                    <strong>Eco-Efficient Routing</strong>
+                    <p>Algorithmic load consolidation reducing empty miles and carbon footprint.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tab 2: Vision -->
+            <div class="mission-tab-panel" id="visionPanel">
+              <span class="hub-tag-pill vision-tag">AUTONOMOUS FREIGHT ECOSYSTEM</span>
+              <h3 class="hub-panel-title">Building The Zero-Friction Future</h3>
+              <p class="hub-panel-desc">
+                We envision a global commerce network driven by autonomous orchestration, predictive bottleneck elimination, and 100% net-zero carbon operations by 2030.
+              </p>
+              <div class="hub-key-points">
+                <div class="hub-point-item">
+                  <div class="point-icon vision-icon-bg"><i class="fa-solid fa-microchip"></i></div>
+                  <div>
+                    <strong>Smart Warehouses</strong>
+                    <p>Robotic fulfillment hubs integrated directly into dynamic carrier dispatching.</p>
+                  </div>
+                </div>
+                <div class="hub-point-item">
+                  <div class="point-icon vision-icon-bg"><i class="fa-solid fa-bolt"></i></div>
+                  <div>
+                    <strong>Zero-Wait Transit</strong>
+                    <p>Predictive analytics bypassing port delays before congestion occurs.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Interactive Live Telemetry HUD Widget -->
+          <div class="mission-telemetry-widget">
+            <div class="telemetry-header">
+              <span class="telemetry-live-dot"></span>
+              <span class="telemetry-title">LIVE LOGISTICS ENGINE STATUS</span>
+              <span class="telemetry-code">SYS-v4.8</span>
+            </div>
+            
+            <div class="telemetry-body">
+              <div class="telemetry-meter-group">
+                <div class="meter-label-row">
+                  <span>On-Time Fulfillment SLA</span>
+                  <span class="meter-val">99.4%</span>
+                </div>
+                <div class="meter-bar-track">
+                  <div class="meter-bar-fill" style="width: 99.4%;"></div>
+                </div>
+              </div>
+
+              <div class="telemetry-meter-group">
+                <div class="meter-label-row">
+                  <span>Carbon Emissions Offset</span>
+                  <span class="meter-val">-18.2%</span>
+                </div>
+                <div class="meter-bar-track">
+                  <div class="meter-bar-fill fill-green" style="width: 82%;"></div>
+                </div>
+              </div>
+
+              <div class="telemetry-stats-row">
+                <div class="tele-stat-pill">
+                  <span class="tele-stat-num">250+</span>
+                  <span class="tele-stat-lbl">Active Depots</span>
+                </div>
+                <div class="tele-stat-pill">
+                  <span class="tele-stat-num">45</span>
+                  <span class="tele-stat-lbl">Countries</span>
+                </div>
+                <div class="tele-stat-pill">
+                  <span class="tele-stat-num">&lt;2ms</span>
+                  <span class="tele-stat-lbl">Sync Speed</span>
+                </div>
+              </div>
+
+              <div class="telemetry-footer-status">
+                <i class="fa-solid fa-shield-check"></i> All Carrier Networks Operational &amp; Governed
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Unique Core Values Interactive Accordion Strips -->
+    <section class="about-values-section">
+      <div class="about-values-container">
+        <div class="about-section-header reveal-slide-left">
+          <div class="badge-pill"><i class="fa-solid fa-gem"></i> Core Pillars</div>
+          <h2 class="about-section-title">THE PRINCIPLES THAT GOVERN EVERY SHIPMENT</h2>
+        </div>
+
+        <div class="values-strips-wrapper reveal-slide-up delay-1">
+          <!-- Strip 1 -->
+          <div class="value-strip-item active">
+            <div class="strip-header">
+              <span class="strip-index">01</span>
+              <div class="strip-title-box">
+                <div class="strip-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3 class="strip-title">Radical Transparency</h3>
+              </div>
+              <div class="strip-tags">
+                <span class="strip-pill">#NoHiddenFees</span>
+                <span class="strip-pill">#RealTimeTelemetry</span>
+              </div>
+              <span class="strip-toggle-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </div>
+            <div class="strip-body">
+              <p>No unexpected surcharges or opaque status codes. Every carrier quote, transit milestone, and invoice is fully itemized and verified in real time on your dashboard.</p>
+            </div>
+          </div>
+
+          <!-- Strip 2 -->
+          <div class="value-strip-item">
+            <div class="strip-header">
+              <span class="strip-index">02</span>
+              <div class="strip-title-box">
+                <div class="strip-icon"><i class="fa-solid fa-bolt"></i></div>
+                <h3 class="strip-title">Relentless Execution</h3>
+              </div>
+              <div class="strip-tags">
+                <span class="strip-pill">#24x7Monitoring</span>
+                <span class="strip-pill">#ZeroDowntime</span>
+              </div>
+              <span class="strip-toggle-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </div>
+            <div class="strip-body">
+              <p>Logistics never pauses. Our round-the-clock dispatch desk and automated exception routing intercept transit bottlenecks before delays impact your delivery deadline.</p>
+            </div>
+          </div>
+
+          <!-- Strip 3 -->
+          <div class="value-strip-item">
+            <div class="strip-header">
+              <span class="strip-index">03</span>
+              <div class="strip-title-box">
+                <div class="strip-icon"><i class="fa-solid fa-microchip"></i></div>
+                <h3 class="strip-title">Tech-First Innovation</h3>
+              </div>
+              <div class="strip-tags">
+                <span class="strip-pill">#PredictiveML</span>
+                <span class="strip-pill">#SmartDispatch</span>
+              </div>
+              <span class="strip-toggle-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </div>
+            <div class="strip-body">
+              <p>We replace legacy spreadsheets with machine learning optimization, dynamic lane matching, and seamless API integrations directly into your existing ERP.</p>
+            </div>
+          </div>
+
+          <!-- Strip 4 -->
+          <div class="value-strip-item">
+            <div class="strip-header">
+              <span class="strip-index">04</span>
+              <div class="strip-title-box">
+                <div class="strip-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+                <h3 class="strip-title">Client-Centric Partnering</h3>
+              </div>
+              <div class="strip-tags">
+                <span class="strip-pill">#DedicatedTeam</span>
+                <span class="strip-pill">#CustomSLA</span>
+              </div>
+              <span class="strip-toggle-icon"><i class="fa-solid fa-chevron-down"></i></span>
+            </div>
+            <div class="strip-body">
+              <p>We align with your enterprise KPIs. Dedicated account managers, customized logistics workflows, and quarterly cost reduction audits built for long-term growth.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Unique Milestones Timeline Laser Spine -->
+    <section class="about-timeline-section">
+      <div class="about-timeline-container">
+        <div class="about-section-header text-center reveal-slide-up">
+          <div class="badge-pill"><i class="fa-solid fa-timeline"></i> Evolution</div>
+          <h2 class="about-section-title">TWO DECADES OF LOGISTICS EXCELLENCE</h2>
+        </div>
+
+        <div class="vertical-timeline-wrapper reveal-slide-up delay-1">
+          <div class="laser-spine-line"></div>
+
+          <!-- Milestone 1: Left -->
+          <div class="timeline-row left-row">
+            <div class="timeline-content-box">
+              <span class="timeline-badge-year">2004</span>
+              <h4 class="timeline-node-title">Foundation of Convoy</h4>
+              <p class="timeline-node-desc">Launched as a 2-person freight agency in Chicago pioneering transparent carrier matching.</p>
+              <div class="timeline-metric-tag"><i class="fa-solid fa-users"></i> 2-Person Operation</div>
+            </div>
+            <div class="timeline-laser-node"><span>01</span></div>
+            <div class="timeline-spacer"></div>
+          </div>
+
+          <!-- Milestone 2: Right -->
+          <div class="timeline-row right-row">
+            <div class="timeline-spacer"></div>
+            <div class="timeline-laser-node"><span>02</span></div>
+            <div class="timeline-content-box">
+              <span class="timeline-badge-year">2012</span>
+              <h4 class="timeline-node-title">Nationwide Hub Expansion</h4>
+              <p class="timeline-node-desc">Built 50+ strategically positioned fulfillment and cross-dock facilities across North America.</p>
+              <div class="timeline-metric-tag"><i class="fa-solid fa-warehouse"></i> 50+ Distribution Hubs</div>
+            </div>
+          </div>
+
+          <!-- Milestone 3: Left -->
+          <div class="timeline-row left-row">
+            <div class="timeline-content-box">
+              <span class="timeline-badge-year">2018</span>
+              <h4 class="timeline-node-title">AI Routing Platform Launch</h4>
+              <p class="timeline-node-desc">Deployed proprietary machine learning engine reducing transit times by 22% and fuel usage by 18%.</p>
+              <div class="timeline-metric-tag"><i class="fa-solid fa-bolt"></i> 22% Transit Acceleration</div>
+            </div>
+            <div class="timeline-laser-node"><span>03</span></div>
+            <div class="timeline-spacer"></div>
+          </div>
+
+          <!-- Milestone 4: Right -->
+          <div class="timeline-row right-row">
+            <div class="timeline-spacer"></div>
+            <div class="timeline-laser-node"><span>04</span></div>
+            <div class="timeline-content-box">
+              <span class="timeline-badge-year">2026</span>
+              <h4 class="timeline-node-title">Global Enterprise Scale</h4>
+              <p class="timeline-node-desc">Managing 1,000+ global supply chains across 45 countries with over $50M in verified savings.</p>
+              <div class="timeline-metric-tag"><i class="fa-solid fa-globe"></i> 1,000+ Enterprise Clients</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Unique Live Global Reach HUD Operations Map Dashboard -->
+    <section class="about-stats-section">
+      <div class="about-stats-container">
+        <div class="about-section-header text-center reveal-slide-up">
+          <div class="badge-pill"><i class="fa-solid fa-earth-americas"></i> Operations Command</div>
+          <h2 class="about-section-title">LOGISTICS AT AN ENTERPRISE SCALE</h2>
+        </div>
+
+        <div class="hud-dashboard-wrapper reveal-slide-up delay-1">
+          <!-- Background Visual Map Grid with Radar Pings -->
+          <div class="hud-map-canvas">
+            <div class="radar-ping ping-chicago" title="Chicago HQ Hub">
+              <span class="ping-ring"></span>
+              <span class="ping-dot"></span>
+              <span class="ping-label">Chicago HQ</span>
+            </div>
+            <div class="radar-ping ping-rotterdam" title="Rotterdam Sea Port">
+              <span class="ping-ring"></span>
+              <span class="ping-dot"></span>
+              <span class="ping-label">Rotterdam</span>
+            </div>
+            <div class="radar-ping ping-dubai" title="Dubai Air Logistics">
+              <span class="ping-ring"></span>
+              <span class="ping-dot"></span>
+              <span class="ping-label">Dubai</span>
+            </div>
+            <div class="radar-ping ping-singapore" title="Singapore Hub">
+              <span class="ping-ring"></span>
+              <span class="ping-dot"></span>
+              <span class="ping-label">Singapore</span>
+            </div>
+            <div class="radar-ping ping-tokyo" title="Tokyo Tech Node">
+              <span class="ping-ring"></span>
+              <span class="ping-dot"></span>
+              <span class="ping-label">Tokyo</span>
+            </div>
+          </div>
+
+          <!-- Embedded Metric Overlay Modules -->
+          <div class="hud-overlay-grid">
+            <div class="hud-stat-card">
+              <div class="hud-card-top">
+                <i class="fa-solid fa-warehouse"></i>
+                <span class="hud-status-badge"><span class="pulse-dot"></span> ACTIVE</span>
+              </div>
+              <div class="hud-val-counter">250+</div>
+              <div class="hud-stat-title">Smart Warehouses &amp; Hubs</div>
+              <p class="hud-stat-sub">Integrated IoT fulfillment network</p>
+            </div>
+
+            <div class="hud-stat-card">
+              <div class="hud-card-top">
+                <i class="fa-solid fa-truck-fast"></i>
+                <span class="hud-status-badge"><span class="pulse-dot"></span> ACTIVE</span>
+              </div>
+              <div class="hud-val-counter">15M+</div>
+              <div class="hud-stat-title">Tons Cargo Moved</div>
+              <p class="hud-stat-sub">Annual multi-modal freight volume</p>
+            </div>
+
+            <div class="hud-stat-card">
+              <div class="hud-card-top">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span class="hud-status-badge"><span class="pulse-dot"></span> VERIFIED</span>
+              </div>
+              <div class="hud-val-counter">99.4%</div>
+              <div class="hud-stat-title">On-Time Precision SLA</div>
+              <p class="hud-stat-sub">Automated exception monitoring</p>
+            </div>
+
+            <div class="hud-stat-card">
+              <div class="hud-card-top">
+                <i class="fa-solid fa-sack-dollar"></i>
+                <span class="hud-status-badge"><span class="pulse-dot"></span> SAVED</span>
+              </div>
+              <div class="hud-val-counter">$50M+</div>
+              <div class="hud-stat-title">Client ROI Delivered</div>
+              <p class="hud-stat-sub">Direct logistics cost reduction</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section (Figma Specs: Infinite Marquee Scroll) -->
+    <section class="about-team-section">
+      <div class="about-team-container">
+        <div class="about-team-header reveal-slide-left">
+          <div class="badge-pill">Our Team</div>
+          <h2 class="about-team-title">MEET THE TEAM BEHIND CONVOY &copy;</h2>
+        </div>
+      </div>
+
+      <!-- Infinite Marquee Scroll Loop -->
+      <div class="team-marquee-wrapper reveal-slide-up delay-1">
+        <div class="team-marquee-track" id="teamMarqueeTrack">
+          <!-- First Set of 4 Team Cards -->
+          <div class="team-card-item">
+            <div class="team-card-image-box">
+              <img src="../assets/about/team-1.webp" alt="Michael Rodriguez">
+            </div>
+            <div class="team-card-info">
+              <span class="team-card-name">MICHAEL RODRIGUEZ</span>
+              <span class="team-card-role">Founder &amp; CEO</span>
+            </div>
+          </div>
+
+          <div class="team-card-item">
+            <div class="team-card-image-box">
+              <img src="../assets/about/team-2.webp" alt="Sarah Chen">
+            </div>
+            <div class="team-card-info">
+              <span class="team-card-name">SARAH CHEN</span>
+              <span class="team-card-role">Director of Supply Chain Strategy</span>
+            </div>
+          </div>
+
+          <div class="team-card-item">
+            <div class="team-card-image-box">
+              <img src="../assets/about/team-3.webp" alt="James Patterson">
+            </div>
+            <div class="team-card-info">
+              <span class="team-card-name">JAMES PATTERSON</span>
+              <span class="team-card-role">Lead Transportation Consultant</span>
+            </div>
+          </div>
+
+          <div class="team-card-item">
+            <div class="team-card-image-box">
+              <img src="../assets/about/team-4.webp" alt="Lisa Nguyen">
+            </div>
+            <div class="team-card-info">
+              <span class="team-card-name">LISA NGUYEN</span>
+              <span class="team-card-role">Technology Integration Lead</span>
+            </div>
+          </div>
+
+          <!-- Duplicated Set for Seamless Infinite Loop -->
+          <div class="team-card-item" aria-hidden="true">
+            <div class="team-card-image-box">
+              <img src="../assets/about/team-1.webp" alt="Michael Rodriguez">
+            </div>
+            <div class="team-card-info">
+              <span class="team-card-name">MICHAEL RODRIGUEZ</span>
+              <span class="team-card-role">Founder &amp; CEO</span>
+            </div>
+          </div>
+
+          <div class="team-card-item" aria-hidden="true">
+            <div class="team-card-image-box">
+              <img src="../assets/about/team-2.webp" alt="Sarah Chen">
+            </div>
+            <div class="team-card-info">
+              <span class="team-card-name">SARAH CHEN</span>
+              <span class="team-card-role">Director of Supply Chain Strategy</span>
+            </div>
+          </div>
+
+          <div class="team-card-item" aria-hidden="true">
+            <div class="team-card-image-box">
+              <img src="../assets/about/team-3.webp" alt="James Patterson">
+            </div>
+            <div class="team-card-info">
+              <span class="team-card-name">JAMES PATTERSON</span>
+              <span class="team-card-role">Lead Transportation Consultant</span>
+            </div>
+          </div>
+
+          <div class="team-card-item" aria-hidden="true">
+            <div class="team-card-image-box">
+              <img src="../assets/about/team-4.webp" alt="Lisa Nguyen">
+            </div>
+            <div class="team-card-info">
+              <span class="team-card-name">LISA NGUYEN</span>
+              <span class="team-card-role">Technology Integration Lead</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="cta-section" id="contact">
+      <div class="cta-container">
+        <div class="cta-box reveal-slide-up">
+          <span class="cta-badge">
+            <i class="fa-solid fa-bolt"></i> Ready When You Are
+          </span>
+
+          <h2 class="cta-title">
+            Move Freight Smarter.<br>
+            Grow Business Faster.
+          </h2>
+
+          <p class="cta-text">
+            Tell us what you operate today. We will tell you honestly what we can improve, what we cannot, and what we
+            would not attempt in the first quarter.
+          </p>
+
+          <div class="cta-actions">
+            <a href="contact.html" class="cta-btn cta-btn--dark">
+              Request a Bid <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="services.html" class="cta-btn cta-btn--ghost">
+              <i class="fa-solid fa-gear"></i> Explore Services
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+
+        <!-- Brand Column -->
+        <div class="footer-brand-col">
+          <div class="footer-brand">
+            <a href="../index.html">
+              <img src="../logo.webp" alt="Stackly Logo">
+            </a>
+          </div>
+          <p class="footer-desc">
+            A modern freight and logistics platform for teams that run critical operations — modelled, governed, integrated, and measured.
+          </p>
+          <div class="footer-socials">
+            <a href="../404.html" class="footer-social" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="../404.html" class="footer-social" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="../404.html" class="footer-social" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="../404.html" class="footer-social" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Navigation Column -->
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Service</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Services Column -->
+        <div>
+          <h4 class="footer-col-title">Services</h4>
+          <ul class="footer-links">
+            <li><a href="../404.html">Freight Management</a></li>
+            <li><a href="../404.html">Route Planning</a></li>
+            <li><a href="../404.html">Warehouse Strategy</a></li>
+            <li><a href="../404.html">Technology Integration</a></li>
+            <li><a href="../404.html">Cost Reduction</a></li>
+          </ul>
+        </div>
+
+        <!-- Company Column -->
+        <div>
+          <h4 class="footer-col-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="../404.html">About Us</a></li>
+            <li><a href="../404.html">Industries</a></li>
+            <li><a href="../404.html">Insights</a></li>
+            <li><a href="../404.html">Team</a></li>
+            <li><a href="../404.html">Pricing</a></li>
+            <li><a href="../404.html">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Column -->
+        <div>
+          <h4 class="footer-col-title">Contact</h4>
+          <ul class="footer-contact-list">
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              <a href="../404.html">+91 94426 73815</a>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              <a href="../404.html">hello@convoy.example</a>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              <a href="../404.html"><span>Convoy Logistics<br>Salem, Tamil Nadu, India</span></a>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              <a href="../404.html"><span>Mon — Fri · 09:30 – 18:30 IST</span></a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          © 2026 Stackly Logistics · All rights reserved.
+        </p>
+        <div class="footer-legal">
+          <a href="../404.html">Privacy Policy</a>
+          <a href="../404.html">Terms of Service</a>
+          <a href="../404.html">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Common Script -->
+  <script>
+    // Hide Preloader after 1.5s
+    const preloader = document.getElementById('pagePreloader');
+    if (preloader) {
+      setTimeout(() => {
+        preloader.classList.add('fade-out');
+      }, 1500);
+    }
+
+
+    const siteHeader = document.getElementById("siteHeader");
+
+    function handleHeaderScroll() {
+        if (!siteHeader) return;
+
+        const scrollTop =
+            window.scrollY ||
+            document.documentElement.scrollTop ||
+            document.body.scrollTop ||
+            0;
+
+        siteHeader.classList.toggle("scrolled", scrollTop > 10);
+    }
+
+    window.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    document.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    document.documentElement.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    document.body.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    handleHeaderScroll();
+
+
+    function initApp() {
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+      const mobileDrawer = document.getElementById('mobileDrawer');
+      const body = document.body;
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+      function toggleMenu() {
+        if (!mobileDrawer) return;
+        const isOpen = mobileDrawer.classList.toggle('is-active');
+        if (hamburgerBtn) {
+          hamburgerBtn.classList.toggle('is-active', isOpen);
+          hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        }
+        mobileDrawer.setAttribute('aria-hidden', !isOpen);
+
+        if (isOpen) {
+          document.body.classList.add('no-scroll');
+          document.documentElement.classList.add('no-scroll');
+        } else {
+          document.body.classList.remove('no-scroll');
+          document.documentElement.classList.remove('no-scroll');
+        }
+      }
+
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', toggleMenu);
+      }
+      if (mobileCloseBtn) {
+        mobileCloseBtn.addEventListener('click', toggleMenu);
+      }
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (mobileDrawer && mobileDrawer.classList.contains('is-active')) {
+            toggleMenu();
+          }
+        });
+      });
+
+      // Team Marquee Navigation Controls
+      const teamTrack = document.getElementById('teamMarqueeTrack');
+      const teamPrevBtn = document.getElementById('teamPrevBtn');
+      const teamNextBtn = document.getElementById('teamNextBtn');
+      if (teamTrack && teamPrevBtn && teamNextBtn) {
+        teamPrevBtn.addEventListener('click', () => {
+          teamTrack.style.animationDirection = 'reverse';
+        });
+        teamNextBtn.addEventListener('click', () => {
+          teamTrack.style.animationDirection = 'normal';
+        });
+      }
+
+      // Mission / Vision Tab Switcher
+      window.switchMissionTab = function(tabName) {
+        const missionBtn = document.getElementById('missionTabBtn');
+        const visionBtn = document.getElementById('visionTabBtn');
+        const missionPanel = document.getElementById('missionPanel');
+        const visionPanel = document.getElementById('visionPanel');
+
+        if (tabName === 'mission') {
+          missionBtn?.classList.add('active');
+          visionBtn?.classList.remove('active');
+          missionPanel?.classList.add('active');
+          visionPanel?.classList.remove('active');
+        } else {
+          visionBtn?.classList.add('active');
+          missionBtn?.classList.remove('active');
+          visionPanel?.classList.add('active');
+          missionPanel?.classList.remove('active');
+        }
+      };
+
+      // Accordion Value Strips Click Handler (Toggles open/close on click)
+      const stripItems = document.querySelectorAll('.value-strip-item');
+      stripItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const isCurrentlyActive = item.classList.contains('active');
+          stripItems.forEach(s => s.classList.remove('active'));
+          if (!isCurrentlyActive) {
+            item.classList.add('active');
+          }
+        });
+      });
+
+      // GSAP Staggered Letter Text Animation for Section Headings
+      function initGSAPSectionHeadings() {
+        if (typeof gsap === 'undefined') return;
+
+        const headingSelectors = [
+          '.section-title',
+          '.section-main-title',
+          '.section-title-orange',
+          '.about-description',
+          '.about-section-title',
+          '.about-team-title',
+          '.services-hero-title',
+          '.contact-hero-title',
+          '.blog-hero-title',
+          '.cta-title',
+          '.stagger-heading'
+        ];
+
+        const headings = document.querySelectorAll(headingSelectors.join(', '));
+
+        headings.forEach(heading => {
+          if (heading.dataset.splitDone) return;
+          heading.dataset.splitDone = "true";
+
+          const childNodes = Array.from(heading.childNodes);
+          heading.innerHTML = '';
+
+          childNodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE) {
+              const chars = node.textContent.split('');
+              chars.forEach(ch => {
+                const span = document.createElement('span');
+                span.className = 'gsap-char';
+                span.style.display = ch === ' ' ? 'inline' : 'inline-block';
+                span.style.willChange = 'transform, opacity';
+                span.textContent = ch === ' ' ? '\u00A0' : ch;
+                heading.appendChild(span);
+              });
+            } else {
+              heading.appendChild(node.cloneNode(true));
+            }
+          });
+
+          const charSpans = heading.querySelectorAll('.gsap-char');
+          if (charSpans.length === 0) return;
+
+          if (typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.from(charSpans, {
+              scrollTrigger: {
+                trigger: heading,
+                start: 'top 88%',
+                toggleActions: 'play none none none'
+              },
+              y: 50,
+              opacity: 0,
+              stagger: 0.03,
+              duration: 0.6,
+              ease: 'back.out(1.7)'
+            });
+          } else {
+            gsap.from(charSpans, {
+              y: 50,
+              opacity: 0,
+              stagger: 0.03,
+              duration: 0.6,
+              ease: 'back.out(1.7)'
+            });
+          }
+        });
+      }
+
+      initGSAPSectionHeadings();
+
+      // Scroll Reveal Intersection Observer
+      const revealElements = document.querySelectorAll('.reveal-slide-left, .reveal-slide-right, .reveal-slide-up, .reveal-slide-down');
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('reveal-active');
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+      } else {
+        revealElements.forEach(el => el.classList.add('reveal-active'));
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+  </script>
+</body>
+</html>

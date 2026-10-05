@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — CONVOY Logistics</title>
+  <meta name="description" content="Get in touch with Convoy's freight and logistics team. Request a bid or schedule a call.">
+  
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome CDN for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Stylesheets (Proper Relative Paths) -->
+  <link rel="stylesheet" href="../global.css">
+  <link rel="stylesheet" href="../index.css">
+
+  <!-- GSAP & ScrollTrigger Animation Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- Page Loader (Appears for 1.5 seconds) -->
+  <div class="page-preloader" id="pagePreloader">
+    <div class="preloader-brand">
+      <img src="../logo.webp" alt="Convoy Logo">
+    </div>
+    <div class="preloader-spinner"></div>
+  </div>
+
+  <!-- Site Header -->
+  <header class="site-header" id="siteHeader">
+    <a href="../index.html" class="header-logo" aria-label="Stackly Home">
+      <img src="../logo.webp" alt="Stackly Logo">
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav-desktop" aria-label="Main Navigation">
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Service</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-primary">Login</a>
+        <a href="signup.html" class="btn btn-signup">Signup</a>
+      </div>
+    </nav>
+
+    <!-- Hamburger Toggle for Mobile -->
+    <button class="hamburger-toggle" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-nav-drawer" id="mobileDrawer" aria-hidden="true">
+    <div class="mobile-drawer-header">
+      <a href="../index.html" class="mobile-drawer-logo" aria-label="Stackly Home">
+        <img src="../logo.webp" alt="Stackly Logo">
+      </a>
+      <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="../index.html" class="mobile-nav-link">Home</a></li>
+      <li><a href="about.html" class="mobile-nav-link">About</a></li>
+      <li><a href="services.html" class="mobile-nav-link">Service</a></li>
+      <li><a href="blog.html" class="mobile-nav-link">Blog</a></li>
+      <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <a href="login.html" class="btn btn-primary">Login</a>
+      <a href="signup.html" class="btn btn-signup">Signup</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- 1. Rebuilt Contact Hero Section -->
+    <section class="contact-hero-section">
+      <div class="contact-hero-watermark">STACKLY</div>
+      <div class="contact-hero-content">
+        <div class="badge-pill reveal-slide-down">
+          <i class="fa-solid fa-headset" style="color: var(--color-primary-orange); margin-right: 8px;"></i> Salem, TN, India Control Center
+        </div>
+        <h1 class="contact-hero-title stagger-heading reveal-slide-up">
+          LET'S TRANSFORM YOUR <span>LOGISTICS OPERATIONS</span>
+        </h1>
+        <p class="contact-hero-lead reveal-slide-left delay-1">
+          Connect directly with our logistics engineers, freight strategists, and Salem operational headquarters. We respond in under 15 minutes.
+        </p>
+        
+        <div class="contact-hero-stats-row">
+          <div class="contact-stat-pill reveal-slide-left delay-2">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Avg Response: &lt; 15 Mins</span>
+          </div>
+          <div class="contact-stat-pill reveal-slide-up delay-2">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>99.9% Delivery Rate</span>
+          </div>
+          <div class="contact-stat-pill reveal-slide-right delay-2">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Stackly HQ · Salem, TN, India</span>
+          </div>
+        </div>
+
+        <div class="hero-cta-group reveal-slide-up delay-3" style="margin-top: 12px;">
+          <a href="#contact-form" class="btn btn-primary">Request a Bid<i class="fa-solid fa-arrow-down" style="margin-left: 8px;"></i></a>
+          <a href="../404.html" class="btn btn-outline-pill"><i class="fa-solid fa-phone" style="margin-right: 8px;"></i>Call Salem HQ</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Section 1 Above FAQ: Direct Contact Channels Grid -->
+    <section class="contact-channels-section">
+      <div class="contact-channels-container">
+        <div class="faq-header" style="text-align: center;">
+          <div class="section-badge reveal-slide-down">CONNECT FAST</div>
+          <h2 class="section-title-orange stagger-heading">Direct Reach Channels</h2>
+          <p class="section-lead-text reveal-slide-up delay-1">Choose how you'd like to get in touch with our team today.</p>
+        </div>
+
+        <div class="contact-channels-grid">
+          <!-- Card 1 (Slides from Left) -->
+          <div class="contact-channel-card reveal-slide-left">
+            <div class="channel-icon-wrapper">
+              <i class="fa-solid fa-building-columns"></i>
+            </div>
+            <div class="channel-card-body">
+              <span class="channel-status-badge"><span class="pulse-dot"></span> Open Today 09:30 - 18:30 IST</span>
+              <h3>Salem Headquarters</h3>
+              <p>Five Roads Junction, Main Road, Salem, Tamil Nadu - 636004, India</p>
+            </div>
+            <a href="../404.html" class="channel-action-link">View Headquarters Map <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <!-- Card 2 (Slides from Left with delay) -->
+          <div class="contact-channel-card reveal-slide-left delay-1">
+            <div class="channel-icon-wrapper">
+              <i class="fa-solid fa-phone-volume"></i>
+            </div>
+            <div class="channel-card-body">
+              <span class="channel-status-badge"><span class="pulse-dot"></span> 24/7 Priority Support</span>
+              <h3>Phone Hotline</h3>
+              <p>+91 94426 73815<br>+91 427 244 8900</p>
+            </div>
+            <a href="../404.html" class="channel-action-link">Call Direct Line <i class="fa-solid fa-phone"></i></a>
+          </div>
+
+          <!-- Card 3 (Slides from Right with delay) -->
+          <div class="contact-channel-card reveal-slide-right delay-2">
+            <div class="channel-icon-wrapper">
+              <i class="fa-solid fa-envelope-open-text"></i>
+            </div>
+            <div class="channel-card-body">
+              <span class="channel-status-badge"><span class="pulse-dot"></span> &lt; 15-Min Response</span>
+              <h3>Sales & RFP Bids</h3>
+              <p>bids@stackly.com<br>hello@stackly.com</p>
+            </div>
+            <a href="../404.html" class="channel-action-link">Email Sales Team <i class="fa-solid fa-envelope"></i></a>
+          </div>
+
+          <!-- Card 4 (Slides from Right with delay) -->
+          <div class="contact-channel-card reveal-slide-right delay-3">
+            <div class="channel-icon-wrapper">
+              <i class="fa-solid fa-network-wired"></i>
+            </div>
+            <div class="channel-card-body">
+              <span class="channel-status-badge"><span class="pulse-dot"></span> Active Monitoring</span>
+              <h3>Tech Integration</h3>
+              <p>API feeds, WMS webhooks, and portal troubleshooting.</p>
+            </div>
+            <a href="../404.html" class="channel-action-link">Submit Support Ticket <i class="fa-solid fa-ticket"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Section 2 Above FAQ: Interactive Contact Form & Trust Card -->
+    <section class="contact-form-section" id="contact-form">
+      <div class="contact-form-container">
+        <div class="contact-form-grid">
+          <!-- Left: Contact Form (Slides from Left) -->
+          <div class="contact-form-box reveal-slide-left">
+            <h3>Send Us a Message / Request a Bid</h3>
+            <p>Fill out the operational parameters below for a fast response from our Salem team.</p>
+
+            <form id="contactMainForm" novalidate onsubmit="handleContactSubmit(event)">
+              <div class="form-grid-2col">
+                <div class="form-group reveal-slide-left">
+                  <label for="contactName">Full Name *</label>
+                  <input type="text" id="contactName" class="form-control" placeholder="e.g. Rahul Sharma" required>
+                </div>
+                <div class="form-group reveal-slide-right">
+                  <label for="contactEmail">Work Email *</label>
+                  <input type="email" id="contactEmail" class="form-control" placeholder="name@company.com" required>
+                </div>
+              </div>
+
+              <div class="form-grid-2col">
+                <div class="form-group reveal-slide-left">
+                  <label for="contactPhone">Phone Number *</label>
+                  <input type="tel" id="contactPhone" class="form-control" placeholder="+91 98765 43210" required>
+                </div>
+                <div class="form-group reveal-slide-right">
+                  <label for="contactService">Service Required *</label>
+                  <input type="hidden" id="contactService" name="contactService" value="" required>
+                  <div class="custom-select-wrapper" id="contactServiceWrapper">
+                    <div class="custom-select-trigger form-control" tabindex="0">
+                      <span class="custom-select-value">Select Service...</span>
+                      <span class="custom-select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                    </div>
+                    <div class="custom-select-options">
+                      <div class="custom-select-option selected" data-value="">Select Service...</div>
+                      <div class="custom-select-option" data-value="freight">Freight Management & Routing</div>
+                      <div class="custom-select-option" data-value="warehouse">Warehouse Storage & Fulfilment</div>
+                      <div class="custom-select-option" data-value="supply-chain">Supply Chain Optimization</div>
+                      <div class="custom-select-option" data-value="api-integration">API & TMS Integration</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group reveal-slide-left">
+                <label for="contactVolume">Monthly Freight Volume *</label>
+                <input type="hidden" id="contactVolume" name="contactVolume" value="" required>
+                <div class="custom-select-wrapper" id="contactVolumeWrapper">
+                  <div class="custom-select-trigger form-control" tabindex="0">
+                    <span class="custom-select-value">Select Volume...</span>
+                    <span class="custom-select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                  </div>
+                  <div class="custom-select-options">
+                    <div class="custom-select-option selected" data-value="">Select Volume...</div>
+                    <div class="custom-select-option" data-value="under-10">Under 10 Tons / Month</div>
+                    <div class="custom-select-option" data-value="10-50">10 – 50 Tons / Month</div>
+                    <div class="custom-select-option" data-value="50-200">50 – 200 Tons / Month</div>
+                    <div class="custom-select-option" data-value="200-plus">200+ Tons (Enterprise Scale)</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group reveal-slide-up">
+                <label for="contactMessage">Project / Inquiry Details *</label>
+                <textarea id="contactMessage" class="form-control" placeholder="Tell us about your current logistics workflow or required routes..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn-submit-form reveal-slide-up">
+                Send Request <i class="fa-solid fa-paper-plane"></i>
+              </button>
+
+              <div class="form-error-alert" id="formErrorAlert">
+                <i class="fa-solid fa-triangle-exclamation"></i> <span id="formErrorText">Please fill out all required fields marked with *.</span>
+              </div>
+            </form>
+          </div>
+
+          <!-- Right: Trust Badges Card (Slides from Right) -->
+          <div class="contact-trust-card reveal-slide-right">
+            <div class="trust-card-header">
+              <h3>Why Leading Enterprises Partner With Stackly</h3>
+              <p class="reveal-slide-right delay-1">We combine deep regional ground execution with state-of-the-art telematics software.</p>
+            </div>
+
+            <ul class="trust-benefits-list">
+              <li class="trust-benefit-item reveal-slide-right delay-1">
+                <div class="trust-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="trust-info">
+                  <h4>99.9% Delivery SLA Guarantee</h4>
+                  <p>Guaranteed freight dispatch timelines backed up with penalty-backed SLAs.</p>
+                </div>
+              </li>
+              <li class="trust-benefit-item reveal-slide-right delay-2">
+                <div class="trust-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="trust-info">
+                  <h4>28% Cost Reduction Average</h4>
+                  <p>Dynamic route batching & backhaul matching reduces deadhead miles.</p>
+                </div>
+              </li>
+              <li class="trust-benefit-item reveal-slide-right delay-3">
+                <div class="trust-icon"><i class="fa-solid fa-user-gear"></i></div>
+                <div class="trust-info">
+                  <h4>Dedicated Account Manager</h4>
+                  <p>Single point of contact based out of our Salem operational headquarters.</p>
+                </div>
+              </li>
+            </ul>
+
+            <div class="salem-hq-box reveal-slide-up delay-4">
+              <i class="fa-solid fa-map-pin"></i>
+              <div class="salem-hq-details">
+                <h5>Stackly Headquarters (India)</h5>
+                <p>Five Roads Junction, Salem, Tamil Nadu - 636004</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Section 3 Above FAQ: Salem Location & Interactive Map Section -->
+    <section class="contact-map-section" id="map-section">
+      <div class="contact-map-container">
+        <div class="faq-header" style="text-align: center;">
+          <div class="section-badge reveal-slide-down">LOCATION</div>
+          <h2 class="section-title-orange stagger-heading">Stackly Headquarters — Salem, TN, India</h2>
+          <p class="section-lead-text reveal-slide-up delay-1">Situated at the strategic freight crossroads connecting Chennai, Bengaluru, Kochi & Coimbatore.</p>
+        </div>
+
+        <div class="map-card-wrapper reveal-slide-up delay-1">
+          <!-- Floating HUD Info Card (Slides from Left) -->
+          <div class="map-hud-overlay reveal-slide-left">
+            <span class="map-hud-badge"><span class="pulse-dot"></span> Primary Control Hub</span>
+            <h3 class="map-hud-title">Stackly Logistics Hub</h3>
+            <p class="map-hud-address">
+              Five Roads Junction, Main Road,<br>
+              Salem, Tamil Nadu — 636004, India<br>
+              <i class="fa-solid fa-phone" style="color: var(--color-primary-orange); margin-right: 6px;"></i> +91 94426 73815
+            </p>
+            <div class="map-hud-actions">
+              <a href="../404.html" class="btn-map-dir">
+                Get Directions on Google Maps <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Embedded Google Map iframe (Slides from Right) -->
+          <iframe 
+            class="reveal-slide-right"
+            src="https://maps.google.com/maps?q=Salem,%20Tamil%20Nadu,%20India&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Stackly Headquarters Salem Tamil Nadu India Map">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Section 4 Above FAQ: Regional Logistics & Warehousing Hubs -->
+    <section class="contact-hubs-section">
+      <div class="contact-hubs-container">
+        <div class="faq-header" style="text-align: center;">
+          <div class="section-badge reveal-slide-down">REGIONAL HUBS</div>
+          <h2 class="section-title-orange stagger-heading">South India Logistics Network</h2>
+          <p class="section-lead-text reveal-slide-up delay-1">Strategic warehousing facilities operating synchronized inventory dispatch.</p>
+        </div>
+
+        <div class="hubs-grid">
+          <!-- Hub 1 (Slides from Left) -->
+          <div class="hub-card reveal-slide-left">
+            <div class="hub-top">
+              <i class="fa-solid fa-building-flag"></i>
+              <span class="hub-status-tag">Primary Tech HQ</span>
+            </div>
+            <h4 class="hub-name">Salem Central Hub</h4>
+            <p class="hub-location"><i class="fa-solid fa-location-dot"></i> Salem, Tamil Nadu</p>
+            <div class="hub-capacity-badge">150,000 Sq. Ft. Warehouse & Control Tower</div>
+          </div>
+
+          <!-- Hub 2 (Slides from Left with delay) -->
+          <div class="hub-card reveal-slide-left delay-1">
+            <div class="hub-top">
+              <i class="fa-solid fa-ship"></i>
+              <span class="hub-status-tag">Maritime & Export</span>
+            </div>
+            <h4 class="hub-name">Chennai Port Facility</h4>
+            <p class="hub-location"><i class="fa-solid fa-location-dot"></i> Sriperumbudur, TN</p>
+            <div class="hub-capacity-badge">300,000 Sq. Ft. Container Terminal</div>
+          </div>
+
+          <!-- Hub 3 (Slides from Right with delay) -->
+          <div class="hub-card reveal-slide-right delay-2">
+            <div class="hub-top">
+              <i class="fa-solid fa-truck-fast"></i>
+              <span class="hub-status-tag">Express Transit</span>
+            </div>
+            <h4 class="hub-name">Bengaluru Transit Node</h4>
+            <p class="hub-location"><i class="fa-solid fa-location-dot"></i> Electronics City, KA</p>
+            <div class="hub-capacity-badge">200,000 Sq. Ft. Cross-Dock Hub</div>
+          </div>
+
+          <!-- Hub 4 (Slides from Right with delay) -->
+          <div class="hub-card reveal-slide-right delay-3">
+            <div class="hub-top">
+              <i class="fa-solid fa-warehouse"></i>
+              <span class="hub-status-tag">Industrial Hub</span>
+            </div>
+            <h4 class="hub-name">Coimbatore Goods Terminal</h4>
+            <p class="hub-location"><i class="fa-solid fa-location-dot"></i> Avinashi Road, TN</p>
+            <div class="hub-capacity-badge">180,000 Sq. Ft. Distribution Center</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Section: Inside Salem Command Center & Operations (Image Showcase Section) -->
+    <section class="contact-showcase-section">
+      <div class="contact-showcase-container">
+        <div class="faq-header" style="text-align: center;">
+          <div class="section-badge reveal-slide-down">INFRASTRUCTURE</div>
+          <h2 class="section-title-orange stagger-heading">Inside Our Salem Command Center</h2>
+          <p class="section-lead-text reveal-slide-up delay-1">Explore our 150,000 sq. ft. automated dispatch hub, IoT telematics tower, and active ground fleet in Salem, Tamil Nadu.</p>
+        </div>
+
+        <div class="showcase-grid">
+          <!-- Left: Main Featured Command Center Image (Slides from Left) -->
+          <div class="showcase-main-img-box reveal-slide-left">
+            <div class="showcase-img-badge">
+              <span class="pulse-dot"></span> Live Telematics Tower · Salem HQ
+            </div>
+            <img src="../assets/salem_logistics_hub.webp" alt="Salem Freight Command Center and Warehouse Facility">
+            <div class="showcase-img-caption">
+              <h4>Salem Central Control Tower</h4>
+              <p>24/7 Automated Freight Monitoring & Regional Fleet Dispatch</p>
+            </div>
+          </div>
+
+          <!-- Right: Secondary Feature Grid & Breakdown (Slides from Right) -->
+          <div class="showcase-features-column">
+            <!-- Mini Image Gallery Cards -->
+            <div class="showcase-mini-grid">
+              <div class="showcase-mini-card reveal-slide-right delay-1">
+                <img src="../assets/home_about_1.webp" alt="Fleet Truck Loading Dock">
+                <div class="showcase-mini-overlay">
+                  <h5>High-Speed Loading Docks</h5>
+                  <p>12 Bays Active</p>
+                </div>
+              </div>
+              <div class="showcase-mini-card reveal-slide-right delay-2">
+                <img src="../assets/home_about_4.webp" alt="Cold Chain Storage Pallets">
+                <div class="showcase-mini-overlay">
+                  <h5>Smart Pallet Racks</h5>
+                  <p>150,000 Sq. Ft.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Operational Feature Bullet Items -->
+            <div class="showcase-text-list">
+              <div class="showcase-text-item reveal-slide-right delay-3">
+                <i class="fa-solid fa-microchip"></i>
+                <div class="showcase-text-info">
+                  <h5>Real-Time Telematics & Geofence Control</h5>
+                  <p>Every vehicle dispatched from Salem transmits instant speed, location, and temperature metrics.</p>
+                </div>
+              </div>
+
+              <div class="showcase-text-item reveal-slide-right delay-4">
+                <i class="fa-solid fa-boxes-stacked"></i>
+                <div class="showcase-text-info">
+                  <h5>Unified WMS & TMS Integration</h5>
+                  <p>Automated sorting algorithms optimize cargo loading to cut transit times by up to 32%.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Expanded FAQ Section -->
+    <section class="faq-section" id="faq">
+      <div class="faq-container">
+        <div class="faq-header">
+          <div class="section-badge reveal-slide-down">FAQ</div>
+          <h2 class="section-title-orange stagger-heading">Frequently Asked Questions</h2>
+          <p class="section-lead-text reveal-slide-up delay-1">Everything operators ask us about implementation, pricing, and our Salem headquarters.</p>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item reveal-slide-left" open>
+            <summary>
+              <span>How long does implementation actually take?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              Most customers reach full live production in four to eight weeks, depending on the number of facilities, existing TMS/WMS software, and custom carrier integrations involved.
+            </div>
+          </details>
+
+          <details class="faq-item reveal-slide-right">
+            <summary>
+              <span>Do we have to replace our existing TMS or WMS?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              No. Stackly acts as an overlay management system that connects with SAP, Oracle, Manhattan Associates, and custom ERP systems via REST APIs & Webhooks without disrupting your legacy workflow.
+            </div>
+          </details>
+
+          <details class="faq-item reveal-slide-left">
+            <summary>
+              <span>Where is Stackly's primary technology & operations hub located?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              Our primary operations and logistics technology hub is based in <strong>Salem, Tamil Nadu, India</strong>. We also operate key regional hubs in Chennai, Bengaluru, and Coimbatore.
+            </div>
+          </details>
+
+          <details class="faq-item reveal-slide-right">
+            <summary>
+              <span>What is the pricing structure for Stackly logistics management?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              We offer flexible subscription plans tailored to monthly shipment volume, managed warehouse square footage, or enterprise SLA requirements. Contact our Salem sales team for a custom quote.
+            </div>
+          </details>
+
+          <details class="faq-item reveal-slide-left">
+            <summary>
+              <span>How fast is your customer support response time?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              Our 24/7 priority emergency hotline answers calls in under 30 seconds. Online inquiry forms and support tickets are answered within 15 minutes by our Salem dispatch engineering team.
+            </div>
+          </details>
+
+          <details class="faq-item reveal-slide-right">
+            <summary>
+              <span>Does Stackly provide real-time GPS tracking and sensor telematics?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              Yes. All shipments feature live GPS tracking, temperature telematics for cold chain storage, and automated geofence notification alerts sent via SMS, Email, or WhatsApp.
+            </div>
+          </details>
+
+          <details class="faq-item reveal-slide-left">
+            <summary>
+              <span>Can we schedule a physical visit to the Salem Logistics Hub?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              Yes! We welcome enterprise clients and logistics partners to tour our Salem facility. You can schedule a visit by calling +91 94426 73815 or emailing hello@stackly.com.
+            </div>
+          </details>
+
+          <details class="faq-item reveal-slide-right">
+            <summary>
+              <span>Is our operational and shipment data secure?</span>
+              <span class="faq-toggle-icon"><i class="fa-solid fa-plus"></i></span>
+            </summary>
+            <div class="faq-answer">
+              Stackly uses enterprise-grade SOC-2 Type II compliant cloud infrastructure with end-to-end 256-bit AES encryption at rest and TLS 1.3 in transit.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Final CTA Section -->
+    <section class="cta-section" id="contact-cta">
+      <div class="cta-container">
+        <div class="cta-box">
+          <span class="cta-badge reveal-slide-down">
+            <i class="fa-solid fa-bolt"></i> Ready When You Are
+          </span>
+
+          <h2 class="cta-title stagger-heading reveal-slide-up">
+            Move Freight Smarter.<br>
+            Grow Business Faster.
+          </h2>
+
+          <p class="cta-text reveal-slide-left delay-1">
+            Tell us what you operate today. We will tell you honestly what we can improve, what we cannot, and what we would not attempt in the first quarter.
+          </p>
+
+          <div class="cta-actions reveal-slide-right delay-2">
+            <a href="services.html" class="cta-btn cta-btn--dark">
+              Explore Services <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="about.html" class="cta-btn cta-btn--ghost">
+              <i class="fa-solid fa-building"></i> Learn About Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+
+        <!-- Brand Column -->
+        <div class="footer-brand-col">
+          <div class="footer-brand">
+            <a href="../index.html">
+              <img src="../logo.webp" alt="Stackly Logo">
+            </a>
+          </div>
+          <p class="footer-desc">
+            A modern freight and logistics platform for teams that run critical operations — modelled, governed, integrated, and measured.
+          </p>
+          <div class="footer-socials">
+            <a href="../404.html" class="footer-social" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="../404.html" class="footer-social" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="../404.html" class="footer-social" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="../404.html" class="footer-social" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Navigation Column -->
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Service</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Services Column -->
+        <div>
+          <h4 class="footer-col-title">Services</h4>
+          <ul class="footer-links">
+            <li><a href="../404.html">Freight Management</a></li>
+            <li><a href="../404.html">Route Planning</a></li>
+            <li><a href="../404.html">Warehouse Strategy</a></li>
+            <li><a href="../404.html">Technology Integration</a></li>
+            <li><a href="../404.html">Cost Reduction</a></li>
+          </ul>
+        </div>
+
+        <!-- Company Column -->
+        <div>
+          <h4 class="footer-col-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="../404.html">About Us</a></li>
+            <li><a href="../404.html">Industries</a></li>
+            <li><a href="../404.html">Insights</a></li>
+            <li><a href="../404.html">Team</a></li>
+            <li><a href="../404.html">Pricing</a></li>
+            <li><a href="../404.html">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Column -->
+        <div>
+          <h4 class="footer-col-title">Contact</h4>
+          <ul class="footer-contact-list">
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              <a href="../404.html">+91 94426 73815</a>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              <a href="../404.html">hello@convoy.example</a>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              <a href="../404.html"><span>Convoy Logistics<br>Salem, Tamil Nadu, India</span></a>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              <a href="../404.html"><span>Mon — Fri · 09:30 – 18:30 IST</span></a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          © 2026 Stackly Logistics · All rights reserved.
+        </p>
+        <div class="footer-legal">
+          <a href="../404.html">Privacy Policy</a>
+          <a href="../404.html">Terms of Service</a>
+          <a href="../404.html">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Common Script -->
+  <script>
+    // Custom form submission handler with validation, field clearing & 404 redirect
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      const form = document.getElementById('contactMainForm');
+      const errorAlert = document.getElementById('formErrorAlert');
+      const errorText = document.getElementById('formErrorText');
+      
+      const nameInput = document.getElementById('contactName');
+      const emailInput = document.getElementById('contactEmail');
+      const phoneInput = document.getElementById('contactPhone');
+      const serviceInput = document.getElementById('contactService');
+      const messageInput = document.getElementById('contactMessage');
+      
+      const requiredInputs = [nameInput, emailInput, phoneInput, serviceInput, messageInput];
+      let isValid = true;
+      let firstInvalid = null;
+      
+      requiredInputs.forEach(input => {
+        if (!input) return;
+        
+        // Target trigger for custom dropdown hidden inputs
+        let targetEl = input;
+        const wrapper = input.nextElementSibling;
+        if (wrapper && wrapper.classList.contains('custom-select-wrapper')) {
+          const trigger = wrapper.querySelector('.custom-select-trigger');
+          if (trigger) targetEl = trigger;
+        }
+
+        targetEl.classList.remove('input-error');
+        if (!input.value || !input.value.trim()) {
+          isValid = false;
+          targetEl.classList.add('input-error');
+          if (!firstInvalid) firstInvalid = targetEl;
+        }
+      });
+
+      if (!isValid) {
+        if (errorAlert) {
+          if (errorText) errorText.textContent = "Please fill out all required fields marked with *.";
+          errorAlert.classList.add('show');
+        }
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      // Clear error alert if valid
+      if (errorAlert) errorAlert.classList.remove('show');
+      
+      // Clear all fields & reset custom dropdowns immediately
+      form.reset();
+      requiredInputs.forEach(input => {
+        if (!input) return;
+        input.classList.remove('input-error');
+        const wrapper = input.nextElementSibling;
+        if (wrapper && wrapper.classList.contains('custom-select-wrapper')) {
+          const trigger = wrapper.querySelector('.custom-select-trigger');
+          if (trigger) trigger.classList.remove('input-error');
+          
+          // Reset custom dropdown display to default option
+          const firstOption = wrapper.querySelector('.custom-select-option');
+          const valueDisplay = wrapper.querySelector('.custom-select-value');
+          if (firstOption && valueDisplay) {
+            valueDisplay.textContent = firstOption.textContent;
+            input.value = firstOption.dataset.value || "";
+            wrapper.querySelectorAll('.custom-select-option').forEach(opt => opt.classList.remove('selected'));
+            firstOption.classList.add('selected');
+          }
+        }
+      });
+      
+      // Redirect to 404 immediately
+      window.location.href = "../404.html";
+    }
+
+    // Custom Div/Span Dropdown Initializer
+    function initCustomDropdowns() {
+      const wrappers = document.querySelectorAll('.custom-select-wrapper');
+
+      wrappers.forEach(wrapper => {
+        const trigger = wrapper.querySelector('.custom-select-trigger');
+        const valueDisplay = wrapper.querySelector('.custom-select-value');
+        const options = wrapper.querySelectorAll('.custom-select-option');
+        const hiddenInput = wrapper.previousElementSibling && wrapper.previousElementSibling.type === 'hidden'
+          ? wrapper.previousElementSibling
+          : null;
+
+        if (!trigger) return;
+
+        // Toggle open/close
+        trigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // Close other open custom dropdowns
+          wrappers.forEach(other => {
+            if (other !== wrapper) {
+              other.classList.remove('open');
+              const parentGrp = other.closest('.form-group');
+              const parentGrid = other.closest('.form-grid-2col');
+              if (parentGrp) parentGrp.style.zIndex = '';
+              if (parentGrid) parentGrid.style.zIndex = '';
+            }
+          });
+          
+          const isOpen = wrapper.classList.toggle('open');
+          const parentGrp = wrapper.closest('.form-group');
+          const parentGrid = wrapper.closest('.form-grid-2col');
+          if (parentGrp) parentGrp.style.zIndex = isOpen ? '9999' : '';
+          if (parentGrid) parentGrid.style.zIndex = isOpen ? '9999' : '';
+        });
+
+        // Keyboard accessibility (Space/Enter to toggle)
+        trigger.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const isOpen = wrapper.classList.toggle('open');
+            const parentGrp = wrapper.closest('.form-group');
+            const parentGrid = wrapper.closest('.form-grid-2col');
+            if (parentGrp) parentGrp.style.zIndex = isOpen ? '9999' : '';
+            if (parentGrid) parentGrid.style.zIndex = isOpen ? '9999' : '';
+          } else if (e.key === 'Escape') {
+            wrapper.classList.remove('open');
+            const parentGrp = wrapper.closest('.form-group');
+            const parentGrid = wrapper.closest('.form-grid-2col');
+            if (parentGrp) parentGrp.style.zIndex = '';
+            if (parentGrid) parentGrid.style.zIndex = '';
+          }
+        });
+
+        // Option selection
+        options.forEach(option => {
+          option.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const val = option.dataset.value || "";
+            const text = option.textContent;
+
+            if (valueDisplay) valueDisplay.textContent = text;
+            if (hiddenInput) {
+              hiddenInput.value = val;
+              trigger.classList.remove('input-error');
+            }
+
+            options.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            wrapper.classList.remove('open');
+            const parentGrp = wrapper.closest('.form-group');
+            const parentGrid = wrapper.closest('.form-grid-2col');
+            if (parentGrp) parentGrp.style.zIndex = '';
+            if (parentGrid) parentGrid.style.zIndex = '';
+          });
+        });
+      });
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', () => {
+        wrappers.forEach(wrapper => {
+          wrapper.classList.remove('open');
+          const parentGrp = wrapper.closest('.form-group');
+          const parentGrid = wrapper.closest('.form-grid-2col');
+          if (parentGrp) parentGrp.style.zIndex = '';
+          if (parentGrid) parentGrid.style.zIndex = '';
+        });
+      });
+    }
+
+    initCustomDropdowns();
+
+    // Hide Preloader after 1.5s
+    const preloader = document.getElementById('pagePreloader');
+    if (preloader) {
+      setTimeout(() => {
+        preloader.classList.add('fade-out');
+      }, 1500);
+    }
+
+
+    const siteHeader = document.getElementById("siteHeader");
+
+    function handleHeaderScroll() {
+        if (!siteHeader) return;
+
+        const scrollTop =
+            window.scrollY ||
+            document.documentElement.scrollTop ||
+            document.body.scrollTop ||
+            0;
+
+        siteHeader.classList.toggle("scrolled", scrollTop > 10);
+    }
+
+    window.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    document.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    document.documentElement.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    document.body.addEventListener("scroll", handleHeaderScroll, {
+        passive: true
+    });
+
+    handleHeaderScroll();
+
+
+    function initApp() {
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+      const mobileDrawer = document.getElementById('mobileDrawer');
+      const body = document.body;
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+      function toggleMenu() {
+        if (!mobileDrawer) return;
+        const isOpen = mobileDrawer.classList.toggle('is-active');
+        if (hamburgerBtn) {
+          hamburgerBtn.classList.toggle('is-active', isOpen);
+          hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        }
+        mobileDrawer.setAttribute('aria-hidden', !isOpen);
+
+        if (isOpen) {
+          document.body.classList.add('no-scroll');
+          document.documentElement.classList.add('no-scroll');
+        } else {
+          document.body.classList.remove('no-scroll');
+          document.documentElement.classList.remove('no-scroll');
+        }
+      }
+
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', toggleMenu);
+      }
+      if (mobileCloseBtn) {
+        mobileCloseBtn.addEventListener('click', toggleMenu);
+      }
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (mobileDrawer && mobileDrawer.classList.contains('is-active')) {
+            toggleMenu();
+          }
+        });
+      });
+
+      // GSAP Staggered Letter Text Animation for Section Headings
+      function initGSAPSectionHeadings() {
+        if (typeof gsap === 'undefined') return;
+
+        const headingSelectors = [
+          '.section-title',
+          '.section-main-title',
+          '.section-title-orange',
+          '.about-description',
+          '.about-section-title',
+          '.about-team-title',
+          '.services-hero-title',
+          '.contact-hero-title',
+          '.blog-hero-title',
+          '.cta-title',
+          '.stagger-heading'
+        ];
+
+        const headings = document.querySelectorAll(headingSelectors.join(', '));
+
+        headings.forEach(heading => {
+          if (heading.dataset.splitDone) return;
+          heading.dataset.splitDone = "true";
+
+          const childNodes = Array.from(heading.childNodes);
+          heading.innerHTML = '';
+
+          childNodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE) {
+              const chars = node.textContent.split('');
+              chars.forEach(ch => {
+                const span = document.createElement('span');
+                span.className = 'gsap-char';
+                span.style.display = ch === ' ' ? 'inline' : 'inline-block';
+                span.style.willChange = 'transform, opacity';
+                span.textContent = ch === ' ' ? '\u00A0' : ch;
+                heading.appendChild(span);
+              });
+            } else {
+              heading.appendChild(node.cloneNode(true));
+            }
+          });
+
+          const charSpans = heading.querySelectorAll('.gsap-char');
+          if (charSpans.length === 0) return;
+
+          if (typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.from(charSpans, {
+              scrollTrigger: {
+                trigger: heading,
+                start: 'top 88%',
+                toggleActions: 'play none none none'
+              },
+              y: 50,
+              opacity: 0,
+              stagger: 0.03,
+              duration: 0.6,
+              ease: 'back.out(1.7)'
+            });
+          } else {
+            gsap.from(charSpans, {
+              y: 50,
+              opacity: 0,
+              stagger: 0.03,
+              duration: 0.6,
+              ease: 'back.out(1.7)'
+            });
+          }
+        });
+      }
+
+      initGSAPSectionHeadings();
+
+      // Scroll Reveal Intersection Observer with Scroll Fallback
+      const revealElements = document.querySelectorAll('.reveal-slide-left, .reveal-slide-right, .reveal-slide-up, .reveal-slide-down');
+
+      function triggerRevealCheck() {
+        const triggerPoint = (window.innerHeight || document.documentElement.clientHeight) * 0.94;
+        revealElements.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= triggerPoint) {
+            el.classList.add('reveal-active');
+          }
+        });
+      }
+
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('reveal-active');
+            }
+          });
+        }, { threshold: 0.01, rootMargin: '0px 0px 40px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+      } else {
+        revealElements.forEach(el => el.classList.add('reveal-active'));
+      }
+
+      window.addEventListener('scroll', triggerRevealCheck, { passive: true });
+      triggerRevealCheck();
+      setTimeout(triggerRevealCheck, 150);
+
+      // FAQ Accordion Logic
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        item.addEventListener('toggle', (event) => {
+          if (item.open) {
+            faqItems.forEach(otherItem => {
+              if (otherItem !== item && otherItem.open) {
+                otherItem.open = false;
+              }
+            });
+          }
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+  </script>
+</body>
+</html>
